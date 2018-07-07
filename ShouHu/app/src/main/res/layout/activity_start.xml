@@ -2,8 +2,19 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/startxml_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/splash_shape"
     tools:context=".start">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="207dp"
+        android:layout_height="335dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/font" />
 </android.support.constraint.ConstraintLayout>
