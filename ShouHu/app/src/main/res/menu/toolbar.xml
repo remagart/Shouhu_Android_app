@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/signin"
+        android:title="@string/title_signin" />
+    <item
+        android:id="@+id/use"
+        android:title="@string/title_use" />
+    <item
+        android:id="@+id/set"
+        android:title="@string/title_set" />
+    <item
+        android:id="@+id/report"
+        android:title="@string/title_report" />
+    <item
+        android:id="@+id/version"
+        android:title="@string/title_version" />
+    <item
+        android:id="@+id/signout"
+        android:title="@string/title_signout" />
+
+
+</menu>
