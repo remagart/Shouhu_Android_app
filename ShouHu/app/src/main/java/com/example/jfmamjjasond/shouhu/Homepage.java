@@ -55,6 +55,7 @@ public class Homepage extends AppCompatActivity {
         //宣告首頁下方按鈕區物件，和設定監聽事件
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationViewHelper.disableShiftMode( navigation ); //使用自訂BottomNavigationViewHelper類別中的方法去除navigation動畫
 
         //取得自訂Layout_bartitle的TwxtVeiw物件，設定ToolBar的標題
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -73,7 +74,7 @@ public class Homepage extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
+        //設定Toolbar顯示
         MenuInflater inflater =getMenuInflater();
         inflater.inflate(R.menu.toolbar,menu);
         return super.onCreateOptionsMenu(menu);
