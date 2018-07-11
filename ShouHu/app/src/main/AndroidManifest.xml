@@ -26,6 +26,7 @@
         <activity android:name=".Homepage" />
         <activity android:name=".MainActivity" />
         <activity android:name=".start" />
+        <activity android:name=".BMI_result" />
 
     </application>
 
