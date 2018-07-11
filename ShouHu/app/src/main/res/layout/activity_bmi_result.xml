@@ -8,19 +8,20 @@
 
     <TextView
         android:id="@+id/textView13"
-        android:layout_width="123dp"
-        android:layout_height="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="36dp"
-        android:text="你的BMI是："
+        android:text="你的BMI："
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/bmiresultxml_txt_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView13"
@@ -37,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/bmiresultxml_txt_suggestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -45,7 +46,7 @@
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/bmiresultxml_txt_result" />
 
     <TextView
         android:id="@+id/textView17"
@@ -58,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/bmiresultxml_txt_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -66,10 +67,10 @@
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toBottomOf="@+id/bmiresultxml_txt_suggestion" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/bmiresultxml_img_fireman"
         android:layout_width="166dp"
         android:layout_height="142dp"
         android:layout_marginBottom="128dp"
@@ -79,11 +80,11 @@
         app:srcCompat="@mipmap/ic_launcher" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bmiresultxml_btn_exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="172dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="48dp"
         android:text="努力後"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

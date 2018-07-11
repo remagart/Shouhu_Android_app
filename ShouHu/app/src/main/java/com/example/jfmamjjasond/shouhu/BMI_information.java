@@ -1,6 +1,7 @@
 package com.example.jfmamjjasond.shouhu;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -59,6 +60,7 @@ public class BMI_information extends AppCompatActivity {
                     mail = edit_mail.getText().toString();
                     height = edit_height.getText().toString();
                     weight = edit_weight.getText().toString();
+                    moveToNextPage();
                     break;
                 default:
 
@@ -82,5 +84,13 @@ public class BMI_information extends AppCompatActivity {
             }
         }
     };
+
+    void moveToNextPage(){
+        Intent i = new Intent();
+        i.putExtra("user_height",height);
+        i.putExtra("user_weight",weight);
+        i.setClass(thisactivity,BMI_result.class);
+        startActivity(i);
+    }
 
 }
