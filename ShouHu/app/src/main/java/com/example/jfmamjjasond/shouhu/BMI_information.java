@@ -89,6 +89,7 @@ public class BMI_information extends AppCompatActivity {
         Intent i = new Intent();
         i.putExtra("user_height",height);
         i.putExtra("user_weight",weight);
+        i.putExtra("user_name",name);
         i.setClass(thisactivity,BMI_result.class);
         startActivity(i);
     }

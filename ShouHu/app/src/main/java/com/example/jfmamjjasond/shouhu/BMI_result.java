@@ -15,9 +15,10 @@ public class BMI_result extends AppCompatActivity {
 
     Context thisactivity;
     Button btn_exercise;
-    TextView txt_bmiresult,txt_suggestion,txt_target;
+    TextView txt_bmiresult,txt_suggestion,txt_target,txt_name;
     ImageView img_fireman;
     double weight,height,BMI;
+    String name;
     final double standard_bmi_max = 23.9;
     final double standard_bmi_min = 18.5;
 
@@ -37,12 +38,15 @@ public class BMI_result extends AppCompatActivity {
         txt_suggestion = (TextView)findViewById(R.id.bmiresultxml_txt_suggestion);
         txt_target = (TextView)findViewById(R.id.bmiresultxml_txt_target);
         img_fireman = (ImageView)findViewById(R.id.bmiresultxml_img_fireman);
+        txt_name = (TextView)findViewById(R.id.bmiresultxml_txt_name);
     }
     void displayBMI(){
         Intent i = getIntent();
         if (i != null){
             height = Double.valueOf(i.getStringExtra("user_height"));
             weight = Double.valueOf(i.getStringExtra("user_weight"));
+            name = i.getStringExtra("user_name");
+            txt_name.setText(name);
             BMI = calculateBMI(height,weight);
             txt_bmiresult.setText(String.valueOf(BMI));
             suggestion(BMI);
@@ -76,20 +80,23 @@ public class BMI_result extends AppCompatActivity {
     }
     void targetweight(double h){
         double temp = 0;
+        h = h / 100;
         BigDecimal temp_bmi;
         BigDecimal temp_h = new BigDecimal(String.valueOf(h));
         if(BMI > standard_bmi_max){
             temp_bmi = new BigDecimal(String.valueOf(standard_bmi_max));
-            temp = (temp_bmi.multiply(temp_h)).doubleValue();
+            temp_h = temp_h.multiply(temp_h);
+            temp = (temp_bmi.multiply(temp_h)).setScale(2,BigDecimal.ROUND_DOWN).doubleValue();
             txt_target.setText(String.valueOf(temp));
         }
         else if(BMI < standard_bmi_min){
             temp_bmi = new BigDecimal(String.valueOf(standard_bmi_min));
-            temp = (temp_bmi.multiply(temp_h)).doubleValue();
+            temp_h = temp_h.multiply(temp_h);
+            temp = (temp_bmi.multiply(temp_h)).setScale(2,BigDecimal.ROUND_DOWN).doubleValue();
             txt_target.setText(String.valueOf(temp));
         }
         else{
-            txt_target.setText("很好喔!!你已經達成目標了!!繼續維持喔!!");
+            txt_target.setText("你已達成目標了!!\n繼續維持喔!!");
         }
     }
 
