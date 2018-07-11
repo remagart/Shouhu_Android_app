@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
+
 public class BMI_result extends AppCompatActivity {
 
     Context thisactivity;
@@ -39,6 +41,19 @@ public class BMI_result extends AppCompatActivity {
         if (i != null){
             height = Double.valueOf(i.getStringExtra("user_height"));
             weight = Double.valueOf(i.getStringExtra("user_weight"));
+            BMI = calculateBMI(height,weight);
+            txt_bmiresult.setText(String.valueOf(BMI));
         }
+    }
+
+    double calculateBMI(double h,double w){
+        h = h / 100;
+        BigDecimal temph = new BigDecimal(String.valueOf(h));
+        BigDecimal tempw = new BigDecimal(String.valueOf(w));
+
+        temph = temph.multiply(temph);
+        tempw = tempw.divide(temph,2,BigDecimal.ROUND_DOWN);
+
+        return tempw.doubleValue();
     }
 }
