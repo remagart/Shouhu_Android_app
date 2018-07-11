@@ -18,6 +18,8 @@ public class BMI_result extends AppCompatActivity {
     TextView txt_bmiresult,txt_suggestion,txt_target;
     ImageView img_fireman;
     double weight,height,BMI;
+    final double standard_bmi_max = 23.9;
+    final double standard_bmi_min = 18.5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class BMI_result extends AppCompatActivity {
             weight = Double.valueOf(i.getStringExtra("user_weight"));
             BMI = calculateBMI(height,weight);
             txt_bmiresult.setText(String.valueOf(BMI));
+            suggestion(BMI);
+            targetweight(height);
         }
     }
 
@@ -56,4 +60,37 @@ public class BMI_result extends AppCompatActivity {
 
         return tempw.doubleValue();
     }
+    void suggestion(double bmi_value){
+        if(bmi_value < 18.5){
+            txt_suggestion.setText("過輕");
+        }
+        else if(bmi_value >= 18.5 && bmi_value < 24){
+            txt_suggestion.setText("正常");
+        }
+        else if(bmi_value >= 24 && bmi_value < 27){
+            txt_suggestion.setText("過胖");
+        }
+        else if(bmi_value >= 27){
+            txt_suggestion.setText("肥胖");
+        }
+    }
+    void targetweight(double h){
+        double temp = 0;
+        BigDecimal temp_bmi;
+        BigDecimal temp_h = new BigDecimal(String.valueOf(h));
+        if(BMI > standard_bmi_max){
+            temp_bmi = new BigDecimal(String.valueOf(standard_bmi_max));
+            temp = (temp_bmi.multiply(temp_h)).doubleValue();
+            txt_target.setText(String.valueOf(temp));
+        }
+        else if(BMI < standard_bmi_min){
+            temp_bmi = new BigDecimal(String.valueOf(standard_bmi_min));
+            temp = (temp_bmi.multiply(temp_h)).doubleValue();
+            txt_target.setText(String.valueOf(temp));
+        }
+        else{
+            txt_target.setText("很好喔!!你已經達成目標了!!繼續維持喔!!");
+        }
+    }
+
 }
