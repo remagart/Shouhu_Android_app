@@ -9,11 +9,11 @@
     android:textAlignment="center">
 
     <Button
-        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Button"
+        android:elevation="0dp"
+        android:text="B"
         android:visibility="invisible" />
 
     <TextView
@@ -23,16 +23,14 @@
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal|center"
         android:text="@string/title_home"
-        android:textAlignment="textStart"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Button"
+        android:text="B"
         android:visibility="invisible" />
 
 </LinearLayout>
