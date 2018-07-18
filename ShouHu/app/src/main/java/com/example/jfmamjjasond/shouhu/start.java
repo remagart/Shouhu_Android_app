@@ -1,15 +1,11 @@
 package com.example.jfmamjjasond.shouhu;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import java.util.Objects;
 

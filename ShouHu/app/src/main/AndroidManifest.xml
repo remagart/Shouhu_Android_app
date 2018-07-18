@@ -10,11 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
         <activity android:name=".start">
 
-        
- 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +19,16 @@
             </intent-filter>
         </activity>
 
-
-        <activity android:name=".Homepage" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".BMI_result" />
         <activity android:name=".BMI_information"/>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_homepage" />
+        <activity android:name=".TimerActivity" />
+        <activity android:name=".Homepage" />
+        <activity android:name=".Fragment2" />
+        <activity android:name=".Fragment3" />
+        <activity android:name=".Fragment4"></activity>
 
     </application>
 
