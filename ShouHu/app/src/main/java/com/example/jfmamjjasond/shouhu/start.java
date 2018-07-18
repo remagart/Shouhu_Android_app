@@ -11,10 +11,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 import static java.lang.Thread.sleep;
 
 public class start extends AppCompatActivity {
-
     Context thisactivity;
     Thread t1;
     final int MOVE_TO_HOME = 100;  //自訂message的編號而已
@@ -26,6 +27,16 @@ public class start extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         thisactivity = this;  //此時thisactivity就是這個activity的context
+
+        //將Action bar 關掉
+        /*****************
+        public static <T> T requireNonNull(T obj) {
+        if (obj == null)
+            throw new NullPointerException();
+        return obj;
+        }
+        ******************/
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         slogandelay();  // 搭配Thread處理等3秒
         moveToHomePage();  // 搭配Handle移到下一頁
@@ -42,7 +53,7 @@ public class start extends AppCompatActivity {
                 if (msg.what == MOVE_TO_HOME) {
                     Intent i = new Intent();
                     //merge後要將MainActivity換成主頁的Activity
-                    i.setClass(thisactivity, MainActivity.class);  //跳到主頁
+                    i.setClass(thisactivity, Homepage.class);  //跳到主頁
                     startActivity(i);
                     finish();
                     // 下面這行overridePendingTransition的用途是Activity間的動畫

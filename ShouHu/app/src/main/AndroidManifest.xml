@@ -20,8 +20,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_homepage"></activity>
+            android:name=".Homepage" />
 
     </application>
 
