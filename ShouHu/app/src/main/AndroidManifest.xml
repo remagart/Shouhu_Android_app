@@ -9,20 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".start">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_homepage"></activity>
-
+            android:label="@string/title_activity_homepage" />
+        <activity android:name=".TimerActivity" />
+        <activity android:name=".Homepage" />
+        <activity android:name=".Fragment2" />
+        <activity android:name=".Fragment3" />
+        <activity android:name=".Fragment4"></activity>
     </application>
 
 </manifest>

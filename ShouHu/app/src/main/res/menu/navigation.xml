@@ -3,24 +3,29 @@
 
     <item
         android:id="@+id/home"
+        android:orderInCategory="0"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/bmi"
+        android:orderInCategory="1"
         android:icon="@mipmap/bmi_52"
         android:title="@string/title_bmi" />
 
     <item
         android:id="@+id/sleep"
+        android:orderInCategory="2"
         android:icon="@mipmap/sleep_96_2"
         android:title="@string/title_sleep" />
     <item
         android:id="@+id/water"
+        android:orderInCategory="3"
         android:icon="@mipmap/water_180"
         android:title="@string/title_water" />
     <item
         android:id="@+id/timer"
+        android:orderInCategory="4"
         android:icon="@mipmap/timer_90"
         android:title="@string/title_timer" />
 </menu>
