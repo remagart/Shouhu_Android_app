@@ -14,10 +14,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity  implements ViewPager.OnPageChangeListener{
+public class MainActivity extends AppCompatActivity  implements ViewPager.OnPageChangeListener{ //實作ViewPaper 頁面轉換監聽事件
     private BottomNavigationView navigation;
     private ViewPager viewPager;
 
@@ -39,10 +38,11 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         //取得自訂Layout_bartitle的TwxtVeiw物件，設定ToolBar的標題
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.bartitle,null);
-        tvtitle =(TextView)view.findViewById(R.id.tvtitle);
+        tvtitle =view.findViewById(R.id.tvtitle);
 
         //設定自訂ToolBar樣式
         android.support.v7.app.ActionBar actionBar = getSupportActionBar(); // 取得ActionBar物件
+        assert actionBar != null;//如果actionBar不為空則向下執行
         actionBar.setDisplayShowTitleEnabled(false); //隱藏ToolBar左上標題
         actionBar.setLogo(R.mipmap.icon_96); //設定左上Icon
         actionBar.setDisplayUseLogoEnabled(true);//顯示LOGO(icon)
@@ -50,12 +50,12 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         actionBar.setCustomView(view); // 設置自訂layout(view)來顯示中間標題
         actionBar.setDisplayShowCustomEnabled(true);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
         //添加viewPager事件監聽
         viewPager.addOnPageChangeListener(this);
 
         //宣告首頁下方按鈕區物件，和設定監聽事件
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode( navigation ); //使用自訂BottomNavigationViewHelper類別中的方法去除navigation動畫
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         return super.onCreateOptionsMenu(menu);
 
     }
-
+    //Toolbar_Menu設定監聽事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         AlertDialog.Builder builder; //Dialog Builder
@@ -112,15 +112,15 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                 //inflate目的是把自己設計xml的Layout轉成View，作用類似於findViewById，它用於一個沒有被載入或者想要動態
                 //對於一個沒有被載入或者想要動態載入的界面，都需要使用LayoutInflater.inflate()來載入
                 LayoutInflater inflaterIn = LayoutInflater.from(MainActivity.this);
-                final View viewIn = inflaterIn.inflate(R.layout.dialog_signin,null);
+                final View viewIn = inflaterIn.inflate(R.layout.dialog_signin, null);
                 builder = new AlertDialog.Builder(this);
                 builder.setTitle("登入")
                         .setView(viewIn)
                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                EditText etid_sign = (EditText) viewIn.findViewById(R.id.etid_sign);
-                                EditText etpass_sign = (EditText) viewIn.findViewById(R.id.etpass_sign);
+//                                EditText etid_sign = (EditText) viewIn.findViewById(R.id.etid_sign);
+//                                EditText etpass_sign = (EditText) viewIn.findViewById(R.id.etpass_sign);
 
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -167,18 +167,34 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
 
         return super.onOptionsItemSelected(item);
     }
-
+    //必須實作的方法1,當頁面在滑動的時候會調用此方法
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
-
+    //必須實作的方法2
     @Override
-    public void onPageSelected(int position) {
-        //頁面滑動的时候，改變BottomNavigationView的Item高亮
-        navigation.getMenu().getItem(position).setChecked(true);
+    public void onPageSelected(int position) { //選擇時事件監聽
+        navigation.getMenu().getItem(position).setChecked(true); //頁面滑動的时候，改變BottomNavigationView的Item高亮
+        switch (position){//改變標題
+            case 0:
+                tvtitle.setText(R.string.title_home);
+                break;
+            case 1:
+                tvtitle.setText(R.string.title_bmi);
+                break;
+            case 2:
+                tvtitle.setText(R.string.title_sleep);
+                break;
+            case 3:
+                tvtitle.setText(R.string.title_water);
+                break;
+            case 4:
+                tvtitle.setText(R.string.title_timer);
+                break;
+        }
     }
-
+    //必須實作的方法3, 此方法是在狀態改變的時候調用
     @Override
     public void onPageScrollStateChanged(int state) {
 
