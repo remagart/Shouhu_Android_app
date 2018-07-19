@@ -41,14 +41,24 @@
             android:textAlignment="textStart"
             android:textSize="24sp" />
 
+        <TextView
+            android:id="@+id/tvhot2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:text="0"
+            android:textSize="24sp"
+            android:visibility="invisible" />
+
         <EditText
             android:id="@+id/ethot"
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:ems="10"
+            android:ems="3"
             android:inputType="textPersonName|number"
+            android:selectAllOnFocus="true"
             android:text="10"
             android:textSize="24sp" />
     </LinearLayout>
@@ -69,15 +79,25 @@
             android:textAlignment="textStart"
             android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/etrest"
-            android:layout_width="100dp"
+        <TextView
+            android:id="@+id/tvrest2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:ems="10"
+            android:text="0"
+            android:textSize="24sp"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/etwork"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="3"
             android:inputType="textPersonName|number"
-            android:text="3"
+            android:selectAllOnFocus="true"
+            android:text="2"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -97,15 +117,25 @@
             android:textAlignment="textStart"
             android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/etwork"
-            android:layout_width="100dp"
+        <TextView
+            android:id="@+id/tvwork2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:ems="10"
+            android:text="0"
+            android:textSize="24sp"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/etrest"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="3"
             android:inputType="textPersonName|number"
-            android:text="2"
+            android:selectAllOnFocus="true"
+            android:text="3"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -117,7 +147,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv1"
+            android:id="@+id/tvtimes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -125,15 +155,25 @@
             android:textAlignment="textStart"
             android:textSize="24sp" />
 
+        <TextView
+            android:id="@+id/tvtimes2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:text="0"
+            android:textSize="24sp"
+            android:visibility="invisible" />
+
         <EditText
             android:id="@+id/ettimes"
-            android:layout_width="110dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:width="0dp"
-            android:ems="10"
+            android:ems="3"
             android:inputType="textPersonName|number"
+            android:selectAllOnFocus="true"
             android:text="5"
             android:textSize="24sp" />
     </LinearLayout>
