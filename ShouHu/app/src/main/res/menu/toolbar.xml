@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/signin"
@@ -9,7 +10,16 @@
         android:title="@string/title_use" />
     <item
         android:id="@+id/set"
-        android:title="@string/title_set" />
+        android:title="@string/title_set" >
+        <menu >
+            <item
+                android:id="@+id/setnew"
+                android:title="@string/setnew" />
+            <item
+                android:id="@+id/setsleep"
+                android:title="@string/setsleep" />
+        </menu>
+    </item>
     <item
         android:id="@+id/report"
         android:title="@string/title_report" />
