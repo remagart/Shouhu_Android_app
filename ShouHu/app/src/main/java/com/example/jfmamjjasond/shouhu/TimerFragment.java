@@ -17,8 +17,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerFragment extends android.support.v4.app.Fragment {
-    Button btnstart,btnstop,btnreset;
-    TextView tvshow,timeTv;
+    Button btnstart,btnreset;
+    TextView tvshow,timeTv,tvhot2,tvrest2,tvwork2,tvtimes2;
     EditText ethot,etrest,etwork,ettimes;
     int hot,rest,work,times;
     int h =0 ,r =0 , w =0 ,t =0;
@@ -50,6 +50,7 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         rest = Integer.valueOf(etrest.getText().toString());
         work =Integer.valueOf(etwork.getText().toString());
         times = Integer.valueOf(ettimes.getText().toString());
+
 //        //等找到適合的聲音
 //        //soundPool =new SoundPool(5, AudioManager.STREAM_MUSIC,0);//使用SoundPool類別設定音效，參數(最大串流音效數,串流類型,取樣值轉換(設定為0預設值即可))
 //        //soundID[0]=soundPool.load(this,R.raw.glass,1); //將音效放在res/raw目錄 ，使用音效必須先LOAD來設定音效ID
@@ -68,15 +69,20 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         etwork = getView().findViewById(R.id.etwork);
         ettimes = getView().findViewById(R.id.ettimes);
 
+        tvhot2 = getView().findViewById(R.id.tvhot2);
+        tvrest2  = getView().findViewById(R.id.tvrest2);
+        tvwork2 = getView().findViewById(R.id.tvwork2);
+        tvtimes2 = getView().findViewById(R.id.tvtimes2);
     }
     //按鈕監聽事件
     public void setListener() {
         btnstart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hot > 0 && rest > 0 && work > 0 && times > 0)  {
+
                     if (start) { //判斷是否是是在開始狀態，不是為true，是為false，避免發生按下兩次開始發生BUG
                         if (first) {//數值初始化
+                            setVisibility();
                             hot = Integer.valueOf(ethot.getText().toString()); //讀取用戶設定在textview上的數值
                             rest = Integer.valueOf(etrest.getText().toString());
                             work = Integer.valueOf(etwork.getText().toString());
@@ -94,9 +100,6 @@ public class TimerFragment extends android.support.v4.app.Fragment {
                         btnstart.setText("開始");
                         stopTime();
                     }
-                }else if(String.valueOf(hot).equals(null) || String.valueOf(rest).equals(null) || String.valueOf(work).equals(null)|| String.valueOf(times).equals(null)){
-                    timeTv.setText("表單不能為空喔~");
-                }
             }
         });
         btnreset.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +108,38 @@ public class TimerFragment extends android.support.v4.app.Fragment {
                 restTime();
             }
         });
+    }
+    public void setVisibility(){
+        ethot.setVisibility(View.INVISIBLE);
+        etrest.setVisibility(View.INVISIBLE);
+        etwork.setVisibility(View.INVISIBLE);
+        ettimes.setVisibility(View.INVISIBLE);
+
+        tvhot2.setVisibility(View.VISIBLE);
+        tvrest2.setVisibility(View.VISIBLE);
+        tvwork2.setVisibility(View.VISIBLE);
+        tvtimes2.setVisibility(View.VISIBLE);
+
+        tvhot2.setText(ethot.getText().toString());
+        tvrest2.setText(etrest.getText().toString());
+        tvwork2.setText(etwork.getText().toString());
+        tvtimes2.setText(ettimes.getText().toString());
+    }
+    public  void restsetVisibility(){
+        ethot.setVisibility(View.VISIBLE);
+        etrest.setVisibility(View.VISIBLE);
+        etwork.setVisibility(View.VISIBLE);
+        ettimes.setVisibility(View.VISIBLE);
+
+        tvhot2.setVisibility(View.INVISIBLE);
+        tvrest2.setVisibility(View.INVISIBLE);
+        tvwork2.setVisibility(View.INVISIBLE);
+        tvtimes2.setVisibility(View.INVISIBLE);
+
+        tvhot2.setText(" ");
+        tvrest2.setText(" ");
+        tvwork2.setText(" ");
+        tvtimes2.setText(" ");
     }
     //利用Hendler改變TextView秒數
     private Handler mHandler = new Handler(new Handler.Callback() {
@@ -181,6 +216,7 @@ public class TimerFragment extends android.support.v4.app.Fragment {
                        // soundPool.play(soundID[0], 1.0f, 1.0f, 0, 0, 1.0f);
                         start=true;
                         first=true;
+                        restsetVisibility();
                     }
                 }
             }
@@ -203,6 +239,7 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         start = true;
         timeTv.setText(" ");
         btnstart.setText("開始");
+        restsetVisibility();
     }
     //當Fragment已不在畫面中時，呼叫此方法
     @Override
