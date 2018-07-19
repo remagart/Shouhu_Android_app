@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,26 +28,28 @@ public class BMI_result extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bmi_result);
         thisactivity = this;
+
         init();
         displayBMI();
 
 
+
     }
     void init(){
-        btn_exercise = (Button)findViewById(R.id.bmiresultxml_btn_exercise);
         txt_bmiresult = (TextView)findViewById(R.id.bmiresultxml_txt_result);
         txt_suggestion = (TextView)findViewById(R.id.bmiresultxml_txt_suggestion);
         txt_target = (TextView)findViewById(R.id.bmiresultxml_txt_target);
-        img_fireman = (ImageView)findViewById(R.id.bmiresultxml_img_fireman);
         txt_name = (TextView)findViewById(R.id.bmiresultxml_txt_name);
     }
     void displayBMI(){
         Intent i = getIntent();
+        String display_name="暱稱：";
         if (i != null){
             height = Double.valueOf(i.getStringExtra("user_height"));
             weight = Double.valueOf(i.getStringExtra("user_weight"));
             name = i.getStringExtra("user_name");
-            txt_name.setText(name);
+            display_name = display_name + name;
+            txt_name.setText(display_name);
             BMI = calculateBMI(height,weight);
             txt_bmiresult.setText(String.valueOf(BMI));
             suggestion(BMI);
@@ -66,19 +69,20 @@ public class BMI_result extends AppCompatActivity {
     }
     void suggestion(double bmi_value){
         if(bmi_value < 18.5){
-            txt_suggestion.setText("過輕");
+            txt_suggestion.setText("過瘦可能有營養不良、骨質疏鬆、猝死等健康問題!");
         }
         else if(bmi_value >= 18.5 && bmi_value < 24){
-            txt_suggestion.setText("正常");
+            txt_suggestion.setText("你屬於正常體位!很不錯喔，很標準，請你繼續保持！");
         }
         else if(bmi_value >= 24 && bmi_value < 27){
-            txt_suggestion.setText("過胖");
+            txt_suggestion.setText("有點過重喔！您得控制一下飲食了，請加油！");
         }
         else if(bmi_value >= 27){
-            txt_suggestion.setText("肥胖");
+            txt_suggestion.setText("肥胖是糖尿病,心血管疾病,惡性腫瘤等慢性病的風險因素!");
         }
     }
     void targetweight(double h){
+        String display_kg = "公斤";
         double temp = 0;
         h = h / 100;
         BigDecimal temp_bmi;
@@ -87,13 +91,15 @@ public class BMI_result extends AppCompatActivity {
             temp_bmi = new BigDecimal(String.valueOf(standard_bmi_max));
             temp_h = temp_h.multiply(temp_h);
             temp = (temp_bmi.multiply(temp_h)).setScale(2,BigDecimal.ROUND_DOWN).doubleValue();
-            txt_target.setText(String.valueOf(temp));
+            display_kg = String.valueOf(temp) + display_kg;
+            txt_target.setText(display_kg);
         }
         else if(BMI < standard_bmi_min){
             temp_bmi = new BigDecimal(String.valueOf(standard_bmi_min));
             temp_h = temp_h.multiply(temp_h);
             temp = (temp_bmi.multiply(temp_h)).setScale(2,BigDecimal.ROUND_DOWN).doubleValue();
-            txt_target.setText(String.valueOf(temp));
+            display_kg = String.valueOf(temp) + display_kg;
+            txt_target.setText(display_kg);
         }
         else{
             txt_target.setText("你已達成目標了!!\n繼續維持喔!!");
