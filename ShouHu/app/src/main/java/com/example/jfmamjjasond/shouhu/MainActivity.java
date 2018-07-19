@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     //首頁下方按鈕區監聽處理事件
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
+        //點擊BottomNavigationView的Item项，切换ViewPager页面
+        //menu/navigation.xml裡加的android:orderInCategory属性就是下面item.getOrder()取的值
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             viewPager.setCurrentItem(item.getOrder());
