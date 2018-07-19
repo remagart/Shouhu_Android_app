@@ -11,6 +11,6 @@ public class Homepage extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_homepage, container, false);
+        return inflater.inflate(R.layout.homepage, container, false);
     }
 }
