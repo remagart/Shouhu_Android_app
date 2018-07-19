@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     private Fragment2 fragment2 = new Fragment2();
     private Fragment3 fragment3 = new Fragment3();
     private Fragment4 fragment4 = new Fragment4();
-    private  TimerActivity timerActivity = new TimerActivity();
+    private TimerFragment timerActivity = new TimerFragment();
 
     private TextView tvtitle; //宣告ToorBar的標題Textview
 
