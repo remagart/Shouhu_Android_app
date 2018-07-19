@@ -49,7 +49,7 @@ public class start extends AppCompatActivity {
                 if (msg.what == MOVE_TO_HOME) {
                     Intent i = new Intent();
                     //merge後要將MainActivity換成主頁的Activity
-                    i.setClass(thisactivity, Homepage.class);  //跳到主頁
+                    i.setClass(thisactivity,MainActivity.class);  //跳到主頁
                     startActivity(i);
                     finish();
                     // 下面這行overridePendingTransition的用途是Activity間的動畫

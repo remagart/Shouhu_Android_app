@@ -17,6 +17,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!--itemIconTint是用來設定icon顏色的-->
+    <!--itemTextColor是用來設定文字顏色的 Ex."首頁","睡眠"-->
+    <!--call color_navigation.xml這隻-->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
