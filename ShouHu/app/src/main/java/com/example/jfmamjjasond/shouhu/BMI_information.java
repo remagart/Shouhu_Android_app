@@ -17,7 +17,8 @@ public class BMI_information extends AppCompatActivity {
     Context thisactivity;
     Button btn_send;
     EditText edit_name,edit_pwd,edit_mail,edit_height,edit_weight;
-    String name,pwd,mail,height,weight;
+    String name,pwd,mail;
+    double height,weight;
     RadioGroup radioGroup_gender;  //因為需對整個group做事件處理
     RadioButton radiobtn_male,radiobtn_female;
     boolean isMale = true;  //true是男性,false是女性,layout中預設是男性
@@ -58,9 +59,19 @@ public class BMI_information extends AppCompatActivity {
                     name = edit_name.getText().toString();
                     pwd = edit_pwd.getText().toString();
                     mail = edit_mail.getText().toString();
-                    height = edit_height.getText().toString();
-                    weight = edit_weight.getText().toString();
-                    moveToNextPage();
+                    try {
+                        height = Double.valueOf(edit_height.getText().toString());
+                        weight = Double.valueOf(edit_weight.getText().toString());
+                    }catch (NumberFormatException e){
+                        height = 0;
+                        weight = 0;
+                    }
+                    if(check_must(height,weight)){
+                        moveToNextPage();
+                    }
+                    else{
+                        Toast.makeText(thisactivity, "請填好全部欄位喔~", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 default:
 
@@ -87,11 +98,20 @@ public class BMI_information extends AppCompatActivity {
 
     void moveToNextPage(){
         Intent i = new Intent();
-        i.putExtra("user_height",height);
-        i.putExtra("user_weight",weight);
+        i.putExtra("user_height",String.valueOf(height));
+        i.putExtra("user_weight",String.valueOf(weight));
         i.putExtra("user_name",name);
         i.setClass(thisactivity,BMI_result.class);
         startActivity(i);
+    }
+
+    boolean check_must(double h,double w){
+        if(h != 0 && w != 0){
+            if(h >= 50 && h <= 250 && w >= 1 && w <= 150){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

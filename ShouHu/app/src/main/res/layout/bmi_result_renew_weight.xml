@@ -32,7 +32,7 @@
             android:layout_weight="0"
             android:ems="10"
             android:hint="請輸入體重(KG)"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:textSize="20sp" />
 
         <ImageButton
