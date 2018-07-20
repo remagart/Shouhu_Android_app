@@ -1,10 +1,14 @@
 package com.example.jfmamjjasond.shouhu;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,18 +16,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 public class BMI_result extends AppCompatActivity {
 
     Context thisactivity;
     TextView txt_bmiresult,txt_suggestion,txt_target,txt_name;
-    ImageButton imgbtn_stickman;
+    ImageButton imgbtn_stickman,imgbtn_check;
     double weight,height,BMI;
     String name;
     final double standard_bmi_max = 23.9;
     final double standard_bmi_min = 18.5;
     int image_count = 0;
+    LayoutInflater inflater_renew_weight;
+    View view_renew_weight;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,10 +143,24 @@ public class BMI_result extends AppCompatActivity {
                 image_count++;
             }
             else if(image_count > 2){
-                //dialog
+                pop_out_dialog();
                 image_count = 0;
             }
         }
     };
+
+    void pop_out_dialog(){
+        inflater_renew_weight = getLayoutInflater();
+        view_renew_weight = inflater_renew_weight.inflate(R.layout.bmi_result_renew_weight,null);
+
+        imgbtn_check = (ImageButton)view_renew_weight.findViewById(R.id.renew_weightxml_imgbtn_check);
+        imgbtn_check.setAdjustViewBounds(true);
+        imgbtn_check.setMaxWidth(500);
+        imgbtn_check.setMaxHeight(500);
+
+        AlertDialog dialog_window = new AlertDialog.Builder(thisactivity)
+                .setView(view_renew_weight)
+                .show();
+    }
 
 }
