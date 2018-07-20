@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,13 +17,13 @@ import java.math.BigDecimal;
 public class BMI_result extends AppCompatActivity {
 
     Context thisactivity;
-    Button btn_exercise;
     TextView txt_bmiresult,txt_suggestion,txt_target,txt_name;
-    ImageView img_fireman;
+    ImageButton imgbtn_stickman;
     double weight,height,BMI;
     String name;
     final double standard_bmi_max = 23.9;
     final double standard_bmi_min = 18.5;
+    int image_count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class BMI_result extends AppCompatActivity {
 
         init();
         displayBMI();
-
+        imgbtn_stickman.setOnClickListener(myClickevent);
 
 
     }
@@ -40,6 +42,14 @@ public class BMI_result extends AppCompatActivity {
         txt_suggestion = (TextView)findViewById(R.id.bmiresultxml_txt_suggestion);
         txt_target = (TextView)findViewById(R.id.bmiresultxml_txt_target);
         txt_name = (TextView)findViewById(R.id.bmiresultxml_txt_name);
+        imgbtn_stickman = (ImageButton)findViewById(R.id.bmiresultxml_imgbtn_stickman);
+        //設置的MaxWidth和MaxHeight能夠生效需滿足以下2點
+        //setAdjustViewBounds(true)要設成true，API文件有特別說
+        //要將imageview的xml寬高設成wrap_content
+        imgbtn_stickman.setAdjustViewBounds(true);
+        imgbtn_stickman.setMaxWidth(400);
+        imgbtn_stickman.setMaxHeight(400);
+
     }
     void displayBMI(){
         Intent i = getIntent();
@@ -102,8 +112,33 @@ public class BMI_result extends AppCompatActivity {
             txt_target.setText(display_kg);
         }
         else{
-            txt_target.setText("你已達成目標了!!\n繼續維持喔!!");
+            txt_target.setText("你已達成目標了!!繼續維持喔!!");
         }
     }
+
+    View.OnClickListener myClickevent = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(image_count == 0){
+                imgbtn_stickman.setImageResource(R.mipmap.fat_onetime2);
+                Toast.makeText(thisactivity, "很好喔!你需要動起來!", Toast.LENGTH_SHORT).show();
+                image_count++;
+            }
+            else if(image_count == 1){
+                imgbtn_stickman.setImageResource(R.mipmap.fat_twotime2);
+                Toast.makeText(thisactivity, "你做得很好!!持續加油!!", Toast.LENGTH_SHORT).show();
+                image_count++;
+            }
+            else if(image_count == 2){
+                imgbtn_stickman.setImageResource(R.mipmap.fat_threetime2);
+                Toast.makeText(thisactivity, "最後了!!再動一次!!", Toast.LENGTH_SHORT).show();
+                image_count++;
+            }
+            else if(image_count > 2){
+                //dialog
+                image_count = 0;
+            }
+        }
+    };
 
 }
