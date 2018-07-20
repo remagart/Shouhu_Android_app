@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/wark1" android:duration="200"/>
+    <item android:drawable="@drawable/wark2" android:duration="200"/>
+    <item android:drawable="@drawable/wark3" android:duration="200"/>
+    <item android:drawable="@drawable/wark4" android:duration="200"/>
+    <item android:drawable="@drawable/wark5" android:duration="200"/>
+    <item android:drawable="@drawable/wark6" android:duration="200"/>
+    <item android:drawable="@drawable/wark7" android:duration="200"/>
+    <item android:drawable="@drawable/wark8" android:duration="200"/>
+    <item android:drawable="@drawable/wark9" android:duration="200"/>
+    <item android:drawable="@drawable/wark10" android:duration="200"/>
+</animation-list>
