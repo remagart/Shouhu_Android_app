@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <size android:height="200dp" android:width="200dp"/>
+    <!-- 設置一个顏色邊框 -->
+    <stroke
+        android:width="5px"
+        android:color="#ff9611"
+        android:dashGap="2px"
+        android:dashWidth="20px"/>
+    <!-- 設置一下邊距,讓空間大一點 -->
+    <padding
+        android:bottom="12dp"
+        android:left="12dp"
+        android:right="12dp"
+        android:top="12dp" />
+
+</shape>
