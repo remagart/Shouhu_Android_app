@@ -10,11 +10,13 @@
 
     <TextView
         android:id="@+id/tvshow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/textviewshape"
         android:text="0"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="@color/colorPrimary"
         android:textSize="110sp" />
 
     <TextView
@@ -22,7 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="開始"
         android:textAlignment="center" />
 
     <LinearLayout
@@ -55,11 +56,15 @@
             android:id="@+id/ethot"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
             android:layout_weight="1"
-            android:ems="3"
+            android:background="@drawable/editviewshape"
+            android:ems="2"
             android:inputType="textPersonName|number"
+            android:maxLength="3"
             android:selectAllOnFocus="true"
-            android:text="10"
+            android:text="@string/timerhot"
+            android:textAlignment="center"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -90,14 +95,18 @@
             android:visibility="invisible" />
 
         <EditText
-            android:id="@+id/etwork"
+            android:id="@+id/etrest"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
             android:layout_weight="1"
-            android:ems="3"
+            android:background="@drawable/editviewshape"
+            android:ems="2"
             android:inputType="textPersonName|number"
+            android:maxLength="3"
             android:selectAllOnFocus="true"
-            android:text="2"
+            android:text="@string/timerrest"
+            android:textAlignment="center"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -128,15 +137,20 @@
             android:visibility="invisible" />
 
         <EditText
-            android:id="@+id/etrest"
+            android:id="@+id/etwork"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
             android:layout_weight="1"
-            android:ems="3"
+            android:background="@drawable/editviewshape"
+            android:ems="2"
             android:inputType="textPersonName|number"
+            android:maxLength="3"
             android:selectAllOnFocus="true"
-            android:text="3"
+            android:text="@string/timerwork"
+            android:textAlignment="center"
             android:textSize="24sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -171,33 +185,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:width="0dp"
-            android:ems="3"
+            android:background="@drawable/editviewshape"
+            android:ems="2"
             android:inputType="textPersonName|number"
+            android:maxLength="3"
             android:selectAllOnFocus="true"
-            android:text="5"
+            android:text="@string/timertimes"
+            android:textAlignment="center"
             android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <Button
             android:id="@+id/btnstart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="開始" />
 
@@ -205,7 +213,7 @@
             android:id="@+id/btnreset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="重置" />
     </LinearLayout>
