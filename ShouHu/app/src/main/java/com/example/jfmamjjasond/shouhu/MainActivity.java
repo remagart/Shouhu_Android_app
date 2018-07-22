@@ -20,8 +20,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity  implements ViewPager.OnPageChangeListener{ //實作ViewPaper 頁面轉換監聽事件
 
     private BottomNavigationView navigation; //宣告下方選單
-    private ViewPager viewPager;//宣告ViewPager搭配Fragment
-    //宣告五個Fragment物件
+
+    private ViewPager viewPager; //宣告ViewPager搭配Fragment
+    //宣告五個Fragment物件(class)讓MainActivity找到Fragment
     private Homepage homepage = new Homepage();
     private BMI_information bmi_information = new BMI_information();
     private sleep fragment_sleep = new sleep();
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.bartitle,null);
         tvtitle =view.findViewById(R.id.tvtitle);
-/**************************************************************************************/
+/* -------------------------------------------------------------------------------------------------------------------------------*/
         //設定自訂ToolBar樣式
         android.support.v7.app.ActionBar actionBar = getSupportActionBar(); // 取得ActionBar物件
         assert actionBar != null;//如果actionBar不為空則向下執行
@@ -51,17 +52,17 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         actionBar.setDisplayShowHomeEnabled(true);//顯示左上Icon
         actionBar.setCustomView(view); // 設置自訂layout(view)來顯示中間標題
         actionBar.setDisplayShowCustomEnabled(true);
-/************************************************************************************/
-        //在介面有一個 viewPager
-        viewPager = findViewById(R.id.viewPager);
-        //添加viewPager事件監聽
-        viewPager.addOnPageChangeListener(this);
-
+/* -------------------------------------------------------------------------------------------------------------------------------*/
         //宣告首頁下方按鈕區物件，和設定監聽事件
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode( navigation ); //使用自訂BottomNavigationViewHelper類別中的方法去除navigation動畫
 
+/* -------------------------------------------------------------------------------------------------------------------------------*/
+        //在介面有一個 viewPager 用來控制Fragment
+        viewPager = findViewById(R.id.viewPager);
+        // 添加viewPager事件監聽
+        viewPager.addOnPageChangeListener(this);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -97,8 +98,8 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
             return true;
         }
     };
-/*******************************************************************************************************************/
-//toolBarmenu設定
+    /* -------------------------------------------------------------------------------------------------------------------------------*/
+    //Toolbar_Menu設定
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //設定Toolbar顯示
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
 
         return super.onOptionsItemSelected(item);
     }
- /********************************************************************************************************/
+    /* -------------------------------------------------------------------------------------------------------------------------------*/
     //實作Fragment方法
     //必須實作的方法1,當頁面在滑動的時候會使用此方法
     @Override

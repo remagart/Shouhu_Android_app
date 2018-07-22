@@ -16,5 +16,9 @@
     <string name="title_signout">登出</string>
     <string name="setnew">個人頁面</string>
     <string name="setsleep">設定睡眠提醒</string>
-
+    <string name="timerhot">10</string>
+    <string name="timerrest">10</string>
+    <string name="timerwork">30</string>
+    <string name="timertimes">4</string>
+    
 </resources>
