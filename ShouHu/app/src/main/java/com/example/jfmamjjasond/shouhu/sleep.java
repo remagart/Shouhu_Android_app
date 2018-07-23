@@ -1,6 +1,7 @@
 package com.example.jfmamjjasond.shouhu;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,9 +25,8 @@ public class sleep extends android.support.v4.app.Fragment {
     TextView txt_sleep,txt_wake;
     ShouHou_DBAdapter myadapter;
     Calendar myCalendar;
-    String sleep_time;
-    String test_name = "Lili";
-
+    String sleep_time,wake_time;
+    String test_name = "Amy";
 
     @Nullable
     @Override
@@ -63,10 +63,20 @@ public class sleep extends android.support.v4.app.Fragment {
                     myCalendar = Calendar.getInstance();
                     sleep_time = String.valueOf(myCalendar.get(HOUR_OF_DAY))+":"
                             + String.valueOf(myCalendar.get(Calendar.MINUTE));
-                    myadapter.add(test_name,sleep_time,null);
+                    myadapter.add(test_name,sleep_time,"0:0");
                     Toast.makeText(thisactivity, sleep_time, Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.sleepxml_btn_wake:
+                    Cursor mycursor = myadapter.querybyname(test_name);
+                    txt_sleep.setText(mycursor.getString(2));
+
+                    myCalendar = Calendar.getInstance();
+                    wake_time = String.valueOf(myCalendar.get(HOUR_OF_DAY))+":"
+                            + String.valueOf(myCalendar.get(Calendar.MINUTE));
+                    myadapter.modify(test_name,mycursor.getString(2),wake_time);
+                    mycursor = myadapter.querybyname(test_name);
+                    txt_wake.setText(mycursor.getString(3));
+                    Toast.makeText(thisactivity, wake_time, Toast.LENGTH_SHORT).show();
 
                     break;
                 default:
