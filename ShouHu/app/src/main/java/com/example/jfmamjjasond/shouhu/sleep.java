@@ -1,5 +1,6 @@
 package com.example.jfmamjjasond.shouhu;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
+
+import static java.util.Calendar.HOUR_OF_DAY;
 
 public class sleep extends android.support.v4.app.Fragment {
+
+    Context thisactivity;
+    Button btn_sleep,btn_wake;
+    TextView txt_sleep,txt_wake;
+    ShouHou_DBAdapter myadapter;
+    Calendar myCalendar;
+    String sleep_time;
+    String test_name = "Lili";
+
 
     @Nullable
     @Override
@@ -21,5 +38,41 @@ public class sleep extends android.support.v4.app.Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        thisactivity = getContext();
+
+        init();
+        myadapter = new ShouHou_DBAdapter(thisactivity);
+
+        btn_sleep.setOnClickListener(myclickevent);
+        btn_wake.setOnClickListener(myclickevent);
+
     }
+
+    void init(){
+        btn_sleep = (Button)getView().findViewById(R.id.sleepxml_btn_sleep);
+        btn_wake = (Button)getView().findViewById(R.id.sleepxml_btn_wake);
+        txt_sleep = (TextView)getView().findViewById(R.id.sleepxml_txt_sleep);
+        txt_wake = (TextView)getView().findViewById(R.id.sleepxml_txt_wake);
+    }
+
+    View.OnClickListener myclickevent = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()){
+                case R.id.sleepxml_btn_sleep:
+                    myCalendar = Calendar.getInstance();
+                    sleep_time = String.valueOf(myCalendar.get(HOUR_OF_DAY))+":"
+                            + String.valueOf(myCalendar.get(Calendar.MINUTE));
+                    myadapter.add(test_name,sleep_time,null);
+                    Toast.makeText(thisactivity, sleep_time, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.sleepxml_btn_wake:
+
+                    break;
+                default:
+
+            }
+        }
+    };
+
 }
