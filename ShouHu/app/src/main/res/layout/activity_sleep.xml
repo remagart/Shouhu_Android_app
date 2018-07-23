@@ -23,11 +23,11 @@
         android:layout_marginBottom="5dp"
         android:text="昨日睡眠時間"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView16"
-        app:layout_constraintStart_toStartOf="@+id/textView16" />
+        app:layout_constraintBottom_toTopOf="@+id/sleepxml_txt_sleep"
+        app:layout_constraintStart_toStartOf="@+id/sleepxml_txt_sleep" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/sleepxml_txt_sleep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -43,18 +43,19 @@
         android:layout_marginBottom="5dp"
         android:text="今日起床時間"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView19"
-        app:layout_constraintStart_toStartOf="@+id/textView19" />
+        app:layout_constraintBottom_toTopOf="@+id/sleepxml_txt_wake"
+        app:layout_constraintStart_toStartOf="@+id/sleepxml_txt_wake" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/sleepxml_txt_wake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="148dp"
+        android:layout_marginEnd="72dp"
         android:text="HH : MM"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView20"
-        app:layout_constraintStart_toStartOf="@+id/textView20" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView20"
@@ -68,41 +69,43 @@
 
     <TextView
         android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="80dp"
+        android:layout_width="334dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="84dp"
+        android:layout_marginStart="32dp"
         android:text="TextView"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="68dp"
-        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/sleepxml_btn_sleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="68dp"
+        android:text="睡眠"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/sleepxml_btn_wake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="68dp"
-        android:text="Button"
+        android:text="醒來"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="156dp"
-        android:layout_height="238dp"
-        android:layout_marginBottom="112dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="178dp"
+        android:layout_height="219dp"
+        android:layout_marginBottom="144dp"
+        android:layout_marginStart="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@mipmap/sleep_96_2" />
