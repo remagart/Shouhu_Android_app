@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     //宣告五個Fragment物件
     private Homepage homepage = new Homepage();
     private BMI_information bmi_information = new BMI_information();
-    private Fragment3 fragment3 = new Fragment3();
+    private sleep fragment_sleep = new sleep();
     private Fragment4 fragment4 = new Fragment4();
     private  TimerActivity timerActivity = new TimerActivity();
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                     case 1:
                         return bmi_information;
                     case 2:
-                        return fragment3;
+                        return fragment_sleep;
                     case 3:
                         return fragment4;
                     case 4:
