@@ -278,12 +278,7 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         btnstart.setText("開始");
         restsetVisibility();
     }
-    //當Fragment已不在畫面中時，呼叫此方法
-    @Override
-    public void onDestroy() {
-       // stopTime();
-        super.onDestroy();
-    }
+
     //當Fragment要被清除前，會執行此方法
     @Override
     public void onDestroyView() {
