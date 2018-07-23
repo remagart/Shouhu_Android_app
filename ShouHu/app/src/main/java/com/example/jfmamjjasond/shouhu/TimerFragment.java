@@ -50,6 +50,7 @@ public class TimerFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Fragment中獲取Context對象
         this.mContext = getActivity();
     }
 
@@ -156,7 +157,7 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         tvrest2.setVisibility(View.VISIBLE);
         tvwork2.setVisibility(View.VISIBLE);
         tvtimes2.setVisibility(View.VISIBLE);
-
+        //Eidtview數據給Textview顯示
         tvhot2.setText(ethot.getText().toString());
         tvrest2.setText(etrest.getText().toString());
         tvwork2.setText(etwork.getText().toString());
@@ -173,11 +174,6 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         tvrest2.setVisibility(View.INVISIBLE);
         tvwork2.setVisibility(View.INVISIBLE);
         tvtimes2.setVisibility(View.INVISIBLE);
-
-        tvhot2.setText(" ");
-        tvrest2.setText(" ");
-        tvwork2.setText(" ");
-        tvtimes2.setText(" ");
     }
 
     //利用Hendler改變TextView秒數
@@ -185,14 +181,14 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         @Override
         public boolean handleMessage(Message message) {
             String time = String.valueOf(message.arg1);
-            tvshow.setText(time);//TextView只能承载字符串类型的操作
+            tvshow.setText(time);//TextView只能承載字符串類型的操作
             startTime();//重複執行startTime()方法
             return false;
         }
     });
     //啟動計時器方法
     public void startTime(){
-        //java.util.Timer定时器，實際上是個Thread
+        //java.util.Timer定時器，實際上是個Thread
         timer = new Timer(); //宣告新的Timer
         timer1 = new Timer();
         timer2 = new Timer();
@@ -229,32 +225,36 @@ public class TimerFragment extends android.support.v4.app.Fragment {
             if(h==hot)timeTv.setText("暖身");//顯示暖身兩字
             timer.schedule(timerTask,1000); // timer 去執行TimerTask的run一秒後執行
         }
-        if(h==0) { //當暖身秒數=0時執行
+        //當暖身秒數=0時執行
+        if(h==0) {
             if(r==(rest+1))//當休息時間=rest+1時產生音效
                 soundPool.play(soundID[0], 1.0f, 1.0f, 0, 0, 1.0f); //播放音效  play()的參數(逾放的音效ID,左聲道音量(0.0~1.0f),右聲道音量(0.0~1.0f),優先撥放順序,是否重複,取樣值)
             timer.cancel();
             one=false;//暖身只跑一次，所以跑完一次後,one設為false
             timer1.schedule(timerTask1, 1000);
             if(r==rest)timeTv.setText("休息");//顯示休息兩字
+            //當休息秒數=0時執行
             if(r==0) {
                 timer1.cancel();
                if(w==(work+1))//當動作時間=work+1時產生音效
                     soundPool.play(soundID[0], 1.0f, 1.0f, 0, 0, 1.0f);
                 timer2.schedule(timerTask2, 1000);
                 if(w==work)timeTv.setText("訓練");//顯示訓練兩字
-                if(w==0) {  //當動作時間結束
+                //當動作秒數=0時執行
+                if(w==0) {
                     timer2.cancel();
                     r = rest+1;   //再將休息、動作時間重新計算
                     w = work+1;
                     t--; //跑完一次，次數就減一
-                    if(t!=0) startTime();//次數還沒等於零就重新執行startTime
+                    if(t!=0) startTime();//次數還沒等於零就重新執行startTime再繼續循環
                     if(t==0) // 循環次數結束，想起最後一鈴聲
                     {
                         soundPool.play(soundID[0], 1.0f, 1.0f, 0, 0, 1.0f);
                         btnstart.setText("開始");
+                        timeTv.setText("完成，厲害喔!");
                         start=true;
                         first=true;
-                        restsetVisibility();
+                        restsetVisibility();//回復顯示Editview
                     }
                 }
             }
