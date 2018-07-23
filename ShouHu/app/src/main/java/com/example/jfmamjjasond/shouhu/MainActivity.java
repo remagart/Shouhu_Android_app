@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     //宣告五個Fragment物件(class)讓MainActivity找到Fragment
     private Homepage homepage = new Homepage();
     private Fragment2 fragment2 = new Fragment2();
-    private Fragment3 fragment3 = new Fragment3();
+    private sleep fragment_sleep = new sleep();
     private Fragment4 fragment4 = new Fragment4();
     private TimerFragment timerActivity = new TimerFragment();
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                     case 1:
                         return fragment2;
                     case 2:
-                        return fragment3;
+                        return fragment_sleep;
                     case 3:
                         return fragment4;
                     case 4:
