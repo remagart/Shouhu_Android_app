@@ -9,13 +9,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="303dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/textviewshape"
         android:drawableLeft="@mipmap/note90"
         android:gravity="center"
-        android:text="TextView"
+        android:text="點擊下方圖片獲得資訊喔~"
         android:textAlignment="viewStart"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,57 +23,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="230dp"
-        android:layout_height="230dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="130dp"
-        android:background="@drawable/imageviewshape"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/water1" />
-
     <ImageButton
         android:id="@+id/btnsleep"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginTop="108dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="288dp"
         android:background="@drawable/buttonshape"
         android:text="btn"
-        android:visibility="invisible"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/btnwater"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="108dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="288dp"
         android:background="@drawable/buttonshape"
         android:text="Button"
-        android:visibility="invisible"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/btnbmi"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/buttonshape"
         android:text="Button"
-        android:visibility="invisible"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnwater"
         app:layout_constraintStart_toEndOf="@+id/btnsleep"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.358" />
 
 
 </android.support.constraint.ConstraintLayout>

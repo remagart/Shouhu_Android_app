@@ -19,14 +19,9 @@ import java.util.TimerTask;
 
 public class Homepage extends android.support.v4.app.Fragment {
     private TextView textView;
-    private ImageView pic;
     private ImageButton btnsleep,btnbmi,btnwater;
-    private AnimationDrawable anim , animsleep ,animbmi ,animwater ;
+    private AnimationDrawable animsleep ,animbmi ,animwater ;
     private Resources res;
-
-    private java.util.Timer timeranimSleep,timeranimBmi,timeranimWater,timeranimAll,timer;
-    private TimerTask timerTaskanimSleep,timerTaskanimBmi,timerTaskanimWater,timerTaskanimAll,timerTask;
-    private int i =0, timewater,timebmi,timesleep,timeall;
 
     @Nullable
     @Override
@@ -36,50 +31,25 @@ public class Homepage extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        timewater =0; //配合start.java 設定開始時間只有一開始執行App會跑的方法
-        timebmi=13000;
-        timesleep=20500;
-        timeall=27500;
-    }
-
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         findView();
-        res = getResources();
-        anim = (AnimationDrawable) res.getDrawable(R.drawable.allanim);
-        pic.setImageDrawable(anim);
-        pic.setAdjustViewBounds(true);
-        pic.setMaxWidth(400);
-        pic.setMaxHeight(400);
-        findView();
-
-        anim.start();//ImageView動畫開始
-        Log.i("time=", String.valueOf(timewater));
-        startanimSleep();
-        timewater =0; //之後執行的時間設定
-        timebmi=6000;
-        timesleep=13500;
-        timeall=21500;
-
-
-        animsleep =(AnimationDrawable)res.getDrawable(R.drawable.sleep);
-        btnsleep.setImageDrawable(animsleep);
+        res = getResources(); //取得資源
+        animsleep =(AnimationDrawable)res.getDrawable(R.drawable.sleep); //設定動畫為sleep
+        btnsleep.setImageDrawable(animsleep);//將buttonView的動畫設定
         btnsleep.setAdjustViewBounds(true);
         btnsleep.setMaxHeight(200);
         btnsleep.setMaxWidth(200);
         btnsleep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText("睡眠資訊");
-                anim = (AnimationDrawable) res.getDrawable(R.drawable.sleep);
-                pic.setImageDrawable(anim);
-                pic.setAdjustViewBounds(true);
-                pic.setMaxWidth(400);
-                pic.setMaxHeight(400);
-                anim.start();
+                textView.setText("睡眠資訊");//顯示資料
+                animsleep =(AnimationDrawable)res.getDrawable(R.drawable.sleep);
+                btnsleep.setImageDrawable(animsleep);
+                btnsleep.setAdjustViewBounds(true);
+                btnsleep.setMaxHeight(200);
+                btnsleep.setMaxWidth(200);
+                animsleep.start();//按下按鈕，動畫執行
             }
         });
         animbmi =(AnimationDrawable)res.getDrawable(R.drawable.run);
@@ -91,12 +61,12 @@ public class Homepage extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                 textView.setText("BMI資訊");
-                anim = (AnimationDrawable) res.getDrawable(R.drawable.run);
-                pic.setImageDrawable(anim);
-                pic.setAdjustViewBounds(true);
-                pic.setMaxWidth(400);
-                pic.setMaxHeight(400);
-                anim.start();
+                animbmi =(AnimationDrawable)res.getDrawable(R.drawable.run);
+                btnbmi.setImageDrawable(animbmi);
+                btnbmi.setAdjustViewBounds(true);
+                btnbmi.setMaxHeight(200);
+                btnbmi.setMaxWidth(200);
+                animbmi.start();
             }
         });
         animwater =(AnimationDrawable)res.getDrawable(R.drawable.water);
@@ -108,102 +78,23 @@ public class Homepage extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                 textView.setText("飲水資訊");
-                anim = (AnimationDrawable) res.getDrawable(R.drawable.water);
-                pic.setImageDrawable(anim);
-                pic.setAdjustViewBounds(true);
-                pic.setMaxWidth(400);
-                pic.setMaxHeight(400);
-                anim.start();
+                animwater =(AnimationDrawable)res.getDrawable(R.drawable.water);
+                btnwater.setImageDrawable(animwater);
+                btnwater.setAdjustViewBounds(true);
+                btnwater.setMaxHeight(200);
+                btnwater.setMaxWidth(200);
+                animwater.start();
             }
         });
     }
 
     public void findView(){
-        pic = getView().findViewById(R.id.imageView);
+
         btnsleep =getView().findViewById(R.id.btnsleep);
         btnbmi =getView().findViewById(R.id.btnbmi);
         btnwater =getView().findViewById(R.id.btnwater);
         textView =getView().findViewById(R.id.textView);
 
     }
-    private Handler myhandler  = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message message) {
-            switch (message.arg1){
-                case 100:
-                    textView.setText("飲水資訊");
-                    break;
-                case 200:
-                    textView.setText("BMI資訊");
-                    break;
-                case 300:
-                    textView.setText("睡眠資訊");
-                    break;
-                case 400:
-                    btnwater.setVisibility(View.VISIBLE);
-                    btnbmi.setVisibility(View.VISIBLE);
-                    btnsleep.setVisibility(View.VISIBLE);
-                    break;
 
-            }
-            return false;
-        }
-    });
-    public void startanimSleep(){
-        Log.i("time2=", String.valueOf(timebmi));
-        timeranimSleep = new Timer();
-        timeranimBmi =new Timer();
-        timeranimWater = new Timer();
-        timeranimAll = new Timer();
-
-        timerTaskanimSleep = new TimerTask() {
-            @Override
-            public void run() {
-                i=300;
-                Message message= myhandler.obtainMessage();
-                message.arg1 = i;
-                myhandler.sendMessage(message);
-            }
-        };
-        timerTaskanimBmi = new TimerTask() {
-            @Override
-            public void run() {
-                i=200;
-                Message message= myhandler.obtainMessage();
-                message.arg1 = i;
-                myhandler.sendMessage(message);
-            }
-        };
-        timerTaskanimWater = new TimerTask() {
-            @Override
-            public void run() {
-                i=100;
-                Message message= myhandler.obtainMessage();
-                message.arg1 = i;
-                myhandler.sendMessage(message);
-            }
-        };
-        timerTaskanimAll = new TimerTask() {
-            @Override
-            public void run() {
-                i=400;
-                Message message= myhandler.obtainMessage();
-                message.arg1 = i;
-                myhandler.sendMessage(message);
-            }
-        };
-        timeranimWater.schedule(timerTaskanimWater, timewater);
-        timeranimBmi.schedule(timerTaskanimBmi,timebmi);
-        timeranimSleep.schedule(timerTaskanimSleep,timesleep);
-        timeranimAll.schedule(timerTaskanimAll,timeall);
-    }
-    //Fragment 銷毀時執行timer取消
-       @Override
-    public void onDestroy() {
-        super.onDestroy();
-        timeranimWater.cancel();
-        timeranimBmi.cancel();
-        timeranimSleep.cancel();
-        timeranimAll.cancel();
-    }
 }
