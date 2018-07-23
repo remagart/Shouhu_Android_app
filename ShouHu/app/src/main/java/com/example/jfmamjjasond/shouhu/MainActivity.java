@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     private Homepage homepage = new Homepage();
     private BMI_result fragment_bmi = new BMI_result();
     private sleep fragment_sleep = new sleep();
+    private BMI_information bmi_information = new BMI_information();
     private Fragment4 fragment4 = new Fragment4();
     private TimerFragment timerActivity = new TimerFragment();
 
