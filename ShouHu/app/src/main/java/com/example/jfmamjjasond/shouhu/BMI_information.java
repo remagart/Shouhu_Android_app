@@ -2,9 +2,13 @@ package com.example.jfmamjjasond.shouhu;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -12,7 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class BMI_information extends AppCompatActivity {
+public class BMI_information extends android.support.v4.app.Fragment {
 
     Context thisactivity;
     Button btn_send;
@@ -23,12 +27,17 @@ public class BMI_information extends AppCompatActivity {
     RadioButton radiobtn_male,radiobtn_female;
     boolean isMale = true;  //true是男性,false是女性,layout中預設是男性
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_bmi_information, container, false);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bmi_information);
-        thisactivity = this;  //此時thisactivity就是這個activity的context
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        thisactivity = getContext();  //此時thisactivity就是這個activity的context
         init();//初始化
         // 單選按鈕的事件處理
         radioGroup_gender.setOnCheckedChangeListener(mycheckevent);
@@ -38,15 +47,15 @@ public class BMI_information extends AppCompatActivity {
 
     }
     void init(){
-        btn_send = (Button)findViewById(R.id.bmiinfoxml_btn_send);
-        edit_name = (EditText)findViewById(R.id.bmiinfoxml_edit_name);
-        edit_pwd = (EditText)findViewById(R.id.bmiinfoxml_edit_password);
-        edit_mail = (EditText)findViewById(R.id.bmiinfoxml_edit_mail);
-        edit_height = (EditText)findViewById(R.id.bmiinfoxml_edit_height);
-        edit_weight = (EditText)findViewById(R.id.bmiinfoxml_edit_weight);
-        radioGroup_gender = (RadioGroup)findViewById(R.id.bmiinfoxml_radiogroup_gender);
-        radiobtn_male = (RadioButton)findViewById(R.id.bmiinfoxml_radio_male);
-        radiobtn_female = (RadioButton)findViewById(R.id.bmiinfoxml_radio_female);
+        btn_send = (Button)getView().findViewById(R.id.bmiinfoxml_btn_send);
+        edit_name = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_name);
+        edit_pwd = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_password);
+        edit_mail = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_mail);
+        edit_height = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_height);
+        edit_weight = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_weight);
+        radioGroup_gender = (RadioGroup)getView().findViewById(R.id.bmiinfoxml_radiogroup_gender);
+        radiobtn_male = (RadioButton)getView().findViewById(R.id.bmiinfoxml_radio_male);
+        radiobtn_female = (RadioButton)getView().findViewById(R.id.bmiinfoxml_radio_female);
     }
 
     //這邊的用法是匿名類別的另一種用法，可以獨立出來
