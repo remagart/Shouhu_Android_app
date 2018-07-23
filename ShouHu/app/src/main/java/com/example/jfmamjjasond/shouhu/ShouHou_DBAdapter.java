@@ -2,6 +2,7 @@ package com.example.jfmamjjasond.shouhu;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -41,6 +42,34 @@ public class ShouHou_DBAdapter {
         myValues.put(KEY_SLEEP_TIME,sleep_time);
         myValues.put(KEY_WAKE_TIME,wake_time);
         return mydb.insert(KEY_SLEEP_TABLE_NAME,null,myValues);
+    }
+
+    Cursor querybyname(String name){
+        Cursor mycursor = mydb.query(KEY_SLEEP_TABLE_NAME,
+                column,
+                KEY_name + " == " + "\"" + name + "\"",
+                null,
+                null,
+                null,
+                null
+        );
+
+        if(mycursor != null){
+            mycursor.moveToFirst();
+        }
+
+        return mycursor;
+    }
+
+    long modify(String name,String sleep_time,String wake_time){
+        myValues = new ContentValues();
+
+        myValues.put(KEY_name,name);
+        myValues.put(KEY_SLEEP_TIME,sleep_time);
+        myValues.put(KEY_WAKE_TIME,wake_time);
+
+        return mydb.update(KEY_SLEEP_TABLE_NAME,myValues,
+                KEY_name +" == "+"\""+"name"+"\"",null);
     }
 
 
