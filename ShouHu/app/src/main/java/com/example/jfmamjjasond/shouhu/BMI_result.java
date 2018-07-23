@@ -44,7 +44,9 @@ public class BMI_result extends AppCompatActivity {
         init();
         displayBMI();
         imgbtn_stickman.setOnClickListener(myClickevent);
-
+        txt_bmiresult.setOnClickListener(myClickevent);
+        txt_suggestion.setOnClickListener(myClickevent);
+        txt_target.setOnClickListener(myClickevent);
 
     }
     void init(){
@@ -150,6 +152,11 @@ public class BMI_result extends AppCompatActivity {
                         pop_out_dialog();
                         image_count = 0;
                     }
+                    break;
+                case R.id.bmiresultxml_txt_result:
+                case R.id.bmiresultxml_txt_suggestion:
+                case R.id.bmiresultxml_txt_target:
+                    pop_out_dialog();
                     break;
                 case R.id.renew_weightxml_imgbtn_check:
                     try{
