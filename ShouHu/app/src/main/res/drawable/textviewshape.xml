@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
-    <size android:height="50dp" android:width="180dp"/>
+
     <solid android:color="#FFFFFF"/>
     <stroke
         android:width="3px"
@@ -14,9 +14,9 @@
         android:topRightRadius="10px" />
     <!-- 設置一下邊距,讓空間大一點 -->
     <padding
-        android:bottom="20dp"
-        android:left="20dp"
-        android:right="20dp"
-        android:top="20dp" />
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp"
+        android:top="10dp" />
 
 </shape>
