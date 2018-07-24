@@ -21,30 +21,35 @@ public class ShouHou_DBAdapter {
     ContentValues myValues;
     String[] column;
 
+    //建構子
     ShouHou_DBAdapter(Context c){
         thisContext = c;
         open();
     }
+
+    //打開資料庫
     void open(){
         myDBHelper = new ShouHou_DBHelper(thisContext);
+        //取得寫入資料庫的權限
         mydb = myDBHelper.getWritableDatabase();
         column = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME};
     }
+    //關閉資料庫
     void close(){
         if(myDBHelper != null){
             mydb.close();
         }
     }
-
-    long add(String name,String sleep_time,String wake_time){
+    //新增至sleep table
+    long add_to_sleep_table(String name,String sleep_time,String wake_time){
         myValues = new ContentValues();
         myValues.put(KEY_name,name);
         myValues.put(KEY_SLEEP_TIME,sleep_time);
         myValues.put(KEY_WAKE_TIME,wake_time);
         return mydb.insert(KEY_SLEEP_TABLE_NAME,null,myValues);
     }
-
-    Cursor querybyname(String name){
+    //查詢sleep table的姓名
+    Cursor querybyname_from_sleep_table(String name){
         Cursor mycursor = mydb.query(KEY_SLEEP_TABLE_NAME,
                 column,
                 KEY_name + " == " + "\"" + name + "\"",
@@ -61,7 +66,8 @@ public class ShouHou_DBAdapter {
         return mycursor;
     }
 
-    long modify(String name,String sleep_time,String wake_time){
+    //修改sleep table
+    long modify_sleep_table(String name,String sleep_time,String wake_time){
         myValues = new ContentValues();
 
         myValues.put(KEY_name,name);
