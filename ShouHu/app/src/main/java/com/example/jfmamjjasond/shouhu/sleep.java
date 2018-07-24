@@ -26,8 +26,7 @@ public class sleep extends android.support.v4.app.Fragment {
     TextView txt_sleep,txt_wake;
     ShouHou_DBAdapter myadapter;
     Calendar myCalendar;
-    String sleep_time,wake_time;
-    String test_name = "Nono";
+    String test_name = "Haha";
 
     @Nullable
     @Override
@@ -44,6 +43,7 @@ public class sleep extends android.support.v4.app.Fragment {
         init();
         myadapter = new ShouHou_DBAdapter(thisactivity);
 
+
         btn_sleep.setOnClickListener(myclickevent);
         btn_wake.setOnClickListener(myclickevent);
 
@@ -59,29 +59,60 @@ public class sleep extends android.support.v4.app.Fragment {
     View.OnClickListener myclickevent = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String nowtime;
+            Cursor mycursor;
             switch(v.getId()){
                 case R.id.sleepxml_btn_sleep:
-                    myCalendar = Calendar.getInstance();
-                    sleep_time = String.valueOf(myCalendar.get(HOUR_OF_DAY))+":"
-                            + String.valueOf(myCalendar.get(Calendar.MINUTE));
-                    myadapter.add(test_name,sleep_time,"0:0");
-                    Toast.makeText(thisactivity, sleep_time, Toast.LENGTH_SHORT).show();
+                    mycursor = myadapter.querybyname(test_name);
+                    nowtime = gettime();
+                    if(mycursor.getCount() == 0){
+                        add_sleep_time(nowtime);
+                    }
+                  else{
+                        modify_sleep_time(nowtime,mycursor);
+                   }
+                   Toast.makeText(thisactivity, "你今晚睡眠時間為 "+nowtime, Toast.LENGTH_SHORT).show();
+
                     break;
                 case R.id.sleepxml_btn_wake:
-                    Cursor mycursor = myadapter.querybyname(test_name);
-                    txt_sleep.setText(mycursor.getString(2));
-
-                    myCalendar = Calendar.getInstance();
-                    wake_time = String.valueOf(myCalendar.get(HOUR_OF_DAY))+":"
-                            + String.valueOf(myCalendar.get(Calendar.MINUTE));
-                    myadapter.modify(test_name,mycursor.getString(2),wake_time);
                     mycursor = myadapter.querybyname(test_name);
+                    nowtime = gettime();
+                    if(mycursor.getCount() == 0){
+                        add_wake_time(nowtime);
+                    }
+                    else{
+                        modify_wake_time(nowtime,mycursor);
+                    }
+                    mycursor = myadapter.querybyname(test_name);
+                    txt_sleep.setText(mycursor.getString(2));
                     txt_wake.setText(mycursor.getString(3));
+                    Toast.makeText(thisactivity, "早安阿!祝你有美好的一天^ ^ ", Toast.LENGTH_SHORT).show();
                     break;
                 default:
 
             }
         }
     };
+
+    String gettime(){
+        String t;
+        myCalendar = Calendar.getInstance();
+        t = String.valueOf(myCalendar.get(HOUR_OF_DAY))+":"
+                + String.valueOf(myCalendar.get(Calendar.MINUTE));
+        return t;
+    }
+    void add_sleep_time(String t){
+        myadapter.add(test_name,t,"");
+    }
+    void add_wake_time(String t){
+        myadapter.add(test_name,"",t);
+    }
+
+    void modify_sleep_time(String t,Cursor c){
+        myadapter.modify(test_name,t,c.getString(3));
+    }
+    void modify_wake_time(String t,Cursor c){
+        myadapter.modify(test_name,c.getString(2),t);
+    }
 
 }
