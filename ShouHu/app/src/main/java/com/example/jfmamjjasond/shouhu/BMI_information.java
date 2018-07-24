@@ -16,7 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class BMI_information extends android.support.v4.app.Fragment {
+public class BMI_information extends AppCompatActivity {
 
     Context thisactivity;
     Button btn_send;
@@ -27,17 +27,14 @@ public class BMI_information extends android.support.v4.app.Fragment {
     RadioButton radiobtn_male,radiobtn_female;
     boolean isMale = true;  //true是男性,false是女性,layout中預設是男性
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_bmi_information, container, false);
-    }
+
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bmi_information);
 
-        thisactivity = getContext();  //此時thisactivity就是這個activity的context
+        thisactivity = this;  //此時thisactivity就是這個activity的context
         init();//初始化
         // 單選按鈕的事件處理
         radioGroup_gender.setOnCheckedChangeListener(mycheckevent);
@@ -47,15 +44,15 @@ public class BMI_information extends android.support.v4.app.Fragment {
 
     }
     void init(){
-        btn_send = (Button)getView().findViewById(R.id.bmiinfoxml_btn_send);
-        edit_name = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_name);
-        edit_pwd = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_password);
-        edit_mail = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_mail);
-        edit_height = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_height);
-        edit_weight = (EditText)getView().findViewById(R.id.bmiinfoxml_edit_weight);
-        radioGroup_gender = (RadioGroup)getView().findViewById(R.id.bmiinfoxml_radiogroup_gender);
-        radiobtn_male = (RadioButton)getView().findViewById(R.id.bmiinfoxml_radio_male);
-        radiobtn_female = (RadioButton)getView().findViewById(R.id.bmiinfoxml_radio_female);
+        btn_send = (Button)findViewById(R.id.bmiinfoxml_btn_send);
+        edit_name = (EditText)findViewById(R.id.bmiinfoxml_edit_name);
+        edit_pwd = (EditText)findViewById(R.id.bmiinfoxml_edit_password);
+        edit_mail = (EditText)findViewById(R.id.bmiinfoxml_edit_mail);
+        edit_height = (EditText)findViewById(R.id.bmiinfoxml_edit_height);
+        edit_weight = (EditText)findViewById(R.id.bmiinfoxml_edit_weight);
+        radioGroup_gender = (RadioGroup)findViewById(R.id.bmiinfoxml_radiogroup_gender);
+        radiobtn_male = (RadioButton)findViewById(R.id.bmiinfoxml_radio_male);
+        radiobtn_female = (RadioButton)findViewById(R.id.bmiinfoxml_radio_female);
     }
 
     //這邊的用法是匿名類別的另一種用法，可以獨立出來
@@ -107,10 +104,10 @@ public class BMI_information extends android.support.v4.app.Fragment {
 
     void moveToNextPage(){
         Intent i = new Intent();
-        i.putExtra("user_height",String.valueOf(height));
-        i.putExtra("user_weight",String.valueOf(weight));
-        i.putExtra("user_name",name);
-        i.setClass(thisactivity,BMI_result.class);
+//        i.putExtra("user_height",String.valueOf(height));
+//        i.putExtra("user_weight",String.valueOf(weight));
+//        i.putExtra("user_name",name);
+        i.setClass(thisactivity,MainActivity.class);
         startActivity(i);
     }
 

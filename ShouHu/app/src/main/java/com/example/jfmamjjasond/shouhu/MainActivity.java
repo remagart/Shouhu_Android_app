@@ -24,9 +24,8 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     private ViewPager viewPager; //宣告ViewPager搭配Fragment
     //宣告五個Fragment物件(class)讓MainActivity找到Fragment
     private Homepage homepage = new Homepage();
-    private BMI_information bmi_information = new BMI_information();
+    private BMI_result fragment_bmi = new BMI_result();
     private sleep fragment_sleep = new sleep();
-    private BMI_information bmi_information = new BMI_information();
     private Fragment4 fragment4 = new Fragment4();
     private TimerFragment timerActivity = new TimerFragment();
 
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                     case 0:
                         return homepage;
                     case 1:
-                        return bmi_information;
+                        return fragment_bmi;
                     case 2:
                         return fragment_sleep;
                     case 3:

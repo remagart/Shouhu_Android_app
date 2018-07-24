@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,7 +24,7 @@ import android.widget.Toast;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
-public class BMI_result extends AppCompatActivity {
+public class BMI_result extends android.support.v4.app.Fragment {
 
     Context thisactivity;
     TextView txt_bmiresult,txt_suggestion,txt_target,txt_name;
@@ -34,15 +38,20 @@ public class BMI_result extends AppCompatActivity {
     View view_renew_weight;
     EditText edit_renew_weight;
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_bmi_result, container, false);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bmi_result);
-        thisactivity = this;
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        thisactivity = getContext();
 
         init();
-        displayBMI();
+        //displayBMI();
         imgbtn_stickman.setOnClickListener(myClickevent);
         txt_bmiresult.setOnClickListener(myClickevent);
         txt_suggestion.setOnClickListener(myClickevent);
@@ -50,11 +59,11 @@ public class BMI_result extends AppCompatActivity {
 
     }
     void init(){
-        txt_bmiresult = (TextView)findViewById(R.id.bmiresultxml_txt_result);
-        txt_suggestion = (TextView)findViewById(R.id.bmiresultxml_txt_suggestion);
-        txt_target = (TextView)findViewById(R.id.bmiresultxml_txt_target);
-        txt_name = (TextView)findViewById(R.id.bmiresultxml_txt_name);
-        imgbtn_stickman = (ImageButton)findViewById(R.id.bmiresultxml_imgbtn_stickman);
+        txt_bmiresult = (TextView)getView().findViewById(R.id.bmiresultxml_txt_result);
+        txt_suggestion = (TextView)getView().findViewById(R.id.bmiresultxml_txt_suggestion);
+        txt_target = (TextView)getView().findViewById(R.id.bmiresultxml_txt_target);
+        txt_name = (TextView)getView().findViewById(R.id.bmiresultxml_txt_name);
+        imgbtn_stickman = (ImageButton)getView().findViewById(R.id.bmiresultxml_imgbtn_stickman);
         //設置的MaxWidth和MaxHeight能夠生效需滿足以下2點
         //setAdjustViewBounds(true)要設成true，API文件有特別說
         //要將imageview的xml寬高設成wrap_content
@@ -64,7 +73,7 @@ public class BMI_result extends AppCompatActivity {
 
     }
     void displayBMI(){
-        Intent i = getIntent();
+        Intent i = getActivity().getIntent();
         String display_name="暱稱：";
         if (i != null){
             height = Double.valueOf(i.getStringExtra("user_height"));
@@ -172,7 +181,7 @@ public class BMI_result extends AppCompatActivity {
                         i.putExtra("user_name", name);
                         i.setClass(thisactivity, BMI_result.class);
                         startActivity(i);
-                        finish();
+                        //getActivity().finish();
                     }else {
                         Toast.makeText(thisactivity, "要輸入正常數值喔~", Toast.LENGTH_SHORT).show();
                     }
