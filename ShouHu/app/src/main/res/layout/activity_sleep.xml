@@ -64,16 +64,15 @@
         android:layout_marginBottom="5dp"
         android:text="守護提醒 : "
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView21"
-        app:layout_constraintStart_toStartOf="@+id/textView21" />
+        app:layout_constraintBottom_toTopOf="@+id/sleepxml_txt_reminder"
+        app:layout_constraintStart_toStartOf="@+id/sleepxml_txt_reminder" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/sleepxml_txt_reminder"
         android:layout_width="334dp"
         android:layout_height="31dp"
         android:layout_marginBottom="84dp"
         android:layout_marginStart="32dp"
-        android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
