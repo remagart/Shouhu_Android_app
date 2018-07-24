@@ -50,7 +50,7 @@ public class sleep extends android.support.v4.app.Fragment {
         myadapter = new ShouHou_DBAdapter(thisactivity);
 
         //取得欲搜尋姓名的cursor
-        Cursor mycursor = myadapter.querybyname_from_sleep_table(test_name);
+        Cursor mycursor = myadapter.querybyname_from_user_table(test_name);
         //要做if判斷有無cursor值，因為沒有值會有error
         //這邊是要做頁面載入會顯示時間和提醒
         if(mycursor.getCount() != 0){
@@ -79,7 +79,7 @@ public class sleep extends android.support.v4.app.Fragment {
             Cursor mycursor;
             switch(v.getId()){
                 case R.id.sleepxml_btn_sleep:
-                    mycursor = myadapter.querybyname_from_sleep_table(test_name);
+                    mycursor = myadapter.querybyname_from_user_table(test_name);
                     nowtime = gettime();
                     if(mycursor.getCount() == 0){
                         //若無使用者資料則新增資料到資料庫
@@ -93,7 +93,7 @@ public class sleep extends android.support.v4.app.Fragment {
 
                     break;
                 case R.id.sleepxml_btn_wake:
-                    mycursor = myadapter.querybyname_from_sleep_table(test_name);
+                    mycursor = myadapter.querybyname_from_user_table(test_name);
                     nowtime = gettime();
                     if(mycursor.getCount() == 0){
                         //若無使用者資料則新增資料到資料庫
@@ -104,7 +104,7 @@ public class sleep extends android.support.v4.app.Fragment {
                         modify_wake_time(nowtime,mycursor);
                     }
                     //在做一次搜尋是因為資料庫資料有變
-                    mycursor = myadapter.querybyname_from_sleep_table(test_name);
+                    mycursor = myadapter.querybyname_from_user_table(test_name);
                     txt_sleep.setText(mycursor.getString(2));
                     txt_wake.setText(mycursor.getString(3));
                     reminder(mycursor);

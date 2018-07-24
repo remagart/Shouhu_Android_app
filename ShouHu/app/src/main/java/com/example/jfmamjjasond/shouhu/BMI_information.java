@@ -2,6 +2,7 @@ package com.example.jfmamjjasond.shouhu;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,8 @@ public class BMI_information extends AppCompatActivity {
     RadioButton radiobtn_male,radiobtn_female;
     boolean isMale = true;  //true是男性,false是女性,layout中預設是男性
 
-
+    ShouHou_DBAdapter myadapter;
+    Cursor mycursor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class BMI_information extends AppCompatActivity {
 
         thisactivity = this;  //此時thisactivity就是這個activity的context
         init();//初始化
+        myadapter = new ShouHou_DBAdapter(thisactivity);
+
         // 單選按鈕的事件處理
         radioGroup_gender.setOnCheckedChangeListener(mycheckevent);
         // 按鈕的事件處理
@@ -107,6 +111,12 @@ public class BMI_information extends AppCompatActivity {
 //        i.putExtra("user_height",String.valueOf(height));
 //        i.putExtra("user_weight",String.valueOf(weight));
 //        i.putExtra("user_name",name);
+
+        mycursor = myadapter.querybyname_from_user_table(name);
+        if(mycursor.getCount() == 0){
+            myadapter.add_user_for_bmi(name,height,weight);
+        }
+        i.putExtra("user_name",name);
         i.setClass(thisactivity,MainActivity.class);
         startActivity(i);
     }
