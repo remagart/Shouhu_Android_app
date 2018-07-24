@@ -69,7 +69,7 @@ public class ShouHou_DBAdapter {
         myValues.put(KEY_WAKE_TIME,wake_time);
 
         return mydb.update(KEY_SLEEP_TABLE_NAME,myValues,
-                KEY_name +" == "+"\""+"name"+"\"",null);
+                KEY_name +" == "+"\""+name+"\"",null);
     }
 
 

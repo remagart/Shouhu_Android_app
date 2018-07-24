@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class sleep extends android.support.v4.app.Fragment {
     ShouHou_DBAdapter myadapter;
     Calendar myCalendar;
     String sleep_time,wake_time;
-    String test_name = "Amy";
+    String test_name = "Nono";
 
     @Nullable
     @Override
@@ -76,8 +77,6 @@ public class sleep extends android.support.v4.app.Fragment {
                     myadapter.modify(test_name,mycursor.getString(2),wake_time);
                     mycursor = myadapter.querybyname(test_name);
                     txt_wake.setText(mycursor.getString(3));
-                    Toast.makeText(thisactivity, wake_time, Toast.LENGTH_SHORT).show();
-
                     break;
                 default:
 

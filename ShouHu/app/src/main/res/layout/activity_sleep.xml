@@ -48,9 +48,9 @@
 
     <TextView
         android:id="@+id/sleepxml_txt_wake"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="148dp"
+        android:layout_marginBottom="136dp"
         android:layout_marginEnd="72dp"
         android:text="HH : MM"
         android:textSize="20sp"
