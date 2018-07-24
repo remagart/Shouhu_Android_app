@@ -140,9 +140,6 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
             case R.id.use: //使用說明
 
                 break;
-            case R.id.setnew://設定個人頁面
-                Toast.makeText(this,"setpersonal",Toast.LENGTH_LONG).show();
-                break;
             case R.id.setsleep://設定睡眠提醒
                 Toast.makeText(this,"setsleep",Toast.LENGTH_LONG).show();
                 break;

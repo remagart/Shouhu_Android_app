@@ -9,17 +9,8 @@
         android:id="@+id/use"
         android:title="@string/title_use" />
     <item
-        android:id="@+id/set"
-        android:title="@string/title_set" >
-        <menu >
-            <item
-                android:id="@+id/setnew"
-                android:title="@string/setnew" />
-            <item
-                android:id="@+id/setsleep"
-                android:title="@string/setsleep" />
-        </menu>
-    </item>
+        android:id="@+id/setsleep"
+        android:title="@string/setsleep" />
     <item
         android:id="@+id/report"
         android:title="@string/title_report" />
