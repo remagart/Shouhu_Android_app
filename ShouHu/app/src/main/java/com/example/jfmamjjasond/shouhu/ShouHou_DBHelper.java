@@ -26,9 +26,9 @@ public class ShouHou_DBHelper extends SQLiteOpenHelper {
                 + KEY_SLEEP_TABLE_NAME
                 + " ( "
                 + KEY_ID + " INTEGER PRIMARY KEY NOT NULL,  "
-                + KEY_name + " CHAR(8) NOT NULL, "
-                + KEY_SLEEP_TIME + " DATETIME, "
-                + KEY_WAKE_TIME + " DATETIME "
+                + KEY_name + " VARCHAR(20) NOT NULL, "
+                + KEY_SLEEP_TIME + " VARCHAR(5), "
+                + KEY_WAKE_TIME + " VARCHAR(5) "
                 + " ) ";
         ;
         db.execSQL(sql);
