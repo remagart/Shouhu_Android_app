@@ -10,22 +10,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".start">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".BMI_result" />
-        <activity android:name=".BMI_information"/>
+        <activity android:name=".BMI_information" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_homepage" />
-       
+        <activity android:name=".WaterFragment"></activity>
     </application>
 
 </manifest>
