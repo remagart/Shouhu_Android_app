@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 public class BMI_result extends android.support.v4.app.Fragment {
 
     Context thisactivity;
+    AlertDialog dialog_window;
     TextView txt_bmiresult,txt_suggestion,txt_target,txt_name;
     ImageButton imgbtn_stickman,imgbtn_check;
     double weight,height,BMI,renew_weight;
@@ -206,14 +207,11 @@ public class BMI_result extends android.support.v4.app.Fragment {
                         renew_weight = 0;
                         Toast.makeText(thisactivity, "你需要輸入喔~", Toast.LENGTH_SHORT).show();
                     }
-                    if(renew_weight  >= 1 && renew_weight <= 150) {
-                        Intent i = new Intent();
-                        i.putExtra("user_weight", String.valueOf(renew_weight));
-                        i.putExtra("user_height", String.valueOf(height));
-                        i.putExtra("user_name", name);
-                        i.setClass(thisactivity, BMI_result.class);
-                        startActivity(i);
-                        //getActivity().finish();
+                    if(renew_weight  >= 1 && renew_weight <= 300) {
+                        myadapter.modify_user_weight(name,renew_weight);
+                        dialog_window.dismiss();
+                        displayBMI();
+
                     }else {
                         Toast.makeText(thisactivity, "要輸入正常數值喔~", Toast.LENGTH_SHORT).show();
                     }
@@ -237,7 +235,7 @@ public class BMI_result extends android.support.v4.app.Fragment {
         imgbtn_check.setMaxWidth(500);
         imgbtn_check.setMaxHeight(500);
 
-        AlertDialog dialog_window = new AlertDialog.Builder(thisactivity)
+        dialog_window = new AlertDialog.Builder(thisactivity)
                 .setView(view_renew_weight)
                 .show();
         imgbtn_check.setOnClickListener(myClickevent);

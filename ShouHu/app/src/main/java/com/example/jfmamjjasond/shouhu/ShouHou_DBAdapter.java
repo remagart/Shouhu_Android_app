@@ -91,6 +91,12 @@ public class ShouHou_DBAdapter {
         return mydb.insert(KEY_USER_TABLE_NAME,null,myValues);
     }
 
+    long modify_user_weight(String name,double w){
+        myValues = new ContentValues();
+        myValues.put(KEY_WEIGHT,w);
+        return mydb.update(KEY_USER_TABLE_NAME,myValues,KEY_name+" == "+"\""+name+"\"",null);
+    }
+
 
 
 }

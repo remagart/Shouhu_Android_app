@@ -124,7 +124,7 @@ public class BMI_information extends AppCompatActivity {
 
     boolean check_must(double h,double w){
         if(h != 0 && w != 0){
-            if(h >= 50 && h <= 250 && w >= 1 && w <= 150){
+            if(h >= 50 && h <= 250 && w >= 1 && w <= 300){
                 return true;
             }
         }
