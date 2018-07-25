@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -278,7 +277,6 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         btnstart.setText("開始");
         restsetVisibility();
     }
-
     //當Fragment要被清除前，會執行此方法
     @Override
     public void onDestroyView() {

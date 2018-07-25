@@ -30,7 +30,8 @@ public class sleep extends android.support.v4.app.Fragment {
     //為了要取得日期
     Calendar myCalendar;
     //這是測試用的name，之後會將BMI資料傳過來
-    String test_name = "Haha";
+    String user_name;
+    String ShouHu_user_name;
 
     @Nullable
     @Override
@@ -47,16 +48,23 @@ public class sleep extends android.support.v4.app.Fragment {
         //初始化UI和java
         init();
         //初始化資料庫橋接器
-        myadapter = new ShouHou_DBAdapter(thisactivity);
+        myadapter = new ShouHou_DBAdapter(thisactivity);//需要知道是哪位使用者
+        get_from_activity();
 
         //取得欲搜尋姓名的cursor
-        Cursor mycursor = myadapter.querybyname_from_sleep_table(test_name);
+        Cursor mycursor = myadapter.querybyname_from_user_table(user_name);
         //要做if判斷有無cursor值，因為沒有值會有error
         //這邊是要做頁面載入會顯示時間和提醒
         if(mycursor.getCount() != 0){
             txt_sleep.setText(mycursor.getString(2));
             txt_wake.setText(mycursor.getString(3));
-            reminder(mycursor);
+            //若是睡眠時間或醒來時間是null，跑到reminder會exception
+            if(mycursor.getString(2) != null && mycursor.getString(3) != null){
+                //若是睡眠時間或醒來時間是""，跑到reminder會exception
+                if(!mycursor.getString(2).equals("") && !mycursor.getString(3).equals("")) {
+                    reminder(mycursor);
+                }
+            }
         }
         //按鈕事件處理
         btn_sleep.setOnClickListener(myclickevent);
@@ -79,7 +87,7 @@ public class sleep extends android.support.v4.app.Fragment {
             Cursor mycursor;
             switch(v.getId()){
                 case R.id.sleepxml_btn_sleep:
-                    mycursor = myadapter.querybyname_from_sleep_table(test_name);
+                    mycursor = myadapter.querybyname_from_user_table(user_name);
                     nowtime = gettime();
                     if(mycursor.getCount() == 0){
                         //若無使用者資料則新增資料到資料庫
@@ -93,7 +101,7 @@ public class sleep extends android.support.v4.app.Fragment {
 
                     break;
                 case R.id.sleepxml_btn_wake:
-                    mycursor = myadapter.querybyname_from_sleep_table(test_name);
+                    mycursor = myadapter.querybyname_from_user_table(user_name);
                     nowtime = gettime();
                     if(mycursor.getCount() == 0){
                         //若無使用者資料則新增資料到資料庫
@@ -104,7 +112,7 @@ public class sleep extends android.support.v4.app.Fragment {
                         modify_wake_time(nowtime,mycursor);
                     }
                     //在做一次搜尋是因為資料庫資料有變
-                    mycursor = myadapter.querybyname_from_sleep_table(test_name);
+                    mycursor = myadapter.querybyname_from_user_table(user_name);
                     txt_sleep.setText(mycursor.getString(2));
                     txt_wake.setText(mycursor.getString(3));
                     reminder(mycursor);
@@ -125,17 +133,17 @@ public class sleep extends android.support.v4.app.Fragment {
         return t;
     }
     void add_sleep_time(String t){
-        myadapter.add_to_sleep_table(test_name,t,"");
+        myadapter.add_to_sleep_table(user_name,t,"");
     }
     void add_wake_time(String t){
-        myadapter.add_to_sleep_table(test_name,"",t);
+        myadapter.add_to_sleep_table(user_name,"",t);
     }
 
     void modify_sleep_time(String t,Cursor c){
-        myadapter.modify_sleep_table(test_name,t,c.getString(3));
+        myadapter.modify_sleep_table(user_name,t,c.getString(3));
     }
     void modify_wake_time(String t,Cursor c){
-        myadapter.modify_sleep_table(test_name,c.getString(2),t);
+        myadapter.modify_sleep_table(user_name,c.getString(2),t);
     }
     //睡眠守護提醒
     void reminder(Cursor c){
@@ -177,6 +185,12 @@ public class sleep extends android.support.v4.app.Fragment {
             txt_reminder.setText("太棒了!!你昨晚睡得剛剛好喔!!");
         }
 
+    }
+    //從MainActivity取得使用者名稱
+    void get_from_activity(){
+        Bundle mybundle = getArguments();
+        ShouHu_user_name = mybundle.getString("user_name");
+        user_name = ShouHu_user_name;
     }
 
     @Override

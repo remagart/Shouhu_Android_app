@@ -7,13 +7,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ShouHou_DBAdapter {
-    final static String KEY_SLEEP_TABLE_NAME = "Sleep_Table";
+    final static String KEY_USER_TABLE_NAME = "User_Table";
     final static String KEY_ID = "_id";
     final static String KEY_name = "user_name";
     //昨晚睡覺時間
     final static String KEY_SLEEP_TIME = "Sleep_Time";
     //今早起床時間
     final static String KEY_WAKE_TIME = "Wake_Time";
+    final static String KEY_HEIGHT = "height";
+    final static String KEY_WEIGHT = "weight";
+    String setnull = null;
 
     Context thisContext;
     SQLiteDatabase mydb;
@@ -32,7 +35,7 @@ public class ShouHou_DBAdapter {
         myDBHelper = new ShouHou_DBHelper(thisContext);
         //取得寫入資料庫的權限
         mydb = myDBHelper.getWritableDatabase();
-        column = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME};
+        column = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME,KEY_HEIGHT,KEY_WEIGHT};
     }
     //關閉資料庫
     void close(){
@@ -46,11 +49,11 @@ public class ShouHou_DBAdapter {
         myValues.put(KEY_name,name);
         myValues.put(KEY_SLEEP_TIME,sleep_time);
         myValues.put(KEY_WAKE_TIME,wake_time);
-        return mydb.insert(KEY_SLEEP_TABLE_NAME,null,myValues);
+        return mydb.insert(KEY_USER_TABLE_NAME,null,myValues);
     }
     //查詢sleep table的姓名
-    Cursor querybyname_from_sleep_table(String name){
-        Cursor mycursor = mydb.query(KEY_SLEEP_TABLE_NAME,
+    Cursor querybyname_from_user_table(String name){
+        Cursor mycursor = mydb.query(KEY_USER_TABLE_NAME,
                 column,
                 KEY_name + " == " + "\"" + name + "\"",
                 null,
@@ -74,8 +77,25 @@ public class ShouHou_DBAdapter {
         myValues.put(KEY_SLEEP_TIME,sleep_time);
         myValues.put(KEY_WAKE_TIME,wake_time);
 
-        return mydb.update(KEY_SLEEP_TABLE_NAME,myValues,
+        return mydb.update(KEY_USER_TABLE_NAME,myValues,
                 KEY_name +" == "+"\""+name+"\"",null);
+    }
+
+    long add_user_for_bmi(String name,double h,double w){
+        myValues = new ContentValues();
+        myValues.put(KEY_name,name);
+        myValues.put(KEY_SLEEP_TIME,setnull);
+        myValues.put(KEY_WAKE_TIME,setnull);
+        myValues.put(KEY_HEIGHT,h);
+        myValues.put(KEY_WEIGHT,w);
+
+        return mydb.insert(KEY_USER_TABLE_NAME,null,myValues);
+    }
+
+    long modify_user_weight(String name,double w){
+        myValues = new ContentValues();
+        myValues.put(KEY_WEIGHT,w);
+        return mydb.update(KEY_USER_TABLE_NAME,myValues,KEY_name+" == "+"\""+name+"\"",null);
     }
 
 
