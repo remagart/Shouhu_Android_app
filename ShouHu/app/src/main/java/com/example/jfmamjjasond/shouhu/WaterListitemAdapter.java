@@ -3,19 +3,27 @@ package com.example.jfmamjjasond.shouhu;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class WaterListitemAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<String> mList;
-
+    private Cursor cursor;
+    private WDBAdapter wdbAdapter;
+    final Calendar c =Calendar.getInstance();
+    int year = c.get(Calendar.YEAR);
+    int month = c.get(Calendar.MONTH)+1;
+    int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+    String date = year+"-"+month+"-"+dayOfMonth;
 
     private static LayoutInflater inflater = null;
 
@@ -53,8 +61,28 @@ public class WaterListitemAdapter extends BaseAdapter {
         CheckedTextView chkBshow = (CheckedTextView) vi.findViewById(R.id.check1);
 
         chkBshow.setText(mList.get(position).toString());
-        //chkBshow.setChecked(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndexOrThrow("checked"))));
+        wdbAdapter = new WDBAdapter(activity);
+        cursor = wdbAdapter.querydata(date, String.valueOf(position));
+       try {
 
+
+        if (cursor.getString(cursor.getColumnIndexOrThrow("checked")) != null) {
+            Log.i("query", String.valueOf(position));
+            chkBshow.setChecked(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndexOrThrow("checked"))));
+        }
+        }catch (Exception e ){
+           e.printStackTrace();
+       }
+       chkBshow.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               //((CheckedTextView)view).toggle();
+
+
+           }
+       });
         return vi;
     }
+
+
 }
