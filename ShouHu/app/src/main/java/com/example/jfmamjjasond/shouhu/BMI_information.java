@@ -15,14 +15,16 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BMI_information extends AppCompatActivity {
 
     Context thisactivity;
     Button btn_send;
-    EditText edit_name,edit_pwd,edit_mail,edit_height,edit_weight;
-    String name,pwd,mail;
+    TextView txt_title;
+    EditText edit_name,edit_height,edit_weight;
+    String name;
     double height,weight;
     RadioGroup radioGroup_gender;  //因為需對整個group做事件處理
     RadioButton radiobtn_male,radiobtn_female;
@@ -38,6 +40,7 @@ public class BMI_information extends AppCompatActivity {
 
         thisactivity = this;  //此時thisactivity就是這個activity的context
         init();//初始化
+        modify_toolbar();
         myadapter = new ShouHou_DBAdapter(thisactivity);
 
         // 單選按鈕的事件處理
@@ -50,8 +53,6 @@ public class BMI_information extends AppCompatActivity {
     void init(){
         btn_send = (Button)findViewById(R.id.bmiinfoxml_btn_send);
         edit_name = (EditText)findViewById(R.id.bmiinfoxml_edit_name);
-        edit_pwd = (EditText)findViewById(R.id.bmiinfoxml_edit_password);
-        edit_mail = (EditText)findViewById(R.id.bmiinfoxml_edit_mail);
         edit_height = (EditText)findViewById(R.id.bmiinfoxml_edit_height);
         edit_weight = (EditText)findViewById(R.id.bmiinfoxml_edit_weight);
         radioGroup_gender = (RadioGroup)findViewById(R.id.bmiinfoxml_radiogroup_gender);
@@ -67,8 +68,6 @@ public class BMI_information extends AppCompatActivity {
                 //按按鈕後，將值存成我們的變數
                 case R.id.bmiinfoxml_btn_send:
                     name = edit_name.getText().toString();
-                    pwd = edit_pwd.getText().toString();
-                    mail = edit_mail.getText().toString();
                     try {
                         height = Double.valueOf(edit_height.getText().toString());
                         weight = Double.valueOf(edit_weight.getText().toString());
@@ -129,6 +128,26 @@ public class BMI_information extends AppCompatActivity {
             }
         }
         return false;
+    }
+    void modify_toolbar(){
+        //取得自訂Layout_bartitle的TwxtVeiw物件，設定ToolBar的標題
+        LayoutInflater inflater = getLayoutInflater();
+        View myview = inflater.inflate(R.layout.bartitle,null);
+        txt_title = myview.findViewById(R.id.tvtitle);
+        txt_title.setText("登入");
+
+        //設定自訂ToolBar樣式
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar(); // 取得ActionBar物件
+        //assert actionBar != null, says that ActionBar is not null,
+        // and so calling any method on this variable doesn't produce
+        // the warning of NullPointerException.
+        assert actionBar != null;
+        actionBar.setDisplayShowTitleEnabled(false); //隱藏ToolBar左上標題
+        actionBar.setLogo(R.mipmap.icon_96); //設定左上Icon
+        actionBar.setDisplayUseLogoEnabled(true);//顯示LOGO(icon)
+        actionBar.setDisplayShowHomeEnabled(true);//顯示左上Icon
+        actionBar.setCustomView(myview); // 設置自訂layout(view)來顯示中間標題
+        actionBar.setDisplayShowCustomEnabled(true);
     }
 
 }

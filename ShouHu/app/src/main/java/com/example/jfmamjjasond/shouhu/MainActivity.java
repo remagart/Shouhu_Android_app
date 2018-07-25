@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     private TimerFragment timerActivity = new TimerFragment();
 
     private TextView tvtitle; //宣告ToorBar的標題Textview
+    MenuItem menuItem_name;
     String ShouHu_user_name;
 
 
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         //設定Toolbar顯示
         MenuInflater inflater =getMenuInflater();
         inflater.inflate(R.menu.toolbar,menu);
+        menuItem_name = menu.findItem(R.id.signin);
+        menuItem_name.setTitle("暱稱: " + ShouHu_user_name);
         return super.onCreateOptionsMenu(menu);
     }
     //Toolbar_Menu設定監聽事件
@@ -118,34 +121,10 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         Dialog dialogSign; //登入用dialog
         switch (item.getItemId()){
             case R.id.signin: //登入事件
-                //inflate目的是把自己設計xml的Layout轉成View，作用類似於findViewById，它用於一個沒有被載入或者想要動態
-                //對於一個沒有被載入或者想要動態載入的界面，都需要使用LayoutInflater.inflate()來載入
-                LayoutInflater inflaterIn = LayoutInflater.from(MainActivity.this);
-                final View viewIn = inflaterIn.inflate(R.layout.dialog_signin, null);
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle("登入")
-                        .setView(viewIn)
-                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                EditText etid_sign = (EditText) viewIn.findViewById(R.id.etid_sign);
-//                                EditText etpass_sign = (EditText) viewIn.findViewById(R.id.etpass_sign);
 
-                            }
-                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-                dialogSign= builder.create();
-                dialogSign.show();
                 break;
             case R.id.use: //使用說明
 
-                break;
-            case R.id.setnew://設定個人頁面
-                Toast.makeText(this,"setpersonal",Toast.LENGTH_LONG).show();
                 break;
             case R.id.setsleep://設定睡眠提醒
                 Toast.makeText(this,"setsleep",Toast.LENGTH_LONG).show();
