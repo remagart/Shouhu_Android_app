@@ -29,8 +29,9 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     private Homepage homepage = new Homepage();
     private BMI_result fragment_bmi = new BMI_result();
     private sleep fragment_sleep = new sleep();
-    private Fragment4 fragment4 = new Fragment4();
-    private TimerFragment timerActivity = new TimerFragment();
+    private WaterFragment waterFragment = new WaterFragment();
+    private TimerFragment timerFragment = new TimerFragment();
+
 
     private TextView tvtitle; //宣告ToorBar的標題Textview
     MenuItem menuItem_name;
@@ -83,9 +84,9 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                     case 2:
                         return fragment_sleep;
                     case 3:
-                        return fragment4;
+                        return waterFragment;
                     case 4:
-                        return timerActivity;
+                        return timerFragment;
                 }
                 return null;
             }
