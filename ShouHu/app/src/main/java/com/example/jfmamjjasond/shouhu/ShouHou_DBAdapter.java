@@ -16,6 +16,7 @@ public class ShouHou_DBAdapter {
     final static String KEY_WAKE_TIME = "Wake_Time";
     final static String KEY_HEIGHT = "height";
     final static String KEY_WEIGHT = "weight";
+    String setnull = null;
 
     Context thisContext;
     SQLiteDatabase mydb;
@@ -83,8 +84,8 @@ public class ShouHou_DBAdapter {
     long add_user_for_bmi(String name,double h,double w){
         myValues = new ContentValues();
         myValues.put(KEY_name,name);
-        myValues.put(KEY_SLEEP_TIME,"");
-        myValues.put(KEY_WAKE_TIME,"");
+        myValues.put(KEY_SLEEP_TIME,setnull);
+        myValues.put(KEY_WAKE_TIME,setnull);
         myValues.put(KEY_HEIGHT,h);
         myValues.put(KEY_WEIGHT,w);
 
