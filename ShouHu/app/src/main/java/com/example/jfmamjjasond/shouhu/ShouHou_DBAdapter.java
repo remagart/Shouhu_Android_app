@@ -83,6 +83,8 @@ public class ShouHou_DBAdapter {
     long add_user_for_bmi(String name,double h,double w){
         myValues = new ContentValues();
         myValues.put(KEY_name,name);
+        myValues.put(KEY_SLEEP_TIME,"");
+        myValues.put(KEY_WAKE_TIME,"");
         myValues.put(KEY_HEIGHT,h);
         myValues.put(KEY_WEIGHT,w);
 

@@ -1,6 +1,7 @@
 package com.example.jfmamjjasond.shouhu;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -30,13 +31,16 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     private TimerFragment timerActivity = new TimerFragment();
 
     private TextView tvtitle; //宣告ToorBar的標題Textview
-
+    String ShouHu_user_name;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //傳名字給fragment
+        send_to_fragment();
 
         //取得自訂Layout_bartitle的TwxtVeiw物件，設定ToolBar的標題
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -208,5 +212,14 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    //傳名字給fragment
+    void send_to_fragment(){
+        Intent i = getIntent();
+        ShouHu_user_name = i.getStringExtra("user_name");
+        Bundle mybundle = new Bundle();
+        mybundle.putString("user_name",ShouHu_user_name);
+        fragment_bmi.setArguments(mybundle);
     }
 }

@@ -3,6 +3,7 @@ package com.example.jfmamjjasond.shouhu;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,9 +35,18 @@ public class BMI_result extends android.support.v4.app.Fragment {
     final double standard_bmi_max = 23.9;
     final double standard_bmi_min = 18.5;
     int image_count = 0;
+    //為了dialog自製layout
     LayoutInflater inflater_renew_weight;
+    //做個view存實體化後的畫面
     View view_renew_weight;
     EditText edit_renew_weight;
+
+    //使用者的名字
+    String ShouHu_user_name;
+    //資料庫的橋接器
+    ShouHou_DBAdapter myadapter;
+    //取得欲搜尋姓名的cursor
+    Cursor mycursor;
 
     @Nullable
     @Override
@@ -44,14 +54,24 @@ public class BMI_result extends android.support.v4.app.Fragment {
         return inflater.inflate(R.layout.activity_bmi_result, container, false);
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         thisactivity = getContext();
 
+        //初始化UI和java
         init();
-        //displayBMI();
+        //初始化資料庫橋接器和建立資料庫連接
+        myadapter = new ShouHou_DBAdapter(thisactivity);
+        //需要知道是哪位使用者
+        get_from_activity();
+
+        //主要BMI程式
+        displayBMI();
+
+        //按鍵事件處理，為了顯示dialog
         imgbtn_stickman.setOnClickListener(myClickevent);
         txt_bmiresult.setOnClickListener(myClickevent);
         txt_suggestion.setOnClickListener(myClickevent);
@@ -73,21 +93,29 @@ public class BMI_result extends android.support.v4.app.Fragment {
 
     }
     void displayBMI(){
-        Intent i = getActivity().getIntent();
         String display_name="暱稱：";
-        if (i != null){
-            height = Double.valueOf(i.getStringExtra("user_height"));
-            weight = Double.valueOf(i.getStringExtra("user_weight"));
-            name = i.getStringExtra("user_name");
+        name = ShouHu_user_name;
+        //將要查詢的資料存成cursor
+        mycursor = myadapter.querybyname_from_user_table(name);
+        //判斷有無資料
+        if (mycursor.getCount() != 0){
+            //資料庫欄位: _id | user_name | Sleep_Time | Wake_Time | height | weight
+            height = mycursor.getDouble(4);
+            weight = mycursor.getDouble(5);
+            //顯示暱稱
             display_name = display_name + name;
             txt_name.setText(display_name);
+            //計算BMI
             BMI = calculateBMI(height,weight);
             txt_bmiresult.setText(String.valueOf(BMI));
+            //守護建議
             suggestion(BMI);
+            //目標體重
             targetweight(height);
         }
     }
 
+    //計算BMI，使用精度計算
     double calculateBMI(double h,double w){
         h = h / 100;
         BigDecimal temph = new BigDecimal(String.valueOf(h));
@@ -98,6 +126,7 @@ public class BMI_result extends android.support.v4.app.Fragment {
 
         return tempw.doubleValue();
     }
+    //守護建議
     void suggestion(double bmi_value){
         if(bmi_value < 18.5){
             txt_suggestion.setText("過瘦可能有營養不良、骨質疏鬆、猝死等健康問題!");
@@ -112,6 +141,7 @@ public class BMI_result extends android.support.v4.app.Fragment {
             txt_suggestion.setText("肥胖是糖尿病,心血管疾病,惡性腫瘤等慢性病的風險因素!");
         }
     }
+    //目標體重
     void targetweight(double h){
         String display_kg = "公斤";
         double temp = 0;
@@ -137,6 +167,7 @@ public class BMI_result extends android.support.v4.app.Fragment {
         }
     }
 
+    //按鍵事件處理
     View.OnClickListener myClickevent = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -162,6 +193,7 @@ public class BMI_result extends android.support.v4.app.Fragment {
                         image_count = 0;
                     }
                     break;
+                //以下3個觸發都是要打開dialog
                 case R.id.bmiresultxml_txt_result:
                 case R.id.bmiresultxml_txt_suggestion:
                 case R.id.bmiresultxml_txt_target:
@@ -192,6 +224,7 @@ public class BMI_result extends android.support.v4.app.Fragment {
         }
     };
 
+    //對話框的方法
     void pop_out_dialog(){
         inflater_renew_weight = getLayoutInflater();
         view_renew_weight = inflater_renew_weight.inflate(R.layout.bmi_result_renew_weight,null);
@@ -199,6 +232,7 @@ public class BMI_result extends android.support.v4.app.Fragment {
         imgbtn_check = (ImageButton)view_renew_weight.findViewById(R.id.renew_weightxml_imgbtn_check);
         edit_renew_weight = (EditText)view_renew_weight.findViewById(R.id.renew_weightxml_edit_weight);
 
+        //設定對話框中圖片長寬
         imgbtn_check.setAdjustViewBounds(true);
         imgbtn_check.setMaxWidth(500);
         imgbtn_check.setMaxHeight(500);
@@ -208,5 +242,12 @@ public class BMI_result extends android.support.v4.app.Fragment {
                 .show();
         imgbtn_check.setOnClickListener(myClickevent);
     }
+
+    //從MainActivity取得使用者名稱
+    void get_from_activity(){
+        Bundle mybundle = getArguments();
+        ShouHu_user_name = mybundle.getString("user_name");
+    }
+
 
 }

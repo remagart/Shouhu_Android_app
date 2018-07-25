@@ -119,6 +119,7 @@ public class BMI_information extends AppCompatActivity {
         i.putExtra("user_name",name);
         i.setClass(thisactivity,MainActivity.class);
         startActivity(i);
+        finish();
     }
 
     boolean check_must(double h,double w){
