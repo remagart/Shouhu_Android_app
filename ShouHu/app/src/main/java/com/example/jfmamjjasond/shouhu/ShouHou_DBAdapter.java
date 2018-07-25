@@ -98,6 +98,14 @@ public class ShouHou_DBAdapter {
         return mydb.update(KEY_USER_TABLE_NAME,myValues,KEY_name+" == "+"\""+name+"\"",null);
     }
 
+    long modify_user_for_bmi(String name,double h,double w){
+        myValues = new ContentValues();
+        myValues.put(KEY_HEIGHT,h);
+        myValues.put(KEY_WEIGHT,w);
+
+        return mydb.update(KEY_USER_TABLE_NAME,myValues,
+                KEY_name+" == "+"\""+name+"\"",null);
+    }
 
 
 }

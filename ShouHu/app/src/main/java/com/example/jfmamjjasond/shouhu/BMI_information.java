@@ -2,6 +2,7 @@ package com.example.jfmamjjasond.shouhu;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,7 +25,7 @@ public class BMI_information extends AppCompatActivity {
     Button btn_send;
     TextView txt_title;
     EditText edit_name,edit_height,edit_weight;
-    String name;
+    String ShouHu_name;
     double height,weight;
     RadioGroup radioGroup_gender;  //因為需對整個group做事件處理
     RadioButton radiobtn_male,radiobtn_female;
@@ -42,6 +43,9 @@ public class BMI_information extends AppCompatActivity {
         init();//初始化
         modify_toolbar();
         myadapter = new ShouHou_DBAdapter(thisactivity);
+
+        //確認使用者有無登出過
+        check_user_login();
 
         // 單選按鈕的事件處理
         radioGroup_gender.setOnCheckedChangeListener(mycheckevent);
@@ -67,7 +71,7 @@ public class BMI_information extends AppCompatActivity {
             switch(v.getId()){
                 //按按鈕後，將值存成我們的變數
                 case R.id.bmiinfoxml_btn_send:
-                    name = edit_name.getText().toString();
+                    ShouHu_name = edit_name.getText().toString();
                     try {
                         height = Double.valueOf(edit_height.getText().toString());
                         weight = Double.valueOf(edit_weight.getText().toString());
@@ -76,6 +80,8 @@ public class BMI_information extends AppCompatActivity {
                         weight = 0;
                     }
                     if(check_must(height,weight)){
+                        //使用者儲存登入
+                        user_login();
                         moveToNextPage();
                     }
                     else{
@@ -111,11 +117,7 @@ public class BMI_information extends AppCompatActivity {
 //        i.putExtra("user_weight",String.valueOf(weight));
 //        i.putExtra("user_name",name);
 
-        mycursor = myadapter.querybyname_from_user_table(name);
-        if(mycursor.getCount() == 0){
-            myadapter.add_user_for_bmi(name,height,weight);
-        }
-        i.putExtra("user_name",name);
+        i.putExtra("user_name",ShouHu_name);
         i.setClass(thisactivity,MainActivity.class);
         startActivity(i);
         finish();
@@ -148,6 +150,39 @@ public class BMI_information extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);//顯示左上Icon
         actionBar.setCustomView(myview); // 設置自訂layout(view)來顯示中間標題
         actionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    //確認使用者有無登出過
+    void check_user_login(){
+        //產生並讀取ShouHu_log_data.xml的暫存檔，並只供此app用
+        SharedPreferences settings = getSharedPreferences("ShouHu_log_data",MODE_PRIVATE);
+        //從暫存檔取得鍵值，若鍵值無資料則預設為空字串
+        String temp = settings.getString("user_data","");
+        mycursor = myadapter.querybyname_from_user_table(temp);
+        if(mycursor.getCount() != 0){
+            ShouHu_name = temp;
+            moveToNextPage();
+        }
+    }
+
+    //使用者儲存登入
+    void user_login(){
+        Toast.makeText(thisactivity, ShouHu_name, Toast.LENGTH_SHORT).show();
+        mycursor = myadapter.querybyname_from_user_table(ShouHu_name);
+        if(mycursor.getCount() == 0){
+            Toast.makeText(thisactivity, "aaa"+ShouHu_name, Toast.LENGTH_SHORT).show();
+            myadapter.add_user_for_bmi(ShouHu_name,height,weight);
+        }
+        else{
+            Toast.makeText(thisactivity, "hihi", Toast.LENGTH_SHORT).show();
+            myadapter.modify_user_for_bmi(ShouHu_name,height,weight);
+        }
+        SharedPreferences settings = getSharedPreferences("ShouHu_log_data",MODE_PRIVATE);
+        settings.edit()
+                .putString("user_data",ShouHu_name)
+                .apply();
+        Toast.makeText(thisactivity, "登入成功!!", Toast.LENGTH_SHORT).show();
+
     }
 
 }
