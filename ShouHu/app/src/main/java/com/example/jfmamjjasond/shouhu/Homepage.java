@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,41 +88,44 @@ public class Homepage extends android.support.v4.app.Fragment {
 
     }
     //取得裝置螢幕大小的分類
-    public void screensize(){
-        switch (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK){
-            case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                btnsleep.setMaxHeight(300);
-                btnsleep.setMaxWidth(300);
-                btnbmi.setMaxHeight(300);
-                btnbmi.setMaxWidth(300);
-                btnwater.setMaxHeight(300);
-                btnwater.setMaxWidth(300);
-                break;
-            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                btnsleep.setMaxHeight(500);
-                btnsleep.setMaxWidth(500);
-                btnbmi.setMaxHeight(500);
-                btnbmi.setMaxWidth(500);
-                btnwater.setMaxHeight(500);
-                btnwater.setMaxWidth(500);
-                break;
-            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                btnsleep.setMaxHeight(600);
-                btnsleep.setMaxWidth(600);
-                btnbmi.setMaxHeight(600);
-                btnbmi.setMaxWidth(600);
-                btnwater.setMaxHeight(600);
-                btnwater.setMaxWidth(600);
-                break;
-            case  Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                btnsleep.setMaxHeight(700);
-                btnsleep.setMaxWidth(700);
-                btnbmi.setMaxHeight(700);
-                btnbmi.setMaxWidth(700);
-                btnwater.setMaxHeight(700);
-                btnwater.setMaxWidth(700);
-                break;
+    public void screensize() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        //int height = metrics.heightPixels;
+
+        if (width < 760) {
+            btnsleep.setMaxHeight(300);
+            btnsleep.setMaxWidth(300);
+            btnbmi.setMaxHeight(300);
+            btnbmi.setMaxWidth(300);
+            btnwater.setMaxHeight(300);
+            btnwater.setMaxWidth(300);
         }
+        if (width > 760 && width<1024){
+            btnsleep.setMaxHeight(350);
+            btnsleep.setMaxWidth(350);
+            btnbmi.setMaxHeight(350);
+            btnbmi.setMaxWidth(350);
+            btnwater.setMaxHeight(350);
+            btnwater.setMaxWidth(350);
+        }
+        if (width>1024 && width<1440) {
+            btnsleep.setMaxHeight(450);
+            btnsleep.setMaxWidth(450);
+            btnbmi.setMaxHeight(450);
+            btnbmi.setMaxWidth(450);
+            btnwater.setMaxHeight(450);
+            btnwater.setMaxWidth(450);
+        }
+//        if (width>1440) {
+//            btnsleep.setMaxHeight(500);
+//            btnsleep.setMaxWidth(500);
+//            btnbmi.setMaxHeight(500);
+//            btnbmi.setMaxWidth(500);
+//            btnwater.setMaxHeight(500);
+//            btnwater.setMaxWidth(500);
+//        }
     }
 
 }
