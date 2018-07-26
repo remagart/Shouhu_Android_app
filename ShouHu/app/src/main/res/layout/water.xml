@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="108dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listView1" />
-
     <TextView
         android:id="@+id/watersug"
         android:layout_width="wrap_content"
@@ -27,23 +17,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="157dp"
-        android:layout_height="238dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/listView1"
-        app:srcCompat="@mipmap/ic_launcher" />
-
     <ListView
         android:id="@+id/listView1"
-        android:layout_width="200dp"
+        android:layout_width="187dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
         android:layout_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/watersug"></ListView>
+
+    <Button
+        android:id="@+id/btnww"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="28dp"
+        android:text="紀錄"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/waterView"
+        android:layout_width="200dp"
+        android:layout_height="223dp"
+        app:layout_constraintStart_toEndOf="@+id/listView1"
+        app:layout_constraintTop_toTopOf="@+id/listView1"
+        app:srcCompat="@mipmap/w0" />
 
 </android.support.constraint.ConstraintLayout>
