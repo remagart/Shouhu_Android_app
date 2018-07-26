@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,8 +38,10 @@ public class Homepage extends android.support.v4.app.Fragment {
 
     //設定資料庫相關變數
     ShouHou_DBAdapter myadapter;
-    Cursor mycursor;
+    WDBAdapter wdbAdapter;
+    Cursor mycursor,wcursor;
     Context thisactivity;
+
 
     @Nullable
     @Override
@@ -58,6 +61,7 @@ public class Homepage extends android.support.v4.app.Fragment {
         get_from_activity();
         //設定資料庫
         myadapter = new ShouHou_DBAdapter(thisactivity);
+        wdbAdapter = new WDBAdapter(thisactivity);
 
         res = getResources(); //取得資源
         screensize(); //取得裝置螢幕大小的分類
@@ -189,7 +193,27 @@ public class Homepage extends android.support.v4.app.Fragment {
                 temp = temp + String.valueOf(temp_bmi);
             }
             else if(key.equals(KEY_WATER)){
-
+                    String date = getdate();
+                    wcursor = wdbAdapter.querydatachecked(user_name,date,"true");
+                    if(wcursor.getCount()!=0){
+                        switch (Integer.valueOf(wcursor.getString(wcursor.getColumnIndexOrThrow("position")))){
+                            case 0:
+                            case 1:
+                               temp="今日飲水量不足喔!!";
+                                break;
+                            case 2:
+                            case 3:
+                                temp="今日飲水量還差一些達標準!";
+                                break;
+                            case 4:
+                            case 5:
+                                temp="今日飲水量已達標準~";
+                                break;
+                            default:
+                                temp="今日還沒喝水喔!!";
+                                break;
+                        }
+                    }else {temp="今天還未做飲水記錄喔";}
             }
         }
         else {
@@ -204,5 +228,12 @@ public class Homepage extends android.support.v4.app.Fragment {
         ShouHu_user_name = mybundle.getString("user_name");
         user_name = ShouHu_user_name;
     }
-
+    public String getdate(){
+        final Calendar c =Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH)+1;
+        int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+        String date = year+"-"+month+"-"+dayOfMonth;
+        return date;
+    }
 }
