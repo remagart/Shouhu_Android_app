@@ -99,7 +99,7 @@ public class Homepage extends android.support.v4.app.Fragment {
         btnwater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText("飲水資訊");
+                textView.setText(show_Homepaeg_bar("你今天飲水資訊為 ",KEY_WATER));
                 animwater =(AnimationDrawable)res.getDrawable(R.drawable.water);
                 btnwater.setImageDrawable(animwater);
                 animwater.start();

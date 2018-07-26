@@ -215,5 +215,6 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         fragment_bmi.setArguments(mybundle);
         fragment_sleep.setArguments(mybundle);
         homepage.setArguments(mybundle);
+        waterFragment.setArguments(mybundle);
     }
 }
