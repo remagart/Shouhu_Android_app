@@ -158,6 +158,7 @@ public class BMI_information extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("ShouHu_log_data",MODE_PRIVATE);
         //從暫存檔取得鍵值，若鍵值無資料則預設為空字串
         String temp = settings.getString("user_data","");
+        //查詢資料庫有無該筆資料，有就直接moveToNextPage
         mycursor = myadapter.querybyname_from_user_table(temp);
         if(mycursor.getCount() != 0){
             ShouHu_name = temp;
@@ -167,16 +168,15 @@ public class BMI_information extends AppCompatActivity {
 
     //使用者儲存登入
     void user_login(){
-        Toast.makeText(thisactivity, ShouHu_name, Toast.LENGTH_SHORT).show();
+        //判斷該筆資料是註冊還是登入，註冊就新增一筆資料，登入就修改資料
         mycursor = myadapter.querybyname_from_user_table(ShouHu_name);
         if(mycursor.getCount() == 0){
-            Toast.makeText(thisactivity, "aaa"+ShouHu_name, Toast.LENGTH_SHORT).show();
             myadapter.add_user_for_bmi(ShouHu_name,height,weight);
         }
         else{
-            Toast.makeText(thisactivity, "hihi", Toast.LENGTH_SHORT).show();
             myadapter.modify_user_for_bmi(ShouHu_name,height,weight);
         }
+        //讀取ShouHu_log_data.xml的暫存檔，並寫入資料
         SharedPreferences settings = getSharedPreferences("ShouHu_log_data",MODE_PRIVATE);
         settings.edit()
                 .putString("user_data",ShouHu_name)

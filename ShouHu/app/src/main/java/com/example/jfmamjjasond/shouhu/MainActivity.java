@@ -1,7 +1,9 @@
 package com.example.jfmamjjasond.shouhu;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -137,12 +139,20 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                 break;
             case R.id.signout: //登出事件
                 builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("登出")
-                        .setMessage("確定要登出嗎?")
+                builder.setTitle("登出守護")
+                        .setMessage("親愛的" + ShouHu_user_name +" ,您確定要登出守護嗎?")
                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                //將存取資料設成空值
+                                SharedPreferences settings = getSharedPreferences("ShouHu_log_data",MODE_PRIVATE);
+                                settings.edit()
+                                        .putString("user_data","")
+                                        .apply();
+                                Intent intent_to_BMIinfo = new Intent();
+                                intent_to_BMIinfo.setClass(MainActivity.this,BMI_information.class);
+                                startActivity(intent_to_BMIinfo);
+                                Toast.makeText(MainActivity.this, "已登出~~期待下次相遇~", Toast.LENGTH_SHORT).show();
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
