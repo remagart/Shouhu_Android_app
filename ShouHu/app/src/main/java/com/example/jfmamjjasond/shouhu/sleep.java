@@ -33,6 +33,8 @@ public class sleep extends android.support.v4.app.Fragment {
     String user_name;
     String ShouHu_user_name;
 
+    notice mynotice;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,6 +71,9 @@ public class sleep extends android.support.v4.app.Fragment {
         //按鈕事件處理
         btn_sleep.setOnClickListener(myclickevent);
         btn_wake.setOnClickListener(myclickevent);
+
+        mynotice = new notice(thisactivity);
+
 
     }
 
