@@ -73,7 +73,7 @@ public class WDBAdapter {
         return wcursor;
     }
     public  Cursor  querydatapostion(String date) { //使用日期查詢
-        String sql = "SELECT position FROM " + TABLE_NAME + " WHERE date = ? ";
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE date = ? ";
         Cursor wcursor = mdb.rawQuery(sql, new String[]{date});
         //Cursor wcursor = mdb.query(TABLE_NAME,new String[]{KEY_CHECKED},"date=? , position=?",new String[]{date,position},null,null,null,null);
         if (wcursor != null) {
@@ -81,12 +81,12 @@ public class WDBAdapter {
         }
         return wcursor;
     }
-    public  Cursor  querydatachecked(String position) { //使用postion查詢
-        String sql = "SELECT checked FROM " + TABLE_NAME + " WHERE position = ? ";
-        Cursor wcursor = mdb.rawQuery(sql, new String[]{position});
+    public  Cursor  querydatachecked(String name ,String date ,String checked) { //查詢
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE name = ?  AND date=? AND checked=? ";
+        Cursor wcursor = mdb.rawQuery(sql, new String[]{name,date,checked});
         //Cursor wcursor = mdb.query(TABLE_NAME,new String[]{KEY_CHECKED},"date=? , position=?",new String[]{date,position},null,null,null,null);
         if (wcursor != null) {
-            wcursor.moveToFirst();
+            wcursor.moveToLast();
         }
         return wcursor;
     }

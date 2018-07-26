@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.example.jfmamjjasond.shouhu.R.layout.water;
 
 public class WaterListitemAdapter extends BaseAdapter {
 
@@ -28,16 +31,18 @@ public class WaterListitemAdapter extends BaseAdapter {
     int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
     String date = year+"-"+month+"-"+dayOfMonth;
 
-    private String name ="Lulu";
+    private String name ;
     private List<Boolean> listShow ;
     private static LayoutInflater inflater = null;
-
-    public WaterListitemAdapter(Activity a, List<String> list,List<Boolean> listShow)
+       
+    public WaterListitemAdapter(Activity a, List<String> list,List<Boolean> listShow,String name)
     {
         activity = a;
         mList = list;
         this.listShow=listShow;
+        this.name=name;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     public int getCount()
@@ -61,6 +66,7 @@ public class WaterListitemAdapter extends BaseAdapter {
         if(convertView==null)
         {
             vi = inflater.inflate(R.layout.water_list_item, null);
+
         }
 
         final CheckedTextView chkBshow = (CheckedTextView) vi.findViewById(R.id.check1);
@@ -79,6 +85,7 @@ public class WaterListitemAdapter extends BaseAdapter {
        chkBshow.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+
                    //讀取資料庫每個position的cursor值
                    Cursor wcursor0 = wdbAdapter.querydata(date, String.valueOf(0));
                    Cursor wcursor1 = wdbAdapter.querydata(date, String.valueOf(1));
@@ -107,7 +114,6 @@ public class WaterListitemAdapter extends BaseAdapter {
                switch (position){
                    case 0:
                        if(!listShow.get(1) && !listShow.get(2) && !listShow.get(3)&& !listShow.get(4) && !listShow.get(5)) {
-
                            chkBshow.setChecked(!chkBshow.isChecked());
                            listShow.set(position, chkBshow.isChecked());//給點選的項目設置打勾
                            if (wcursor0.getCount() == 0) {
@@ -183,6 +189,7 @@ public class WaterListitemAdapter extends BaseAdapter {
                             listShow.set(position, chkBshow.isChecked());//給點選的項目設置打勾
                            if (wcursor5.getCount() == 0) {
                                wdbAdapter.createdata(name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));//新增資料
+
                            } else {
                                wdbAdapter.updatedata(Integer.parseInt(wcursor5.getString(0)), name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));
                            }
@@ -204,6 +211,5 @@ public class WaterListitemAdapter extends BaseAdapter {
        });
         return vi;
     }
-
 
 }
