@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
 /* -------------------------------------------------------------------------------------------------------------------------------*/
         //在介面有一個 viewPager 用來控制Fragment
         viewPager = findViewById(R.id.viewPager);
+        //除了本頁外還可以容許到其他四頁還活著
+        viewPager.setOffscreenPageLimit(4);
         // 添加viewPager事件監聽
         viewPager.addOnPageChangeListener(this);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
