@@ -43,8 +43,13 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //在介面有一個 viewPager 用來控制Fragment
+        viewPager = findViewById(R.id.viewPager);
         //傳名字給fragment
         send_to_fragment();
+
+        page_transfer();
+        ShouHu_notice();
 
         //取得自訂Layout_bartitle的TwxtVeiw物件，設定ToolBar的標題
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -67,35 +72,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         BottomNavigationViewHelper.disableShiftMode( navigation ); //使用自訂BottomNavigationViewHelper類別中的方法去除navigation動畫
 
 /* -------------------------------------------------------------------------------------------------------------------------------*/
-        //在介面有一個 viewPager 用來控制Fragment
-        viewPager = findViewById(R.id.viewPager);
-        //除了本頁外還可以容許到其他四頁還活著
-        viewPager.setOffscreenPageLimit(4);
-        // 添加viewPager事件監聽
-        viewPager.addOnPageChangeListener(this);
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                switch (position) {
-                    case 0:
-                        return homepage;
-                    case 1:
-                        return fragment_bmi;
-                    case 2:
-                        return fragment_sleep;
-                    case 3:
-                        return waterFragment;
-                    case 4:
-                        return timerFragment;
-                }
-                return null;
-            }
 
-            @Override
-            public int getCount() {
-                return 5;
-            }
-        });
     }
     //首頁下方按鈕區監聽處理事件
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -217,4 +194,40 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         homepage.setArguments(mybundle);
         waterFragment.setArguments(mybundle);
     }
+
+    void ShouHu_notice(){
+
+    }
+
+    void page_transfer(){
+        //除了本頁外還可以容許到其他四頁還活著
+        viewPager.setOffscreenPageLimit(4);
+        // 添加viewPager事件監聽
+        viewPager.addOnPageChangeListener(this);
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0:
+                        return homepage;
+                    case 1:
+                        return fragment_bmi;
+                    case 2:
+                        return fragment_sleep;
+                    case 3:
+                        return waterFragment;
+                    case 4:
+                        return timerFragment;
+                }
+                return null;
+            }
+
+            @Override
+            public int getCount() {
+                return 5;
+            }
+        });
+        //viewPager.setCurrentItem(3);
+    }
+
 }
