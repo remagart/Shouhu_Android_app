@@ -211,5 +211,6 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         mybundle.putString("user_name",ShouHu_user_name);
         fragment_bmi.setArguments(mybundle);
         fragment_sleep.setArguments(mybundle);
+        homepage.setArguments(mybundle);
     }
 }

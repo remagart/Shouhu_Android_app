@@ -1,7 +1,9 @@
 package com.example.jfmamjjasond.shouhu;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +27,18 @@ public class Homepage extends android.support.v4.app.Fragment {
     private ImageButton btnsleep,btnbmi,btnwater;
     private AnimationDrawable animsleep ,animbmi ,animwater ;
     private Resources res;
+    //使用者姓名
+    String ShouHu_user_name;
+    String user_name;
+    //為了上方資訊列設定鍵值
+    final String KEY_SLEEP = "sleep";
+    final String KEY_BMI = "bmi";
+    final String KEY_WATER = "water";
+
+    //設定資料庫相關變數
+    ShouHou_DBAdapter myadapter;
+    Cursor mycursor;
+    Context thisactivity;
 
     @Nullable
     @Override
@@ -35,7 +50,15 @@ public class Homepage extends android.support.v4.app.Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //取得本頁context
+        thisactivity = getContext();
+        //初始化UI和java
         findView();
+        //從MainActivity取得使用者名稱
+        get_from_activity();
+        //設定資料庫
+        myadapter = new ShouHou_DBAdapter(thisactivity);
+
         res = getResources(); //取得資源
         screensize(); //取得裝置螢幕大小的分類
 
@@ -46,7 +69,8 @@ public class Homepage extends android.support.v4.app.Fragment {
         btnsleep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText("睡眠資訊");//顯示資料
+                //顯示上方資訊列
+                textView.setText(show_Homepaeg_bar("你昨晚睡眠資訊為 ",KEY_SLEEP));//顯示資料
                 animsleep =(AnimationDrawable)res.getDrawable(R.drawable.sleep);
                 btnsleep.setImageDrawable(animsleep);
                 animsleep.start();//按下按鈕，動畫執行
@@ -58,7 +82,8 @@ public class Homepage extends android.support.v4.app.Fragment {
         btnbmi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText("BMI資訊");
+                //顯示上方資訊列
+                textView.setText(show_Homepaeg_bar("你目前BMI資訊為 ",KEY_BMI));
                 animbmi =(AnimationDrawable)res.getDrawable(R.drawable.run);
                 btnbmi.setImageDrawable(animbmi);
                 animbmi.start();
@@ -126,6 +151,58 @@ public class Homepage extends android.support.v4.app.Fragment {
 //            btnwater.setMaxHeight(500);
 //            btnwater.setMaxWidth(500);
 //        }
+    }
+
+    //顯示上方資訊列
+    String show_Homepaeg_bar(String title,String key){
+        String temp = title;
+        //先取得姓名在資料庫的資訊
+        mycursor = myadapter.querybyname_from_user_table(user_name);
+        if(mycursor.getCount() != 0){
+            if(key.equals(KEY_SLEEP)){
+                //為了要使用sleep中的方法
+                sleep temp_sleep = new sleep();
+                String temp_sleeptime = mycursor.getString(2);
+                String temp_waketime = mycursor.getString(3);
+                int[] temp_during_time;
+                //有睡眠時間和醒來時間才要顯示
+                if(temp_sleeptime != null && temp_waketime != null){
+                    //使用sleep中的方法
+                    temp_during_time = temp_sleep.calculate_during_time(mycursor);
+
+                    temp = temp + temp_sleeptime + " ~ " + temp_waketime
+                            + "\n共睡了 " + String.valueOf(temp_during_time[0] + " 小時 "
+                            + String.valueOf(temp_during_time[1]) + "分鐘");
+                }
+                else{
+                    temp = "記得做睡眠記錄喔~";
+                }
+                return temp;
+            }
+            else if(key.equals(KEY_BMI)){
+                //為了要使用BMI_result中的方法
+                BMI_result temp_bmi_result = new BMI_result();
+                double temp_h = mycursor.getDouble(4);
+                double temp_w = mycursor.getDouble(5);
+                //使用BMI_result中的方法
+                double temp_bmi = temp_bmi_result.calculateBMI(temp_h,temp_w);
+                temp = temp + String.valueOf(temp_bmi);
+            }
+            else if(key.equals(KEY_WATER)){
+
+            }
+        }
+        else {
+            Toast.makeText(thisactivity, "沒有該使用者喔~", Toast.LENGTH_SHORT).show();
+        }
+        return temp;
+    }
+
+    //從MainActivity取得使用者名稱
+    void get_from_activity(){
+        Bundle mybundle = getArguments();
+        ShouHu_user_name = mybundle.getString("user_name");
+        user_name = ShouHu_user_name;
     }
 
 }

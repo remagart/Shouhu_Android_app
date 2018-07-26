@@ -115,7 +115,12 @@ public class sleep extends android.support.v4.app.Fragment {
                     mycursor = myadapter.querybyname_from_user_table(user_name);
                     txt_sleep.setText(mycursor.getString(2));
                     txt_wake.setText(mycursor.getString(3));
-                    reminder(mycursor);
+                    if(mycursor.getString(2) != null && mycursor.getString(3) != null){
+                        //若是睡眠時間或醒來時間是""，跑到reminder會exception
+                        if(!mycursor.getString(2).equals("") && !mycursor.getString(3).equals("")) {
+                            reminder(mycursor);
+                        }
+                    }
                     Toast.makeText(thisactivity, "早安阿!祝你有美好的一天^ ^ ", Toast.LENGTH_SHORT).show();
                     break;
                 default:
@@ -147,7 +152,27 @@ public class sleep extends android.support.v4.app.Fragment {
     }
     //睡眠守護提醒
     void reminder(Cursor c){
-        int during_hour;
+        // 陣列0 為 小時,陣列1 為 分鐘
+        int[] during_time = new int[2];
+
+        during_time = calculate_during_time(c);
+
+        //針對不同區隔做提醒
+        if(during_time[0] > 8){
+            txt_reminder.setText("你好像昨晚有點睡過量囉!!");
+        }
+        else if(during_time[0] < 6){
+            txt_reminder.setText("歐歐~~你昨晚睡不太夠欸!!");
+        }
+        else{
+            txt_reminder.setText("太棒了!!你昨晚睡得剛剛好喔!!");
+        }
+
+    }
+
+    int[] calculate_during_time(Cursor c){
+        // 陣列0 為 小時,陣列1 為 分鐘
+        int[] during_time = new int[2];
         String[] start,end;
         int[] start_num = new int[2];
         int[] end_num = new int[2];
@@ -162,30 +187,32 @@ public class sleep extends android.support.v4.app.Fragment {
         end_num[0] = Integer.valueOf(end[0]);
         end_num[1] = Integer.valueOf(end[1]);
 
-        //針對過凌晨去做調整取得間隔時間
+        //針對過凌晨去做調整取得小時間隔時間
         if(end_num[0] < start_num[0]){
-            during_hour = 24 - start_num[0];
-            during_hour = during_hour + end_num[0];
+            during_time[0] = 24 - start_num[0];
+            during_time[0] = during_time[0] + end_num[0];
         }
         else if(end_num[0] > start_num[0]){
-            during_hour = end_num[0] - start_num[0];
+            during_time[0] = end_num[0] - start_num[0];
         }
         else{
-            during_hour = 0;
+            during_time[0] = 0;
         }
-
-        //針對不同區隔做提醒
-        if(during_hour > 8){
-            txt_reminder.setText("你好像昨晚有點睡過量囉!!");
+        //針對過60分去做調整取得分鐘間隔時間
+        if(end_num[1] < start_num[1]){
+            during_time[1] = 60 - start_num[1];
+            during_time[1] = during_time[1] + end_num[1];
         }
-        else if(during_hour < 6){
-            txt_reminder.setText("歐歐~~你昨晚睡不太夠欸!!");
+        else if(end_num[1] > start_num[1]){
+            during_time[1] = end_num[1] - start_num[1];
         }
         else{
-            txt_reminder.setText("太棒了!!你昨晚睡得剛剛好喔!!");
+            during_time[1] = 0;
         }
 
+        return during_time;
     }
+
     //從MainActivity取得使用者名稱
     void get_from_activity(){
         Bundle mybundle = getArguments();
