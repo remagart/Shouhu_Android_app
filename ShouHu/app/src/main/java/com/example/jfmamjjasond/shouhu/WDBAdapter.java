@@ -7,18 +7,21 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.ScaleGestureDetector;
 
+import java.util.List;
+
 public class WDBAdapter {
     public static final String KEY_ID ="_id";
     public static final String KEY_NANE  = "name";
     public static final String KEY_DATE ="date";
     public static final String KEY_POSITION ="position";
     public static final String KEY_CHECKED ="checked";
-    public static final String TABLE_NAME ="water_list2";
+    public static final String TABLE_NAME ="water_list";
     private SQLiteDatabase mdb;
     private WDBHelper wdbHelper;
     private Context mCte;
     private Intent intent ;
     private ContentValues values ;
+
 
     public WDBAdapter(Context mCte) {
         this.mCte = mCte;
