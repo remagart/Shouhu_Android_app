@@ -33,7 +33,6 @@ public class sleep extends android.support.v4.app.Fragment {
     String user_name;
     String ShouHu_user_name;
 
-    notice mynotice;
 
     @Nullable
     @Override
@@ -72,7 +71,6 @@ public class sleep extends android.support.v4.app.Fragment {
         btn_sleep.setOnClickListener(myclickevent);
         btn_wake.setOnClickListener(myclickevent);
 
-        mynotice = new notice(thisactivity);
 
 
     }

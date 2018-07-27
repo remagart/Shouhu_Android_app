@@ -1,6 +1,7 @@
 package com.example.jfmamjjasond.shouhu;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,11 +39,16 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     MenuItem menuItem_name;
     String ShouHu_user_name;
 
+    notice mynotice;
+    Context thisactivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        thisactivity = this;
 
         //在介面有一個 viewPager 用來控制Fragment
         viewPager = findViewById(R.id.viewPager);
@@ -49,7 +56,6 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         send_to_fragment();
 
         page_transfer();
-        ShouHu_notice();
 
         //取得自訂Layout_bartitle的TwxtVeiw物件，設定ToolBar的標題
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -71,6 +77,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode( navigation ); //使用自訂BottomNavigationViewHelper類別中的方法去除navigation動畫
 
+        ShouHu_notice();
 /* -------------------------------------------------------------------------------------------------------------------------------*/
 
     }
@@ -196,6 +203,18 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     }
 
     void ShouHu_notice(){
+        mynotice = new notice(thisactivity,ShouHu_user_name);
+        send_to_fragment();
+        Intent i = getIntent();
+        Bundle mybundle = i.getExtras();
+
+
+        if(mybundle.getString("type") != null){
+            Log.e("hihi", String.valueOf(mybundle.getString("type")));
+            if(i.getStringExtra("type").equals("sleep")){
+                viewPager.setCurrentItem(2);
+            }
+        }
 
     }
 
