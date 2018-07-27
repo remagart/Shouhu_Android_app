@@ -10,8 +10,8 @@
         android:id="@+id/watersug"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
         android:text="守護-建議每日飲水量:2000CC"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,29 +21,17 @@
         android:id="@+id/listView1"
         android:layout_width="187dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="40dp"
         android:layout_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/watersug"></ListView>
-
-    <Button
-        android:id="@+id/btnww"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginBottom="64dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="8dp"
-        android:text="紀錄"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/waterView"
-        app:layout_constraintVertical_bias="0.472" />
 
     <ImageView
         android:id="@+id/waterView"
         android:layout_width="200dp"
         android:layout_height="223dp"
-        app:layout_constraintStart_toEndOf="@+id/listView1"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/listView1"
         app:srcCompat="@mipmap/w0" />
 

@@ -2,6 +2,8 @@ package com.example.jfmamjjasond.shouhu;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +34,39 @@ public class WaterFragment extends android.support.v4.app.Fragment {
     private WDBAdapter wdbAdapter;
     private ImageView waterView;
     private String date;
-    private Button btnww;
 
+
+    private int mposition;
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.arg1) {
+                case 0:
+                    waterView.setImageResource(R.mipmap.w1);
+                    break;
+                case 1:
+                    waterView.setImageResource(R.mipmap.w2);
+                    break;
+                case 2:
+                    waterView.setImageResource(R.mipmap.w3);
+                    break;
+                case 3:
+                    waterView.setImageResource(R.mipmap.w4);
+                    break;
+                case 4:
+                    waterView.setImageResource(R.mipmap.w5);
+                    break;
+                case 5:
+                    waterView.setImageResource(R.mipmap.w6);
+                    break;
+                default:
+                    waterView.setImageResource(R.mipmap.w0);
+                    break;
+            }
+
+            return false;
+        }
+    });
 
     @Nullable
     @Override
@@ -54,7 +87,7 @@ public class WaterFragment extends android.support.v4.app.Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         waterView = getView().findViewById(R.id.waterView);
-        btnww =getView().findViewById(R.id.btnww);
+
         //連接資料庫
         wdbAdapter = new WDBAdapter(thisactivity);
         get_from_activity();//取得用name
@@ -79,7 +112,7 @@ public class WaterFragment extends android.support.v4.app.Fragment {
         list.add("2001~2500cc");
         list.add(">2500cc");
 
-        listAdapter = new  WaterListitemAdapter(getActivity(),list,listShow,name);
+        listAdapter = new  WaterListitemAdapter(getActivity(),list,listShow,name,handler);
         listview.setAdapter(listAdapter);
         //點圖片也會轉變至現在水量
         waterView.setOnClickListener(new View.OnClickListener() {
@@ -89,14 +122,7 @@ public class WaterFragment extends android.support.v4.app.Fragment {
                 setImageview(cursor);
             }
         });
-        //按下按鈕轉變至目前水量
-        btnww.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Cursor cursor = wdbAdapter.querydatachecked(name,date,"true");
-                setImageview(cursor);
-            }
-        });
+
     }
     void get_from_activity(){
         Bundle mybundle = getArguments();
@@ -129,8 +155,11 @@ public class WaterFragment extends android.support.v4.app.Fragment {
                      break;
             }
 
-
-
         }
     }
+
+
+
+
+
 }

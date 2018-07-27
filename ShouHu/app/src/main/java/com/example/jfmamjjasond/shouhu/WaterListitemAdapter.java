@@ -3,6 +3,10 @@ package com.example.jfmamjjasond.shouhu;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,13 +38,16 @@ public class WaterListitemAdapter extends BaseAdapter {
     private String name ;
     private List<Boolean> listShow ;
     private static LayoutInflater inflater = null;
+    private Handler handler;
+    public static final String POSITION = "POSITION";
        
-    public WaterListitemAdapter(Activity a, List<String> list,List<Boolean> listShow,String name)
+    public WaterListitemAdapter(Activity a, List<String> list,List<Boolean> listShow,String name,Handler handler)
     {
         activity = a;
         mList = list;
         this.listShow=listShow;
         this.name=name;
+        this.handler=handler;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -62,9 +69,10 @@ public class WaterListitemAdapter extends BaseAdapter {
 
     public View getView(final int position, View convertView, ViewGroup parent)
     {
-        View vi = convertView;
+             View vi = convertView;
         if(convertView==null)
         {
+
             vi = inflater.inflate(R.layout.water_list_item, null);
 
         }
@@ -121,9 +129,15 @@ public class WaterListitemAdapter extends BaseAdapter {
                            } else {
                                wdbAdapter.updatedata(Integer.parseInt(wcursor0.getString(0)), name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));
                            }
-                           if (wcursor0.getCount() != 0) {
-                               Log.i("query", wcursor0.getString(0)); //id=1 (getString(0))
-                           }
+                             if(listShow.get(0)){
+                                 Message message = new Message();
+                                 message.arg1 = position;
+                                 handler.sendMessage(message);
+                           }else{
+                                 Message message = new Message();
+                                 message.arg1 = 100;
+                                 handler.sendMessage(message);
+                             }
                        }
                            break;
                    case 1:
@@ -134,10 +148,16 @@ public class WaterListitemAdapter extends BaseAdapter {
                                wdbAdapter.createdata(name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));//新增資料
                            } else {
                                wdbAdapter.updatedata(Integer.parseInt(wcursor1.getString(0)), name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));
+                               }
                            }
-                           if (wcursor1.getCount() != 0) {
-                               Log.i("query", wcursor1.getString(0)); //id=1 (getString(0))
-                           }
+                       if(listShow.get(1)){
+                           Message message = new Message();
+                           message.arg1 = position;
+                           handler.sendMessage(message);
+                       }else {
+                               Message message = new Message();
+                               message.arg1 = position-1;
+                               handler.sendMessage(message);
                        }
                            break;
                    case 2:
@@ -149,8 +169,14 @@ public class WaterListitemAdapter extends BaseAdapter {
                            } else {
                                wdbAdapter.updatedata(Integer.parseInt(wcursor2.getString(0)), name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));
                            }
-                           if (wcursor2.getCount() != 0) {
-                               Log.i("query", wcursor2.getString(0)); //id=1 (getString(0))
+                           if(listShow.get(2)){
+                               Message message = new Message();
+                               message.arg1 = position;
+                               handler.sendMessage(message);
+                           }else {
+                               Message message = new Message();
+                               message.arg1 = position-1;
+                               handler.sendMessage(message);
                            }
                        }
                        break;
@@ -164,8 +190,14 @@ public class WaterListitemAdapter extends BaseAdapter {
                            } else {
                                wdbAdapter.updatedata(Integer.parseInt(wcursor3.getString(0)), name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));
                            }
-                           if (wcursor3.getCount() != 0) {
-                               Log.i("query", wcursor3.getString(0)); //id=1 (getString(0))
+                           if(listShow.get(3)){
+                               Message message = new Message();
+                               message.arg1 = position;
+                               handler.sendMessage(message);
+                           }else {
+                               Message message = new Message();
+                               message.arg1 = position-1;
+                               handler.sendMessage(message);
                            }
                        }
                        break;
@@ -178,8 +210,14 @@ public class WaterListitemAdapter extends BaseAdapter {
                            } else {
                                wdbAdapter.updatedata(Integer.parseInt(wcursor4.getString(0)), name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));
                            }
-                           if (wcursor4.getCount() != 0) {
-                               Log.i("query", wcursor4.getString(0)); //id=1 (getString(0))
+                           if(listShow.get(4)){
+                               Message message = new Message();
+                               message.arg1 = position;
+                               handler.sendMessage(message);
+                           }else {
+                               Message message = new Message();
+                               message.arg1 = position-1;
+                               handler.sendMessage(message);
                            }
                        }
                        break;
@@ -193,8 +231,14 @@ public class WaterListitemAdapter extends BaseAdapter {
                            } else {
                                wdbAdapter.updatedata(Integer.parseInt(wcursor5.getString(0)), name, date, String.valueOf(position), String.valueOf(chkBshow.isChecked()));
                            }
-                           if (wcursor5.getCount() != 0) {
-                               Log.i("query", wcursor5.getString(0)); //id=1 (getString(0))
+                           if(listShow.get(5)){
+                               Message message = new Message();
+                               message.arg1 = position;
+                               handler.sendMessage(message);
+                           }else {
+                               Message message = new Message();
+                               message.arg1 = position-1;
+                               handler.sendMessage(message);
                            }
                        }
                        break;
@@ -209,6 +253,7 @@ public class WaterListitemAdapter extends BaseAdapter {
 
            }
        });
+       // chkBshow.setOnClickListener(new OnItemChildClickListener(position));
         return vi;
     }
 
