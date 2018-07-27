@@ -63,9 +63,9 @@ public class WDBAdapter {
            values.put(KEY_CHECKED,checked);
            return mdb.update(TABLE_NAME,values, "_id="+id,null);
    }
-    public  Cursor  querydata(String date,String position){ //使用日期和position查詢
-        String sql ="SELECT * FROM "+TABLE_NAME+" WHERE date = ?  AND position = ?";
-        Cursor wcursor =mdb.rawQuery(sql,new String[]{date,position});
+    public  Cursor  querydata(String name,String date,String position){ //使用姓名、日期和position查詢
+        String sql ="SELECT * FROM "+TABLE_NAME+" WHERE name=? AND date = ?  AND position = ?";
+        Cursor wcursor =mdb.rawQuery(sql,new String[]{name,date,position});
         //Cursor wcursor = mdb.query(TABLE_NAME,new String[]{KEY_CHECKED},"date=? , position=?",new String[]{date,position},null,null,null,null);
         if(wcursor!=null) {
             wcursor.moveToFirst();

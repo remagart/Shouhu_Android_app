@@ -81,7 +81,7 @@ public class WaterListitemAdapter extends BaseAdapter {
 
         chkBshow.setText(mList.get(position).toString());
         wdbAdapter = new WDBAdapter(activity);
-        cursor = wdbAdapter.querydata(date, String.valueOf(position));
+        cursor = wdbAdapter.querydata(name,date, String.valueOf(position));
        try {
         if (cursor.getString(cursor.getColumnIndexOrThrow("checked")) != null) {//有值才設定勾勾的布林值
             Log.i("query", String.valueOf(position));
@@ -95,12 +95,12 @@ public class WaterListitemAdapter extends BaseAdapter {
            public void onClick(View view) {
 
                    //讀取資料庫每個position的cursor值
-                   Cursor wcursor0 = wdbAdapter.querydata(date, String.valueOf(0));
-                   Cursor wcursor1 = wdbAdapter.querydata(date, String.valueOf(1));
-                   Cursor wcursor2 = wdbAdapter.querydata(date, String.valueOf(2));
-                   Cursor wcursor3 = wdbAdapter.querydata(date, String.valueOf(3));
-                   Cursor wcursor4 = wdbAdapter.querydata(date, String.valueOf(4));
-                   Cursor wcursor5 = wdbAdapter.querydata(date, String.valueOf(5));
+                   Cursor wcursor0 = wdbAdapter.querydata(name,date, String.valueOf(0));
+                   Cursor wcursor1 = wdbAdapter.querydata(name,date, String.valueOf(1));
+                   Cursor wcursor2 = wdbAdapter.querydata(name,date, String.valueOf(2));
+                   Cursor wcursor3 = wdbAdapter.querydata(name,date, String.valueOf(3));
+                   Cursor wcursor4 = wdbAdapter.querydata(name,date, String.valueOf(4));
+                   Cursor wcursor5 = wdbAdapter.querydata(name,date, String.valueOf(5));
                    //預設儲存布林初始值
                    listShow.add(0,false);
                    listShow.add(1,false);
