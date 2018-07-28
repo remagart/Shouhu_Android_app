@@ -136,12 +136,14 @@ public class TimerFragment extends android.support.v4.app.Fragment {
         btnreset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!first)restTime(); //執行過時間才能使用重設方法
-                ethot.setText(R.string.timerhot);
-                etrest.setText(R.string.timerrest);
-                etwork.setText(R.string.timerwork);
-                ettimes.setText(R.string.timertimes);
-                timeTv.setText(" ");
+                if(!first) {
+                    restTime(); //執行過時間才能使用重設方法
+                    ethot.setText(R.string.timerhot);
+                    etrest.setText(R.string.timerrest);
+                    etwork.setText(R.string.timerwork);
+                    ettimes.setText(R.string.timertimes);
+                    timeTv.setText(" ");
+                }
             }
         });
     }

@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/timeviewshape"
         android:text="0"
         android:textAlignment="center"
@@ -39,38 +39,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:text="暖身(s):"
         android:textAlignment="textStart"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeTv" />
+        app:layout_constraintEnd_toStartOf="@+id/ethot"
+        app:layout_constraintTop_toTopOf="@+id/ethot" />
 
     <TextView
         android:id="@+id/tvhot2"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:text="0"
         android:textSize="24sp"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/tvhot"
-        app:layout_constraintTop_toBottomOf="@+id/timeTv" />
+        app:layout_constraintStart_toStartOf="@+id/ethot"
+        app:layout_constraintTop_toTopOf="@+id/ethot" />
 
     <EditText
         android:id="@+id/ethot"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@drawable/editviewshape"
+        android:cursorVisible="false"
         android:ems="2"
         android:inputType="textPersonName|number"
         android:maxLength="3"
@@ -78,8 +73,9 @@
         android:text="@string/timerhot"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:cursorVisible="false"
-        app:layout_constraintStart_toEndOf="@+id/tvhot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeTv" />
 
 
@@ -88,29 +84,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="28dp"
         android:layout_weight="1"
         android:text="休息(s):"
         android:textAlignment="textStart"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvhot" />
+        app:layout_constraintEnd_toStartOf="@+id/etrest"
+        app:layout_constraintTop_toTopOf="@+id/etrest" />
 
     <TextView
         android:id="@+id/tvrest2"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:text="0"
         android:textSize="24sp"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/tvrest"
-        app:layout_constraintTop_toBottomOf="@+id/ethot" />
+        app:layout_constraintStart_toStartOf="@+id/etrest"
+        app:layout_constraintTop_toTopOf="@+id/etrest" />
 
     <EditText
         android:id="@+id/etrest"
@@ -120,6 +111,7 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@drawable/editviewshape"
+        android:cursorVisible="false"
         android:ems="2"
         android:inputType="textPersonName|number"
         android:maxLength="3"
@@ -127,8 +119,7 @@
         android:text="@string/timerrest"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:cursorVisible="false"
-        app:layout_constraintStart_toEndOf="@+id/tvrest"
+        app:layout_constraintStart_toEndOf="@+id/tvhot"
         app:layout_constraintTop_toBottomOf="@+id/ethot" />
 
 
@@ -137,29 +128,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="24dp"
         android:layout_weight="1"
         android:text="運動(s):"
         android:textAlignment="textStart"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvrest" />
+        app:layout_constraintEnd_toStartOf="@+id/etwork"
+        app:layout_constraintTop_toTopOf="@+id/etwork" />
 
     <TextView
         android:id="@+id/tvwork2"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:text="0"
         android:textSize="24sp"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/tvwork"
-        app:layout_constraintTop_toBottomOf="@+id/etrest" />
+        app:layout_constraintStart_toStartOf="@+id/etwork"
+        app:layout_constraintTop_toTopOf="@+id/etwork" />
 
     <EditText
         android:id="@+id/etwork"
@@ -169,6 +155,7 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@drawable/editviewshape"
+        android:cursorVisible="false"
         android:ems="2"
         android:inputType="textPersonName|number"
         android:maxLength="3"
@@ -176,8 +163,7 @@
         android:text="@string/timerwork"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:cursorVisible="false"
-        app:layout_constraintStart_toEndOf="@+id/tvwork"
+        app:layout_constraintStart_toEndOf="@+id/tvrest"
         app:layout_constraintTop_toBottomOf="@+id/etrest" />
 
 
@@ -185,14 +171,13 @@
         android:id="@+id/tvtimes2"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:text="0"
         android:textSize="24sp"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/tvtimes"
-        app:layout_constraintTop_toBottomOf="@+id/etwork" />
+        app:layout_constraintStart_toStartOf="@+id/ettimes"
+        app:layout_constraintTop_toTopOf="@+id/ettimes" />
 
     <EditText
         android:id="@+id/ettimes"
@@ -203,6 +188,7 @@
         android:layout_weight="1"
         android:width="0dp"
         android:background="@drawable/editviewshape"
+        android:cursorVisible="false"
         android:ems="2"
         android:inputType="textPersonName|number"
         android:maxLength="3"
@@ -210,8 +196,7 @@
         android:text="@string/timertimes"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:cursorVisible="false"
-        app:layout_constraintStart_toEndOf="@+id/tvtimes"
+        app:layout_constraintStart_toEndOf="@+id/tvwork"
         app:layout_constraintTop_toBottomOf="@+id/etwork" />
 
 
@@ -220,49 +205,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:text="開始"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.343"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvtimes" />
+        app:layout_constraintStart_toStartOf="@+id/tvtimes"
+        app:layout_constraintTop_toBottomOf="@+id/ettimes" />
 
     <Button
         android:id="@+id/btnreset"
-        android:layout_width="wrap_content"
+        android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:text="重置"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.686"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvtimes"
-        app:layout_constraintVertical_bias="0.51" />
+        app:layout_constraintStart_toEndOf="@+id/btnstart"
+        app:layout_constraintTop_toBottomOf="@+id/ettimes" />
 
     <TextView
         android:id="@+id/tvtimes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="118dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
         android:text="循環(次):"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvwork" />
+        app:layout_constraintEnd_toStartOf="@+id/ettimes"
+        app:layout_constraintTop_toTopOf="@+id/ettimes" />
 
 
 </android.support.constraint.ConstraintLayout>
