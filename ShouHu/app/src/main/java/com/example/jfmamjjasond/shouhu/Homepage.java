@@ -64,6 +64,7 @@ public class Homepage extends android.support.v4.app.Fragment {
         wdbAdapter = new WDBAdapter(thisactivity);
 
         res = getResources(); //取得資源
+
         screensize(); //取得裝置螢幕大小的分類
 
 
@@ -120,32 +121,55 @@ public class Homepage extends android.support.v4.app.Fragment {
     public void screensize() {
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        //取的螢幕解析度大小設定圖片大小
+        switch (metrics.densityDpi){
+            case DisplayMetrics.DENSITY_LOW:
+                screenPixel(300);//取得螢幕寬高的方法
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM:
+                screenPixel(325);
+                break;
+            case DisplayMetrics.DENSITY_HIGH:
+                screenPixel(350);
+                break;
+            case DisplayMetrics.DENSITY_XHIGH:
+                screenPixel(375);
+                break;
+            case DisplayMetrics.DENSITY_XXHIGH:
+                screenPixel(400);
+                break;
+        }
+
+    }
+    //取得螢幕寬高的方法並設置圖片大小
+    public void screenPixel(int w){
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
         //int height = metrics.heightPixels;
-
         if (width < 760) {
-            btnsleep.setMaxHeight(300);
-            btnsleep.setMaxWidth(300);
-            btnbmi.setMaxHeight(300);
-            btnbmi.setMaxWidth(300);
-            btnwater.setMaxHeight(300);
-            btnwater.setMaxWidth(300);
+            btnsleep.setMaxHeight(w-50);
+            btnsleep.setMaxWidth(w-50);
+            btnbmi.setMaxHeight(w-50);
+            btnbmi.setMaxWidth(w-50);
+            btnwater.setMaxHeight(w-50);
+            btnwater.setMaxWidth(w-50);
         }
         if (width > 760 && width<1024){
-            btnsleep.setMaxHeight(350);
-            btnsleep.setMaxWidth(350);
-            btnbmi.setMaxHeight(350);
-            btnbmi.setMaxWidth(350);
-            btnwater.setMaxHeight(350);
-            btnwater.setMaxWidth(350);
+            btnsleep.setMaxHeight(w);
+            btnsleep.setMaxWidth(w);
+            btnbmi.setMaxHeight(w);
+            btnbmi.setMaxWidth(w);
+            btnwater.setMaxHeight(w);
+            btnwater.setMaxWidth(w);
         }
         if (width>1024 && width<1440) {
-            btnsleep.setMaxHeight(450);
-            btnsleep.setMaxWidth(450);
-            btnbmi.setMaxHeight(450);
-            btnbmi.setMaxWidth(450);
-            btnwater.setMaxHeight(450);
-            btnwater.setMaxWidth(450);
+            btnsleep.setMaxHeight(w+50);
+            btnsleep.setMaxWidth(w+50);
+            btnbmi.setMaxHeight(w+50);
+            btnbmi.setMaxWidth(w+50);
+            btnwater.setMaxHeight(w+50);
+            btnwater.setMaxWidth(w+50);
         }
 //        if (width>1440) {
 //            btnsleep.setMaxHeight(500);
