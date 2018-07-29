@@ -10,14 +10,24 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:padding="5dp"
         android:text="@string/watersug"
         android:textSize="24sp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:text="紀錄今日飲水量:" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -42,7 +52,7 @@
                 android:gravity="center"
                 android:text="@string/one"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView2"
@@ -53,7 +63,7 @@
                 android:gravity="center"
                 android:text="@string/two"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView3"
@@ -64,7 +74,7 @@
                 android:gravity="center"
                 android:text="@string/three"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView4"
@@ -75,7 +85,7 @@
                 android:gravity="center"
                 android:text="@string/four"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView5"
@@ -86,7 +96,7 @@
                 android:gravity="center"
                 android:text="@string/five"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView6"
@@ -97,7 +107,7 @@
                 android:gravity="center"
                 android:text="@string/six"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 

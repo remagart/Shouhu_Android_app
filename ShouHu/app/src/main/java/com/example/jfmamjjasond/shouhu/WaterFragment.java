@@ -51,12 +51,16 @@ public class WaterFragment  extends android.support.v4.app.Fragment implements V
         wdbAdapter = new WDBAdapter(mContext);
         get_from_activity();//取得用戶name
         final Calendar c =Calendar.getInstance();
+        //取得今日日期
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH)+1;
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
         date = year+"-"+month+"-"+dayOfMonth;
+        //查詢checked為true的資料
         cursor= wdbAdapter.querydatachecked(name,date,"true");
+        //顯示為true的打勾
         setchecked();
+        //顯示為true的水杯
         setImageview(cursor);
 
     }
@@ -75,20 +79,20 @@ public class WaterFragment  extends android.support.v4.app.Fragment implements V
         cTV6.setOnClickListener(this);
         waterView = getView().findViewById(R.id.waterView);
     }
-
+    //每個checkedTextView的打勾事件
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.checkedTextView1:
                 position="0";
-                cTV1.setChecked(!cTV1.isChecked());
+                cTV1.setChecked(!cTV1.isChecked()); //選項一打勾或取消打勾，其他都取消打勾//單選的概念
                 cTV2.setChecked(false);
                 cTV3.setChecked(false);
                 cTV4.setChecked(false);
                 cTV5.setChecked(false);
                 cTV6.setChecked(false);
-                add_update();
-                if(cTV1.isChecked()){
+                add_update();//新增或更新選項資料
+                if(cTV1.isChecked()){//同步更新水杯圖
                     waterView.setImageResource(R.mipmap.w1);
                 }else {
                     waterView.setImageResource(R.mipmap.w0);
@@ -172,6 +176,7 @@ public class WaterFragment  extends android.support.v4.app.Fragment implements V
         }
 
     }
+    //讀取資料後設定每個選項布林值
     public void setchecked(){
         if (cursor.getCount()!=0) {
             Cursor wcursor0 = wdbAdapter.querydata(name, date, String.valueOf(0));
@@ -188,6 +193,7 @@ public class WaterFragment  extends android.support.v4.app.Fragment implements V
             cTV6.setChecked(Boolean.parseBoolean(wcursor5.getString(wcursor5.getColumnIndexOrThrow("checked"))));
         }
     }
+    //新增或更新打勾資料
     public void add_update(){
         Cursor wcursor0 = wdbAdapter.querydata(name, date, String.valueOf(0));
         Cursor wcursor1 = wdbAdapter.querydata(name, date, String.valueOf(1));
