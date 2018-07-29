@@ -20,6 +20,12 @@
     <string name="timerrest">10</string>
     <string name="timerwork">30</string>
     <string name="timertimes">4</string>
-
+    <string name="one"><![CDATA[<500cc]]></string>
+    <string name="two">501~1000cc</string>
+    <string name="three">1001~1500cc</string>
+    <string name="four">1501~2000cc</string>
+    <string name="five">2001~2500cc</string>
+    <string name="six"><![CDATA[>2500cc]]></string>
+    <string name="watersug">守護-建議每日飲水量:2000CC</string>
 
 </resources>
