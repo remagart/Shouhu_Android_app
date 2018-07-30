@@ -124,18 +124,21 @@ public class Homepage extends android.support.v4.app.Fragment {
         //取的螢幕解析度大小設定圖片大小
         switch (metrics.densityDpi){
             case DisplayMetrics.DENSITY_LOW:
-                screenPixel(300);//取得螢幕寬高的方法
+                screenPixel(250);//取得螢幕寬高的方法
                 break;
             case DisplayMetrics.DENSITY_MEDIUM:
-                screenPixel(325);
+                screenPixel(275);
                 break;
             case DisplayMetrics.DENSITY_HIGH:
-                screenPixel(350);
+                screenPixel(300);
                 break;
             case DisplayMetrics.DENSITY_XHIGH:
-                screenPixel(375);
+                screenPixel(325);
                 break;
             case DisplayMetrics.DENSITY_XXHIGH:
+                screenPixel(350);
+                break;
+            default:
                 screenPixel(400);
                 break;
         }
