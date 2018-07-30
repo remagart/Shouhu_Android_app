@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         //傳名字給fragment
         send_to_fragment();
 
-        page_transfer();
+
 
         //取得自訂Layout_bartitle的TwxtVeiw物件，設定ToolBar的標題
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode( navigation ); //使用自訂BottomNavigationViewHelper類別中的方法去除navigation動畫
-
+        page_transfer();
         ShouHu_notice();
 /* -------------------------------------------------------------------------------------------------------------------------------*/
 
