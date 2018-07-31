@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
 
     private ViewPager viewPager; //宣告ViewPager搭配Fragment
     //宣告五個Fragment物件(class)讓MainActivity找到Fragment
-    private Homepage homepage = new Homepage();
+    private Homepage homepage123 = new Homepage();
     private BMI_result fragment_bmi = new BMI_result();
     private sleep fragment_sleep = new sleep();
     private WaterFragment waterFragment = new WaterFragment();
