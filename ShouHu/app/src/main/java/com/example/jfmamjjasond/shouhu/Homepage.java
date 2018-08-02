@@ -225,16 +225,21 @@ public class Homepage extends android.support.v4.app.Fragment {
                     if(wcursor.getCount()!=0){
                         switch (Integer.valueOf(wcursor.getString(wcursor.getColumnIndexOrThrow("position")))){
                             case 0:
+                                temp="今日飲水量<500cc喔";
+                                break;
                             case 1:
-                               temp="今日飲水量不足喔!!";
+                               temp="今日飲水量501~1000cc喔";
                                 break;
                             case 2:
-                            case 3:
-                                temp="今日飲水量還差一些達標準!";
+                                temp="今日飲水量1001~1500cc喔";
                                 break;
-                            case 4:
+                            case 3:
+                                temp="今日飲水量1501~2000cc喔";
+                                break;
+                            case 4:temp="今日飲水量2001~2500cc喔,很棒喔!";
+                                break;
                             case 5:
-                                temp="今日飲水量已達標準~";
+                                temp="今日飲水量>2500cc,很厲害喔!";
                                 break;
                             default:
                                 temp="今日還沒喝水喔!!";
