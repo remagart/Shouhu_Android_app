@@ -236,7 +236,8 @@ public class Homepage extends android.support.v4.app.Fragment {
                             case 3:
                                 temp="今日飲水量1501~2000cc喔";
                                 break;
-                            case 4:temp="今日飲水量2001~2500cc喔,很棒喔!";
+                            case 4:
+                                temp="今日飲水量2001~2500cc喔,很棒喔!";
                                 break;
                             case 5:
                                 temp="今日飲水量>2500cc,很厲害喔!";

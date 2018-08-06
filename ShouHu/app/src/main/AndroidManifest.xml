@@ -18,12 +18,14 @@
             </intent-filter>
         </activity>
 
-        <!--<activity android:name=".BMI_result" />-->
+        <!-- <activity android:name=".BMI_result" /> -->
         <activity android:name=".BMI_information" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_homepage"/>
-        <!--<activity android:name=".sleep"></activity>-->
+            android:label="@string/title_activity_homepage" />
+        <!-- <activity android:name=".sleep"></activity> -->
+
+        <activity android:name=".DialogActivity" />
 
     </application>
 

@@ -1,6 +1,12 @@
 package com.example.jfmamjjasond.shouhu;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,8 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -27,6 +37,12 @@ public class WaterFragment  extends android.support.v4.app.Fragment implements V
     String ShouHu_user_name;
     private String name ;
     private String date;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
+    TextView datetime;
+    Button alarmset ,alarmcancel;
+    private String time;
+
 
 
     @Nullable
@@ -62,6 +78,52 @@ public class WaterFragment  extends android.support.v4.app.Fragment implements V
         setchecked();
         //顯示為true的水杯
         setImageview(cursor);
+        //設定alarmManager
+        alarmMgr=(AlarmManager)mContext.getSystemService(Service.ALARM_SERVICE);
+        Intent intent=new Intent();
+        intent.putExtra("user_name",ShouHu_user_name);
+        intent.setClass(mContext, DialogActivity.class);
+        alarmIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        //alarm按鈕事件設定
+        alarmset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar currentTime = Calendar.getInstance();
+                new TimePickerDialog(mContext, 0, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourofDay, int minute) {
+                        //顯示時間樣式設定
+                        if(hourofDay<10 && minute>=10){
+                            time ="0"+ hourofDay + ":" + minute;
+                        }
+                        if(minute<10 && hourofDay>=10){
+                            time = hourofDay + ":" +"0"+ minute;
+                        }
+                        if(hourofDay>=10 && minute>=10) {
+                            time = hourofDay + ":" + minute;
+                        }else if(hourofDay<10 && minute<10){
+                            time ="0"+ hourofDay + ":" +"0"+ minute;
+                        }
+                        datetime.setText(time);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        calendar.set(Calendar.HOUR_OF_DAY, hourofDay);
+                        calendar.set(Calendar.MINUTE,minute);
+                        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                AlarmManager.INTERVAL_DAY, alarmIntent);
+                        Log.i("gg","hihi");
+                        Toast.makeText(mContext,"設定提醒成功",Toast.LENGTH_LONG).show();
+                    }
+                },currentTime.get(Calendar.HOUR_OF_DAY),currentTime.get(Calendar.MINUTE),false).show();
+            }
+        });
+        //取消alarm按鈕
+        alarmcancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alarmMgr.cancel(alarmIntent);
+            }
+        });
 
     }
     public void findView(){
@@ -78,6 +140,10 @@ public class WaterFragment  extends android.support.v4.app.Fragment implements V
         cTV5.setOnClickListener(this);
         cTV6.setOnClickListener(this);
         waterView = getView().findViewById(R.id.waterView);
+
+        alarmset = getView().findViewById(R.id.alarmset);
+        alarmcancel = getView().findViewById(R.id.alarmcancel);
+        datetime = getView().findViewById(R.id.datetime);
     }
     //每個checkedTextView的打勾事件
     @Override
@@ -270,6 +336,8 @@ public class WaterFragment  extends android.support.v4.app.Fragment implements V
         Bundle mybundle = getArguments();
         ShouHu_user_name = mybundle.getString("user_name");
         name = ShouHu_user_name;
+
     }
+
 }
 

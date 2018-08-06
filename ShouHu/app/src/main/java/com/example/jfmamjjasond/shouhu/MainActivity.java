@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         BottomNavigationViewHelper.disableShiftMode( navigation ); //使用自訂BottomNavigationViewHelper類別中的方法去除navigation動畫
 
         ShouHu_notice();
+        ShouHu_waterDia();
 /* -------------------------------------------------------------------------------------------------------------------------------*/
 
     }
@@ -216,6 +217,19 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
             }
         }
 
+    }
+
+    void ShouHu_waterDia(){
+        send_to_fragment();
+        Intent i = getIntent();
+        Bundle mybundle = i.getExtras();
+
+        if(mybundle.getString("type") != null){
+            Log.e("www", String.valueOf(mybundle.getString("type")));
+            if(i.getStringExtra("type").equals("waterDia")){
+                viewPager.setCurrentItem(3);
+            }
+        }
     }
 
     void page_transfer(){
