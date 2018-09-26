@@ -107,5 +107,14 @@ public class ShouHou_DBAdapter {
                 KEY_name+" == "+"\""+name+"\"",null);
     }
 
+    Cursor allcursor(){
+        String[] columns = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME,KEY_HEIGHT,KEY_WEIGHT};
+        Cursor mycursor = mydb.query(KEY_USER_TABLE_NAME,columns,null,null,null,null,null);
+        if(mycursor != null){
+            mycursor.moveToFirst();
+        }
+        return mycursor;
+    }
+
 
 }

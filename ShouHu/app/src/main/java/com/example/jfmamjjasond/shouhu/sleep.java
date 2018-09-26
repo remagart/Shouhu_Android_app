@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ public class sleep extends android.support.v4.app.Fragment {
     //這是測試用的name，之後會將BMI資料傳過來
     String user_name;
     String ShouHu_user_name;
+    ListView sleep_record;
+    SimpleCursorAdapter mysimplecursoradapter;
 
 
     @Nullable
@@ -71,7 +75,7 @@ public class sleep extends android.support.v4.app.Fragment {
         btn_sleep.setOnClickListener(myclickevent);
         btn_wake.setOnClickListener(myclickevent);
 
-
+        mydisplaylistview();
 
     }
 
@@ -81,6 +85,7 @@ public class sleep extends android.support.v4.app.Fragment {
         txt_sleep = (TextView)getView().findViewById(R.id.sleepxml_txt_sleep);
         txt_wake = (TextView)getView().findViewById(R.id.sleepxml_txt_wake);
         txt_reminder = (TextView)getView().findViewById(R.id.sleepxml_txt_reminder);
+        sleep_record = (ListView)getView().findViewById(R.id.sleepxml_list_record);
     }
 
     View.OnClickListener myclickevent = new View.OnClickListener() {
@@ -221,6 +226,23 @@ public class sleep extends android.support.v4.app.Fragment {
         Bundle mybundle = getArguments();
         ShouHu_user_name = mybundle.getString("user_name");
         user_name = ShouHu_user_name;
+    }
+
+    void mydisplaylistview(){
+        Cursor mycursor = myadapter.allcursor();
+        String from[] = new String[]{
+          myadapter.KEY_name,
+          myadapter.KEY_SLEEP_TIME,
+          myadapter.KEY_WAKE_TIME
+        };
+        int[] to = new int[]{
+            R.id.listviewdetail_date,
+            R.id.listviewdetail_sleep,
+            R.id.listviewdetail_wake
+        };
+        mysimplecursoradapter = new SimpleCursorAdapter(thisactivity,R.layout.listview_detail_for_sleep,mycursor,from,to,0);
+        sleep_record.setAdapter(mysimplecursoradapter);
+
     }
 
     @Override
