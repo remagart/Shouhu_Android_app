@@ -272,14 +272,16 @@ public class sleep extends android.support.v4.app.Fragment {
     }
 
     void mydisplaylistview(){
-        Cursor mycursor = myadapter.allcursor();
+        Cursor mycursor = myadapter.allcursor(user_name);
         String from[] = new String[]{
-          myadapter.KEY_name,
           myadapter.KEY_DATE,
+          myadapter.KEY_WAKE_TIME,
+          myadapter.KEY_YESTERDAY_SLEEP
         };
         int[] to = new int[]{
             R.id.listviewdetail_date,
-            R.id.listviewdetail_sleep,
+            R.id.listviewdetail_wake,
+            R.id.listviewdetail_sleep
         };
         mysimplecursoradapter = new SimpleCursorAdapter(thisactivity,R.layout.listview_detail_for_sleep,mycursor,from,to,0);
         sleep_record.setAdapter(mysimplecursoradapter);

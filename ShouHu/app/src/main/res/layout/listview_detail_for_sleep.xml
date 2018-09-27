@@ -21,7 +21,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center"
                 android:text="日期"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/listviewdetail_sleep"
@@ -29,8 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center"
-                android:text="昨日睡眠時間"
-                android:textSize="20sp" />
+                android:text="睡著"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/listviewdetail_wake"
@@ -38,8 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center"
-                android:text="醒來時間"
-                android:textSize="20sp" />
+                android:text="醒來"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/listviewdetail_duration"
@@ -47,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center"
-                android:text="睡眠時間"
-                android:textSize="20sp" />
+                android:text="睡時"
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

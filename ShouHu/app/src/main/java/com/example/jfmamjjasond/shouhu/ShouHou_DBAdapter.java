@@ -165,9 +165,14 @@ public class ShouHou_DBAdapter {
     }
 
 
-    Cursor allcursor(){
-        //String[] columns = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME,KEY_HEIGHT,KEY_WEIGHT};
-        Cursor mycursor = mydb.query(KEY_SLEEP_RECORD_TABLE,column_for_SleepRecord,null,null,null,null,null);
+    Cursor allcursor(String user_name){
+        Cursor mycursor = mydb.query(KEY_SLEEP_RECORD_TABLE,
+                                    column_for_SleepRecord,
+                                    KEY_name + " =? ",
+                                    new String[]{user_name},
+                                    null,
+                                    null,
+                                    null);
         if(mycursor != null){
             mycursor.moveToFirst();
         }
