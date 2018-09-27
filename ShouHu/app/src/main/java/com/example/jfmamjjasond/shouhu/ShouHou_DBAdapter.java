@@ -16,6 +16,12 @@ public class ShouHou_DBAdapter {
     final static String KEY_WAKE_TIME = "Wake_Time";
     final static String KEY_HEIGHT = "height";
     final static String KEY_WEIGHT = "weight";
+
+    /**************分隔線************/
+    final static String KEY_SLEEP_RECORD_TABLE = "Sleep_Record_Table";
+    final static String KEY_DATE = "Date";
+    final static String KEY_YESTERDAY_SLEEP = "Yesterday_Sleep";
+
     String setnull = null;
 
     Context thisContext;
@@ -23,6 +29,7 @@ public class ShouHou_DBAdapter {
     ShouHou_DBHelper myDBHelper;
     ContentValues myValues;
     String[] column;
+    String[] column_for_SleepRecord;
 
     //建構子
     ShouHou_DBAdapter(Context c){
@@ -36,6 +43,7 @@ public class ShouHou_DBAdapter {
         //取得寫入資料庫的權限
         mydb = myDBHelper.getWritableDatabase();
         column = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME,KEY_HEIGHT,KEY_WEIGHT};
+        column_for_SleepRecord = new String[]{KEY_ID,KEY_name,KEY_DATE,KEY_WAKE_TIME,KEY_YESTERDAY_SLEEP};
     }
     //關閉資料庫
     void close(){
@@ -106,10 +114,60 @@ public class ShouHou_DBAdapter {
         return mydb.update(KEY_USER_TABLE_NAME,myValues,
                 KEY_name+" == "+"\""+name+"\"",null);
     }
+/***分隔線，以下為sleep record資料表的****/
+    Cursor checkcursor(String name,String day){
+        Cursor mycursor = mydb.query(KEY_SLEEP_RECORD_TABLE,
+                                    column_for_SleepRecord,
+                                    KEY_name + " == " + "\"" + name + "\"" + " AND "
+                                            + KEY_DATE + " == " + "\"" + day + "\"",
+                                    null,
+                                    null,
+                                    null,
+                                    null
+        );
+        if(mycursor != null){
+            mycursor.moveToFirst();
+        }
+
+        return mycursor;
+    }
+
+    long add_sleep(String name,String day,String sleep_time){
+        myValues = new ContentValues();
+        myValues.put(KEY_name,name);
+        myValues.put(KEY_DATE,day);
+        myValues.put(KEY_YESTERDAY_SLEEP,sleep_time);
+        return mydb.insert(KEY_SLEEP_RECORD_TABLE,null,myValues);
+    }
+
+    long modify_sleep(String name,String day,String sleep_time){
+        myValues = new ContentValues();
+        myValues.put(KEY_DATE,day);
+        myValues.put(KEY_YESTERDAY_SLEEP,sleep_time);
+        return mydb.update(KEY_SLEEP_RECORD_TABLE,myValues,"user_name=? AND Date=? ",new String[]{name,day});
+    }
+
+    long add_wake(String name,String day,String wake_time){
+        myValues = new ContentValues();
+        myValues.put(KEY_name,name);
+        myValues.put(KEY_DATE,day);
+        myValues.put(KEY_WAKE_TIME,wake_time);
+        return mydb.insert(KEY_SLEEP_RECORD_TABLE,null,myValues);
+    }
+
+    long modify_wake(String name,String day,String wake_time){
+        myValues = new ContentValues();
+        myValues.put(KEY_DATE,day);
+        myValues.put(KEY_WAKE_TIME,wake_time);
+        return mydb.update(KEY_SLEEP_RECORD_TABLE,myValues,KEY_name + " =? AND "
+                + KEY_DATE + " =?",new String[]{name,day});
+
+    }
+
 
     Cursor allcursor(){
-        String[] columns = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME,KEY_HEIGHT,KEY_WEIGHT};
-        Cursor mycursor = mydb.query(KEY_USER_TABLE_NAME,columns,null,null,null,null,null);
+        //String[] columns = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME,KEY_HEIGHT,KEY_WEIGHT};
+        Cursor mycursor = mydb.query(KEY_SLEEP_RECORD_TABLE,column_for_SleepRecord,null,null,null,null,null);
         if(mycursor != null){
             mycursor.moveToFirst();
         }

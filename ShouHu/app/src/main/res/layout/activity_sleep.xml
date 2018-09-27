@@ -6,54 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".sleep">
 
-    <ListView
-        android:id="@+id/sleepxml_list_record"
-        android:layout_width="368dp"
-        android:layout_height="228dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
         android:text="昨日睡眠時間"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/sleepxml_txt_sleep"
-        app:layout_constraintStart_toStartOf="@+id/sleepxml_txt_sleep" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/sleepxml_txt_sleep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginStart="8dp"
         android:text="HH : MM"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView18"
-        app:layout_constraintStart_toStartOf="@+id/textView18" />
+        app:layout_constraintBottom_toBottomOf="@+id/sleepxml_txt_wake"
+        app:layout_constraintEnd_toStartOf="@+id/sleepxml_txt_wake"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="44dp"
         android:text="今日起床時間"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/sleepxml_txt_wake"
-        app:layout_constraintStart_toStartOf="@+id/sleepxml_txt_wake" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/sleepxml_txt_wake"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="148dp"
+        android:layout_marginEnd="56dp"
         android:text="HH : MM"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,5 +93,26 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ListView
+        android:id="@+id/sleepxml_list_record"
+        android:layout_width="368dp"
+        android:layout_height="228dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        android:paddingBottom="8dp"
+        android:paddingEnd="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

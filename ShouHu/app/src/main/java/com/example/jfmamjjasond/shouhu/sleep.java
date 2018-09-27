@@ -92,11 +92,13 @@ public class sleep extends android.support.v4.app.Fragment {
         @Override
         public void onClick(View v) {
             String nowtime;
+            String nowday;
             Cursor mycursor;
             switch(v.getId()){
                 case R.id.sleepxml_btn_sleep:
                     mycursor = myadapter.querybyname_from_user_table(user_name);
                     nowtime = gettime();
+                    nowday = getdate();
                     if(mycursor.getCount() == 0){
                         //若無使用者資料則新增資料到資料庫
                         add_sleep_time(nowtime);
@@ -105,12 +107,17 @@ public class sleep extends android.support.v4.app.Fragment {
                         //有使用者資料就修改資料庫資料
                         modify_sleep_time(nowtime,mycursor);
                    }
-                   Toast.makeText(thisactivity, "你今晚睡眠時間為 "+nowtime, Toast.LENGTH_SHORT).show();
+
+                    // 做sleep紀錄的
+                    sleep_record(nowday,nowtime);
+
+                    Toast.makeText(thisactivity, "你今晚睡眠時間為 "+nowtime, Toast.LENGTH_SHORT).show();
 
                     break;
                 case R.id.sleepxml_btn_wake:
                     mycursor = myadapter.querybyname_from_user_table(user_name);
                     nowtime = gettime();
+                    nowday = getdate();
                     if(mycursor.getCount() == 0){
                         //若無使用者資料則新增資料到資料庫
                         add_wake_time(nowtime);
@@ -129,6 +136,10 @@ public class sleep extends android.support.v4.app.Fragment {
                             reminder(mycursor);
                         }
                     }
+
+                    // 做wake紀錄的
+                    wake_record(nowday,nowtime);
+
                     Toast.makeText(thisactivity, "早安阿!祝你有美好的一天^ ^ ", Toast.LENGTH_SHORT).show();
                     break;
                 default:
@@ -145,6 +156,13 @@ public class sleep extends android.support.v4.app.Fragment {
                 + String.valueOf(myCalendar.get(Calendar.MINUTE));
         return t;
     }
+    String getdate(){
+        String t;
+        myCalendar = Calendar.getInstance();
+        t = String.valueOf(myCalendar.get(Calendar.MONTH)+1)+"/"
+                + String.valueOf(myCalendar.get(Calendar.DAY_OF_MONTH));
+        return t;
+    }
     void add_sleep_time(String t){
         myadapter.add_to_sleep_table(user_name,t,"");
     }
@@ -158,6 +176,31 @@ public class sleep extends android.support.v4.app.Fragment {
     void modify_wake_time(String t,Cursor c){
         myadapter.modify_sleep_table(user_name,c.getString(2),t);
     }
+    void sleep_record(String t,String t2){
+        // t是指日期
+        Cursor mycursor;
+        mycursor = myadapter.checkcursor(user_name,t);
+        if(mycursor.getCount() == 0){
+            myadapter.add_sleep(user_name,t,t2);
+        }
+        else{
+            myadapter.modify_sleep(user_name,t,t2);
+        }
+
+    }
+    void wake_record(String t,String t2){
+        Cursor mycursor;
+        mycursor = myadapter.checkcursor(user_name,t);
+        if(mycursor.getCount() == 0){
+            myadapter.add_wake(user_name,t,t2);
+        }
+        else{
+            myadapter.modify_wake(user_name,t,t2);
+        }
+    }
+
+
+
     //睡眠守護提醒
     void reminder(Cursor c){
         // 陣列0 為 小時,陣列1 為 分鐘
@@ -232,13 +275,11 @@ public class sleep extends android.support.v4.app.Fragment {
         Cursor mycursor = myadapter.allcursor();
         String from[] = new String[]{
           myadapter.KEY_name,
-          myadapter.KEY_SLEEP_TIME,
-          myadapter.KEY_WAKE_TIME
+          myadapter.KEY_DATE,
         };
         int[] to = new int[]{
             R.id.listviewdetail_date,
             R.id.listviewdetail_sleep,
-            R.id.listviewdetail_wake
         };
         mysimplecursoradapter = new SimpleCursorAdapter(thisactivity,R.layout.listview_detail_for_sleep,mycursor,from,to,0);
         sleep_record.setAdapter(mysimplecursoradapter);

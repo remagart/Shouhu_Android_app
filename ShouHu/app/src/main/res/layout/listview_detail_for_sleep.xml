@@ -16,31 +16,39 @@
 
             <TextView
                 android:id="@+id/listviewdetail_date"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="日期" />
+                android:gravity="center_vertical|center"
+                android:text="日期"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/listviewdetail_sleep"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="昨日睡眠時間" />
+                android:gravity="center_vertical|center"
+                android:text="昨日睡眠時間"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/listviewdetail_wake"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="醒來時間" />
+                android:gravity="center_vertical|center"
+                android:text="醒來時間"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/listviewdetail_duration"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="睡眠時間" />
+                android:gravity="center_vertical|center"
+                android:text="睡眠時間"
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
