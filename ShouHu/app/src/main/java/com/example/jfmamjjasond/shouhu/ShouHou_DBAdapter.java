@@ -21,6 +21,7 @@ public class ShouHou_DBAdapter {
     final static String KEY_SLEEP_RECORD_TABLE = "Sleep_Record_Table";
     final static String KEY_DATE = "Date";
     final static String KEY_YESTERDAY_SLEEP = "Yesterday_Sleep";
+    final static String KEY_DURING = "During_Time";
 
     String setnull = null;
 
@@ -43,7 +44,7 @@ public class ShouHou_DBAdapter {
         //取得寫入資料庫的權限
         mydb = myDBHelper.getWritableDatabase();
         column = new String[]{KEY_ID,KEY_name,KEY_SLEEP_TIME,KEY_WAKE_TIME,KEY_HEIGHT,KEY_WEIGHT};
-        column_for_SleepRecord = new String[]{KEY_ID,KEY_name,KEY_DATE,KEY_WAKE_TIME,KEY_YESTERDAY_SLEEP};
+        column_for_SleepRecord = new String[]{KEY_ID,KEY_name,KEY_DATE,KEY_WAKE_TIME,KEY_YESTERDAY_SLEEP,KEY_DURING};
     }
     //關閉資料庫
     void close(){
@@ -164,6 +165,31 @@ public class ShouHou_DBAdapter {
 
     }
 
+    long modify_during(String name,int id,int[] during_time){
+        myValues = new ContentValues();
+        myValues.put(KEY_DURING,
+                String.valueOf(during_time[0])+" hr "+String.valueOf(during_time[1])+" min ");
+        return mydb.update(KEY_SLEEP_RECORD_TABLE,
+                          myValues,
+                         KEY_name + " =? AND " + KEY_ID + " =? ",
+                          new String[]{name,String.valueOf(id)}
+                );
+    }
+
+    Cursor search_byID(int id){
+        Cursor mycursor = mydb.query(KEY_SLEEP_RECORD_TABLE,
+                                    column_for_SleepRecord,
+                                    KEY_ID + " =? ",
+                                    new String[]{String.valueOf(id)},
+                                    null,
+                                    null,
+                                    null);
+        if(mycursor != null){
+            mycursor.moveToFirst();
+        }
+
+        return mycursor;
+    }
 
     Cursor allcursor(String user_name){
         Cursor mycursor = mydb.query(KEY_SLEEP_RECORD_TABLE,

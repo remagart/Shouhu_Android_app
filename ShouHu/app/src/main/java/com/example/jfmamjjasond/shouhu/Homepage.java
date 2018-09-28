@@ -199,7 +199,7 @@ public class Homepage extends android.support.v4.app.Fragment {
                 //有睡眠時間和醒來時間才要顯示
                 if(temp_sleeptime != null && temp_waketime != null){
                     //使用sleep中的方法
-                    temp_during_time = temp_sleep.calculate_during_time(mycursor);
+                    temp_during_time = temp_sleep.calculate_during_time(mycursor,3,2);
 
                     temp = temp + temp_sleeptime + " ~ " + temp_waketime
                             + "\n共睡了 " + String.valueOf(temp_during_time[0] + " 小時 "

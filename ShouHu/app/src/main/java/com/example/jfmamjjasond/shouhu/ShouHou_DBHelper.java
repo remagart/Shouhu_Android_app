@@ -21,6 +21,7 @@ public class ShouHou_DBHelper extends SQLiteOpenHelper {
     final static String KEY_SLEEP_RECORD_TABLE = "Sleep_Record_Table";
     final static String KEY_DATE = "Date";
     final static String KEY_YESTERDAY_SLEEP = "Yesterday_Sleep";
+    final static String KEY_DURING = "During_Time";
 
 
     public ShouHou_DBHelper(Context c){
@@ -47,7 +48,8 @@ public class ShouHou_DBHelper extends SQLiteOpenHelper {
                 + KEY_name + " VARCHAR(20), "
                 + KEY_DATE + " VARCHAR(10), "
                 + KEY_WAKE_TIME + " VARCHAR(5), "
-                + KEY_YESTERDAY_SLEEP + " VARCHAR(5) "
+                + KEY_YESTERDAY_SLEEP + " VARCHAR(5), "
+                + KEY_DURING + " VARCHAR(10) "
                 + " ) ";
 
         db.execSQL(sql);

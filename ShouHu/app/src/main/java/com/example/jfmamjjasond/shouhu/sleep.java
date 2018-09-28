@@ -71,6 +71,9 @@ public class sleep extends android.support.v4.app.Fragment {
                 }
             }
         }
+
+        loading_during_record();
+
         //按鈕事件處理
         btn_sleep.setOnClickListener(myclickevent);
         btn_wake.setOnClickListener(myclickevent);
@@ -110,7 +113,6 @@ public class sleep extends android.support.v4.app.Fragment {
 
                     // 做sleep紀錄的
                     sleep_record(nowday,nowtime);
-
                     Toast.makeText(thisactivity, "你今晚睡眠時間為 "+nowtime, Toast.LENGTH_SHORT).show();
 
                     break;
@@ -139,7 +141,6 @@ public class sleep extends android.support.v4.app.Fragment {
 
                     // 做wake紀錄的
                     wake_record(nowday,nowtime);
-
                     Toast.makeText(thisactivity, "早安阿!祝你有美好的一天^ ^ ", Toast.LENGTH_SHORT).show();
                     break;
                 default:
@@ -186,34 +187,36 @@ public class sleep extends android.support.v4.app.Fragment {
         temp = t.split("/");
         temp_month = Integer.valueOf(temp[0]);
         temp_day = Integer.valueOf(temp[1]);
-        if(temp_day == 1){
-            switch (temp_month){
-                //二月以28天算
-                case 3:
-                    temp_month = temp_month - 1;
-                    temp_day = 28;
-                    break;
-                //31天的情況
-                case 1:
-                    temp_month = 12;
-                    temp_day = 31;
-                    break;
-                case 2:
-                case 4:
-                case 6:
-                case 8:
-                case 9:
-                case 11:
-                    temp_month = temp_month - 1;
-                    temp_day = 31;
-                    break;
-                default:
-                    temp_month = temp_month - 1;
-                    temp_day = 30;
+        //因為會加到下一天的睡著欄，所以日期要加一天
+        //二月以28天計
+        if(temp_month == 2 && temp_day == 28){
+            temp_month = temp_month + 1;
+            temp_day = 1;
+        }
+        //四,六,九,十一月為30天
+        else if(temp_month == 4 || temp_month == 6 || temp_month == 9 || temp_month == 11){
+            if(temp_day == 30){
+                temp_month = temp_month + 1;
+                temp_day = 1;
+            }
+            else {
+                temp_day = temp_day + 1;
             }
         }
-        else {
-            temp_day = temp_day - 1;
+        //其餘月份為31天
+        else{
+            if(temp_day == 31 && temp_month != 12){
+                temp_month = temp_month + 1;
+                temp_day = 1;
+            }
+            //十二月三十一日要分開處理
+            else if(temp_day == 31){
+                temp_month = 1;
+                temp_day = 1;
+            }
+            else {
+                temp_day = temp_day + 1;
+            }
         }
 
         t = String.valueOf(temp_month) + "/" + String.valueOf(temp_day);
@@ -245,7 +248,7 @@ public class sleep extends android.support.v4.app.Fragment {
         // 陣列0 為 小時,陣列1 為 分鐘
         int[] during_time = new int[2];
 
-        during_time = calculate_during_time(c);
+        during_time = calculate_during_time(c,3,2);
 
         //針對不同區隔做提醒
         if(during_time[0] > 8){
@@ -260,7 +263,37 @@ public class sleep extends android.support.v4.app.Fragment {
 
     }
 
-    int[] calculate_during_time(Cursor c){
+    void loading_during_record(){
+        Cursor mycursor = myadapter.allcursor(user_name);
+        int i;
+        for(i = 1;i <= mycursor.getCount();i++){
+            check_during(i);
+        }
+    }
+
+    // 計算during和判別是否null
+    void check_during(int id){
+        Cursor mycursor_rec = myadapter.search_byID(id);
+        if(mycursor_rec.getCount() != 0){
+            if(mycursor_rec.getString(3) != null
+                    && mycursor_rec.getString(4) != null){
+                if(!mycursor_rec.getString(3).equals("")
+                        && !mycursor_rec.getString(4).equals("")){
+                    for_record_during_time(mycursor_rec,id);
+                }
+
+            }
+        }
+    }
+
+    //for歷史紀錄的during time
+    void for_record_during_time(Cursor c,int id){
+        int[] during_time = new int[2];
+        during_time = calculate_during_time(c,3,4);
+        myadapter.modify_during(user_name,id,during_time);
+    }
+
+    int[] calculate_during_time(Cursor c,int col_wake,int col_sleep){
         // 陣列0 為 小時,陣列1 為 分鐘
         int[] during_time = new int[2];
         String[] start,end;
@@ -268,8 +301,8 @@ public class sleep extends android.support.v4.app.Fragment {
         int[] end_num = new int[2];
 
         //以:區隔取得小時和分鐘
-        start = c.getString(2).split(":");
-        end = c.getString(3).split(":");
+        start = c.getString(col_sleep).split(":");
+        end = c.getString(col_wake).split(":");
 
         //將資料從字串轉成數字
         start_num[0] = Integer.valueOf(start[0]);
@@ -315,12 +348,14 @@ public class sleep extends android.support.v4.app.Fragment {
         String from[] = new String[]{
           myadapter.KEY_DATE,
           myadapter.KEY_WAKE_TIME,
-          myadapter.KEY_YESTERDAY_SLEEP
+          myadapter.KEY_YESTERDAY_SLEEP,
+          myadapter.KEY_DURING
         };
         int[] to = new int[]{
             R.id.listviewdetail_date,
             R.id.listviewdetail_wake,
-            R.id.listviewdetail_sleep
+            R.id.listviewdetail_sleep,
+            R.id.listviewdetail_duration
         };
         mysimplecursoradapter = new SimpleCursorAdapter(thisactivity,R.layout.listview_detail_for_sleep,mycursor,from,to,0);
         sleep_record.setAdapter(mysimplecursoradapter);
