@@ -177,8 +177,47 @@ public class sleep extends android.support.v4.app.Fragment {
         myadapter.modify_sleep_table(user_name,c.getString(2),t);
     }
     void sleep_record(String t,String t2){
-        // t是指日期
+        // t是指日期,t2指時間
         Cursor mycursor;
+        //因為是要記錄前一晚的睡覺時間
+        String[] temp;
+        int temp_month,temp_day;
+
+        temp = t.split("/");
+        temp_month = Integer.valueOf(temp[0]);
+        temp_day = Integer.valueOf(temp[1]);
+        if(temp_day == 1){
+            switch (temp_month){
+                //二月以28天算
+                case 3:
+                    temp_month = temp_month - 1;
+                    temp_day = 28;
+                    break;
+                //31天的情況
+                case 1:
+                    temp_month = 12;
+                    temp_day = 31;
+                    break;
+                case 2:
+                case 4:
+                case 6:
+                case 8:
+                case 9:
+                case 11:
+                    temp_month = temp_month - 1;
+                    temp_day = 31;
+                    break;
+                default:
+                    temp_month = temp_month - 1;
+                    temp_day = 30;
+            }
+        }
+        else {
+            temp_day = temp_day - 1;
+        }
+
+        t = String.valueOf(temp_month) + "/" + String.valueOf(temp_day);
+
         mycursor = myadapter.checkcursor(user_name,t);
         if(mycursor.getCount() == 0){
             myadapter.add_sleep(user_name,t,t2);
