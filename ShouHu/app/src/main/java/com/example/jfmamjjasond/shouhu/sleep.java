@@ -113,6 +113,10 @@ public class sleep extends android.support.v4.app.Fragment {
 
                     // 做sleep紀錄的
                     sleep_record(nowday,nowtime);
+
+                    //要更新紀錄，所以重新載入activity
+                    reload_thispage();
+
                     Toast.makeText(thisactivity, "你今晚睡眠時間為 "+nowtime, Toast.LENGTH_SHORT).show();
 
                     break;
@@ -141,6 +145,10 @@ public class sleep extends android.support.v4.app.Fragment {
 
                     // 做wake紀錄的
                     wake_record(nowday,nowtime);
+
+                    //要更新紀錄，所以重新載入activity
+                    reload_thispage();
+
                     Toast.makeText(thisactivity, "早安阿!祝你有美好的一天^ ^ ", Toast.LENGTH_SHORT).show();
                     break;
                 default:
@@ -341,6 +349,16 @@ public class sleep extends android.support.v4.app.Fragment {
         Bundle mybundle = getArguments();
         ShouHu_user_name = mybundle.getString("user_name");
         user_name = ShouHu_user_name;
+    }
+
+    //要更新紀錄，所以重新載入activity
+    void reload_thispage() {
+        Intent i = new Intent(thisactivity, MainActivity.class);
+        Bundle mybundle = new Bundle();
+        mybundle.putString("type", "sleep");
+        mybundle.putString("user_name", user_name);
+        i.putExtras(mybundle);
+        startActivity(i);
     }
 
     void mydisplaylistview(){

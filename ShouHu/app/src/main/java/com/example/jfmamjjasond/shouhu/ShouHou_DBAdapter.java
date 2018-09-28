@@ -168,7 +168,7 @@ public class ShouHou_DBAdapter {
     long modify_during(String name,int id,int[] during_time){
         myValues = new ContentValues();
         myValues.put(KEY_DURING,
-                String.valueOf(during_time[0])+" hr "+String.valueOf(during_time[1])+" min ");
+                String.valueOf(during_time[0])+"h "+String.valueOf(during_time[1])+"m");
         return mydb.update(KEY_SLEEP_RECORD_TABLE,
                           myValues,
                          KEY_name + " =? AND " + KEY_ID + " =? ",
