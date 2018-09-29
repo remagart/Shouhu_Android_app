@@ -1,17 +1,15 @@
 package com.example.jfmamjjasond.shouhu;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
-
-import com.example.jfmamjjasond.shouhu.R;
 
 public class notice {
 
@@ -21,6 +19,7 @@ public class notice {
 
         sleep fragment_sleep = new sleep();
         Bundle mybundle = new Bundle();
+        Bitmap myLargePic = BitmapFactory.decodeResource(c.getResources(),R.mipmap.sleep64);
 
         Intent i = new Intent(c,MainActivity.class);
         mybundle.putString("type","sleep");
@@ -33,11 +32,13 @@ public class notice {
                                                                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification mynotice = new NotificationCompat.Builder(c,CHANNELID)
-                .setSmallIcon(R.mipmap.icon)
+                .setSmallIcon(R.mipmap.shou_smallicon)
+                .setLargeIcon(myLargePic)
                 .setTicker("aaa")
                 .setContentTitle("睡眠提醒")
                 .setContentText("你該睡囉~")
                 .setContentInfo("Sleep")
+                .setColor(Color.parseColor("#FFB13D"))
                 .setContentIntent(mypendingIntent)
                 .setWhen(System.currentTimeMillis())
                 .build();
