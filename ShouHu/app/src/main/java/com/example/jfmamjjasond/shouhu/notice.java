@@ -34,13 +34,14 @@ public class notice {
         Notification mynotice = new NotificationCompat.Builder(c,CHANNELID)
                 .setSmallIcon(R.mipmap.shou_smallicon)
                 .setLargeIcon(myLargePic)
-                .setTicker("aaa")
+                .setTicker("你該睡囉")
                 .setContentTitle("睡眠提醒")
                 .setContentText("你該睡囉~")
                 .setContentInfo("Sleep")
                 .setColor(Color.parseColor("#FFB13D"))
                 .setContentIntent(mypendingIntent)
                 .setWhen(System.currentTimeMillis())
+                .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         NotificationManager mymaganer = (NotificationManager)c.getSystemService(Context.NOTIFICATION_SERVICE);
         mymaganer.notify(1,mynotice);
