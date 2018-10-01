@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -22,13 +23,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity  implements ViewPager.OnPageChangeListener{ //實作ViewPaper 頁面轉換監聽事件
 
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     int notice_year,notice_month,notice_day;
     int notice_hr,notice_min;
     Boolean first_login = true;
+    Boolean Isnotice;
 
 
     @Override
@@ -74,8 +77,6 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         viewPager = findViewById(R.id.viewPager);
         //傳名字給fragment
         send_to_fragment();
-
-
 
         //取得自訂Layout_bartitle的TwxtVeiw物件，設定ToolBar的標題
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -238,17 +239,16 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     }
 
     void set_myalarm(){
+
+        get_from_notice_log();
+        Log.e("YC_isnotice",String.valueOf(Isnotice));
+        if(!Isnotice){
+            return;
+        }
+        Log.e("YC_isnotice2",String.valueOf(Isnotice));
+
         AlarmManager myalarm = (AlarmManager) thisactivity.getSystemService(ALARM_SERVICE);
         Calendar target_time = Calendar.getInstance();
-        if(first_login == true){
-            notice_year = target_time.get(Calendar.YEAR);
-            notice_month = target_time.get(Calendar.MONTH);
-            notice_day = target_time.get(Calendar.DATE);
-            notice_hr = 22;
-            notice_min = 0;
-            first_login = false;
-            Log.e("HERE","HERE");
-        }
         target_time.clear();
         target_time.set(notice_year,notice_month,notice_day,notice_hr,notice_min);
 //        target_time.set(Calendar.YEAR,notice_year);
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
 //        target_time.set(Calendar.HOUR,notice_hr);
 //        target_time.set(Calendar.MINUTE,notice_min);
 
-        Log.e("time",target_time.getTime().toString());
+        Log.e("YCtime",target_time.getTime().toString());
 
         Intent i = new Intent();
         Bundle mybundle = new Bundle();
@@ -311,6 +311,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     }
 
     void pop_out_noice_settime(){
+        get_from_notice_log();
         inflater_notice = getLayoutInflater();
         view_notice = inflater_notice.inflate(R.layout.notice_settime,null);
 
@@ -323,7 +324,10 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         dialog_notice = new AlertDialog.Builder(thisactivity)
                             .setView(view_notice)
                             .show();
+
+        switch_notice.setChecked(!Isnotice);
         btn_notice_finish.setOnClickListener(myclickevent);
+        switch_notice.setOnCheckedChangeListener(mycheckevent);
     }
 
     View.OnClickListener myclickevent = new View.OnClickListener() {
@@ -339,18 +343,64 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
 
                         notice_hr = Integer.valueOf(edit_notice_hr.getText().toString());
                         notice_min = Integer.valueOf(edit_notice_min.getText().toString());
+                        notice_save_to_log();
                         ShouHu_notice();
                         dialog_notice.dismiss();
-                        Toast.makeText(thisactivity,
-                                "睡眠提醒為每天"+String.valueOf(notice_hr)+" : "+String.valueOf(notice_min),
-                                Toast.LENGTH_SHORT).show();
+
                     }catch(NumberFormatException e){
                         Toast.makeText(thisactivity, "你沒有輸入喔~", Toast.LENGTH_SHORT).show();
                         dialog_notice.dismiss();
                     }
                     break;
+                default:
             }
         }
     };
+
+    CompoundButton.OnCheckedChangeListener mycheckevent = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            switch(buttonView.getId()){
+                case R.id.settime_switch:
+                    if(isChecked){
+                        Isnotice = false;
+                        Toast.makeText(thisactivity, "已關閉睡眠提醒", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Isnotice = true;
+                        Toast.makeText(thisactivity, "已開啟睡眠提醒", Toast.LENGTH_SHORT).show();
+                    }
+                    notice_save_to_log();
+                    break;
+                default:
+            }
+        }
+    };
+
+    void notice_save_to_log(){
+        SharedPreferences setting = getSharedPreferences("Shouhu_notice_log",MODE_PRIVATE);
+        setting.edit()
+                .putBoolean("Isnotice",true)
+                .putInt("notice_year",notice_year)
+                .putInt("notice_month",notice_month)
+                .putInt("notice_day",notice_day)
+                .putInt("notice_hr",notice_hr)
+                .putInt("notice_min",notice_min)
+                .apply();
+        Toast.makeText(thisactivity,
+                "睡眠提醒為每天"+String.valueOf(notice_hr)+" : "+String.valueOf(notice_min),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    void get_from_notice_log(){
+        Calendar nowtime = Calendar.getInstance();
+        SharedPreferences setting = getSharedPreferences("Shouhu_notice_log",MODE_PRIVATE);
+        Isnotice = setting.getBoolean("Isnotice",false);
+        notice_year = setting.getInt("notice_year",nowtime.get(Calendar.YEAR));
+        notice_month = setting.getInt("notice_month",nowtime.get(Calendar.MONTH));
+        notice_day = setting.getInt("notice_day",nowtime.get(Calendar.DATE));
+        notice_hr = setting.getInt("notice_hr",22);
+        notice_min = setting.getInt("notice_min",0);
+    }
 
 }
