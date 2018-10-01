@@ -1,6 +1,8 @@
 package com.example.jfmamjjasond.shouhu;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity  implements ViewPager.OnPageChangeListener{ //實作ViewPaper 頁面轉換監聽事件
 
@@ -203,7 +207,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     }
 
     void ShouHu_notice(){
-        mynotice = new notice(thisactivity,ShouHu_user_name);
+        set_myalarm();
         send_to_fragment();
         Intent i = getIntent();
         Bundle mybundle = i.getExtras();
@@ -216,6 +220,27 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
             }
         }
 
+    }
+
+    void set_myalarm(){
+        AlarmManager myalarm = (AlarmManager) thisactivity.getSystemService(ALARM_SERVICE);
+        Calendar target_time = Calendar.getInstance();
+        target_time.set(2018,9,1,12,39); //這裡是指10月
+
+        Intent i = new Intent();
+        Bundle mybundle = new Bundle();
+        i.setClass(thisactivity,notice.class);
+        mybundle.putString("user_name",ShouHu_user_name);
+        i.putExtras(mybundle);
+
+        PendingIntent mypendingIntent_for_alarm = PendingIntent.getBroadcast(
+                thisactivity,
+                0,
+                i,
+                0
+        );
+
+        myalarm.set(AlarmManager.RTC_WAKEUP,target_time.getTimeInMillis(),mypendingIntent_for_alarm);
     }
 
     void page_transfer(){
