@@ -355,8 +355,8 @@ public class sleep extends android.support.v4.app.Fragment {
     void reload_thispage() {
         Intent i = new Intent(thisactivity, MainActivity.class);
         Bundle mybundle = new Bundle();
-        mybundle.putString("type", "sleep");
         mybundle.putString("user_name", user_name);
+        mybundle.putString("source","from_sleep");
         i.putExtras(mybundle);
         startActivity(i);
     }

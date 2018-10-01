@@ -33,7 +33,7 @@ public class notice extends BroadcastReceiver {
         }
 
         Intent i = new Intent(c,MainActivity.class);
-        mybundle.putString("type","sleep");
+        mybundle.putString("source","from_sleep");
         mybundle.putString("user_name",ShouHu_user_name);
         i.putExtras(mybundle);
 

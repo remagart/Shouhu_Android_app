@@ -207,19 +207,17 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     }
 
     void ShouHu_notice(){
-        set_myalarm();
-        send_to_fragment();
-        Intent i = getIntent();
-        Bundle mybundle = i.getExtras();
-
-
-        if(mybundle.getString("type") != null){
-            Log.e("hihi", String.valueOf(mybundle.getString("type")));
-            if(i.getStringExtra("type").equals("sleep")){
+        Intent intent_fromsleep = getIntent();
+        Bundle bundle_fromsleep = intent_fromsleep.getExtras();
+        if(bundle_fromsleep.getString("source") != null){
+            if(intent_fromsleep.getStringExtra("source").equals("from_sleep")){
                 viewPager.setCurrentItem(2);
+                return;
             }
         }
 
+        set_myalarm();
+        send_to_fragment();
     }
 
     void set_myalarm(){
