@@ -52,7 +52,10 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     notice mynotice;
     Context thisactivity;
 
-    //for 睡眠提醒
+    //for 提醒
+    AlarmManager myalarm;
+    PendingIntent mypendingIntent_for_alarm;
+    //for 設定睡眠提醒
     LayoutInflater inflater_notice;
     View view_notice;
     AlertDialog dialog_notice;
@@ -62,7 +65,6 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     Button btn_notice_finish;
     int notice_year,notice_month,notice_day;
     int notice_hr,notice_min;
-    Boolean first_login = true;
     Boolean Isnotice;
 
 
@@ -137,7 +139,6 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
 
                 break;
             case R.id.setsleep://設定睡眠提醒
-                Toast.makeText(this,"setsleep",Toast.LENGTH_LONG).show();
                 pop_out_noice_settime();
                 break;
             case R.id.report://報表
@@ -230,24 +231,19 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         if(bundle_fromsleep.getString("source") != null){
             if(intent_fromsleep.getStringExtra("source").equals("from_sleep")){
                 viewPager.setCurrentItem(2);
-                return;
             }
         }
-
         set_myalarm();
         send_to_fragment();
     }
 
     void set_myalarm(){
-
         get_from_notice_log();
-        Log.e("YC_isnotice",String.valueOf(Isnotice));
         if(!Isnotice){
             return;
         }
-        Log.e("YC_isnotice2",String.valueOf(Isnotice));
 
-        AlarmManager myalarm = (AlarmManager) thisactivity.getSystemService(ALARM_SERVICE);
+        myalarm = (AlarmManager) thisactivity.getSystemService(ALARM_SERVICE);
         Calendar target_time = Calendar.getInstance();
         target_time.clear();
         target_time.set(notice_year,notice_month,notice_day,notice_hr,notice_min);
@@ -265,7 +261,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         mybundle.putString("user_name",ShouHu_user_name);
         i.putExtras(mybundle);
 
-        PendingIntent mypendingIntent_for_alarm = PendingIntent.getBroadcast(
+        mypendingIntent_for_alarm = PendingIntent.getBroadcast(
                 thisactivity,
                 0,
                 i,
@@ -344,11 +340,13 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                         notice_hr = Integer.valueOf(edit_notice_hr.getText().toString());
                         notice_min = Integer.valueOf(edit_notice_min.getText().toString());
                         notice_save_to_log();
+                        Toast.makeText(thisactivity,
+                                "睡眠提醒為每天"+String.valueOf(notice_hr)+" : "+String.valueOf(notice_min),
+                                Toast.LENGTH_SHORT).show();
                         ShouHu_notice();
                         dialog_notice.dismiss();
 
                     }catch(NumberFormatException e){
-                        Toast.makeText(thisactivity, "你沒有輸入喔~", Toast.LENGTH_SHORT).show();
                         dialog_notice.dismiss();
                     }
                     break;
@@ -364,13 +362,16 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                 case R.id.settime_switch:
                     if(isChecked){
                         Isnotice = false;
+                        notice_save_to_log();
+                        myalarm.cancel(mypendingIntent_for_alarm);
                         Toast.makeText(thisactivity, "已關閉睡眠提醒", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Isnotice = true;
+                        notice_save_to_log();
+                        set_myalarm();
                         Toast.makeText(thisactivity, "已開啟睡眠提醒", Toast.LENGTH_SHORT).show();
                     }
-                    notice_save_to_log();
                     break;
                 default:
             }
@@ -380,16 +381,13 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     void notice_save_to_log(){
         SharedPreferences setting = getSharedPreferences("Shouhu_notice_log",MODE_PRIVATE);
         setting.edit()
-                .putBoolean("Isnotice",true)
+                .putBoolean("Isnotice",Isnotice)
                 .putInt("notice_year",notice_year)
                 .putInt("notice_month",notice_month)
                 .putInt("notice_day",notice_day)
                 .putInt("notice_hr",notice_hr)
                 .putInt("notice_min",notice_min)
                 .apply();
-        Toast.makeText(thisactivity,
-                "睡眠提醒為每天"+String.valueOf(notice_hr)+" : "+String.valueOf(notice_min),
-                Toast.LENGTH_SHORT).show();
     }
 
     void get_from_notice_log(){
