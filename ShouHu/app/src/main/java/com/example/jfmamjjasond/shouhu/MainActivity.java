@@ -21,10 +21,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity  implements ViewPager.OnPageChangeListener{ //實作ViewPaper 頁面轉換監聽事件
 
@@ -45,6 +49,18 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
 
     notice mynotice;
     Context thisactivity;
+
+    //for 睡眠提醒
+    LayoutInflater inflater_notice;
+    View view_notice;
+    AlertDialog dialog_notice;
+    Switch switch_notice;
+    EditText edit_notice_min;
+    EditText edit_notice_hr;
+    Button btn_notice_finish;
+    int notice_year,notice_month,notice_day;
+    int notice_hr,notice_min;
+    Boolean first_login = true;
 
 
     @Override
@@ -121,6 +137,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                 break;
             case R.id.setsleep://設定睡眠提醒
                 Toast.makeText(this,"setsleep",Toast.LENGTH_LONG).show();
+                pop_out_noice_settime();
                 break;
             case R.id.report://報表
 
@@ -223,7 +240,24 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     void set_myalarm(){
         AlarmManager myalarm = (AlarmManager) thisactivity.getSystemService(ALARM_SERVICE);
         Calendar target_time = Calendar.getInstance();
-        target_time.set(2018,9,1,12,39); //這裡是指10月
+        if(first_login == true){
+            notice_year = target_time.get(Calendar.YEAR);
+            notice_month = target_time.get(Calendar.MONTH);
+            notice_day = target_time.get(Calendar.DATE);
+            notice_hr = 22;
+            notice_min = 0;
+            first_login = false;
+            Log.e("HERE","HERE");
+        }
+        target_time.clear();
+        target_time.set(notice_year,notice_month,notice_day,notice_hr,notice_min);
+//        target_time.set(Calendar.YEAR,notice_year);
+//        target_time.set(Calendar.MONTH,notice_month);
+//        target_time.set(Calendar.DATE,notice_day);
+//        target_time.set(Calendar.HOUR,notice_hr);
+//        target_time.set(Calendar.MINUTE,notice_min);
+
+        Log.e("time",target_time.getTime().toString());
 
         Intent i = new Intent();
         Bundle mybundle = new Bundle();
@@ -238,7 +272,11 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                 0
         );
 
-        myalarm.set(AlarmManager.RTC_WAKEUP,target_time.getTimeInMillis(),mypendingIntent_for_alarm);
+        //myalarm.set(AlarmManager.RTC_WAKEUP,target_time.getTimeInMillis(),mypendingIntent_for_alarm);
+        myalarm.setRepeating(AlarmManager.RTC_WAKEUP,
+                target_time.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                mypendingIntent_for_alarm);
     }
 
     void page_transfer(){
@@ -271,5 +309,48 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         });
         //viewPager.setCurrentItem(3);
     }
+
+    void pop_out_noice_settime(){
+        inflater_notice = getLayoutInflater();
+        view_notice = inflater_notice.inflate(R.layout.notice_settime,null);
+
+        edit_notice_hr = (EditText) view_notice.findViewById(R.id.settimexml_edit_hr);
+        edit_notice_min = (EditText) view_notice.findViewById(R.id.settimexml_edit_min);
+        switch_notice = (Switch) view_notice.findViewById(R.id.settime_switch);
+        btn_notice_finish = (Button) view_notice.findViewById(R.id.settimexml_btn_finish);
+
+
+        dialog_notice = new AlertDialog.Builder(thisactivity)
+                            .setView(view_notice)
+                            .show();
+        btn_notice_finish.setOnClickListener(myclickevent);
+    }
+
+    View.OnClickListener myclickevent = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.settimexml_btn_finish:
+                    try{
+                        Calendar nowtime = Calendar.getInstance();
+                        notice_year = nowtime.get(Calendar.YEAR);
+                        notice_month = nowtime.get(Calendar.MONTH);
+                        notice_day = nowtime.get(Calendar.DATE);
+
+                        notice_hr = Integer.valueOf(edit_notice_hr.getText().toString());
+                        notice_min = Integer.valueOf(edit_notice_min.getText().toString());
+                        ShouHu_notice();
+                        dialog_notice.dismiss();
+                        Toast.makeText(thisactivity,
+                                "睡眠提醒為每天"+String.valueOf(notice_hr)+" : "+String.valueOf(notice_min),
+                                Toast.LENGTH_SHORT).show();
+                    }catch(NumberFormatException e){
+                        Toast.makeText(thisactivity, "你沒有輸入喔~", Toast.LENGTH_SHORT).show();
+                        dialog_notice.dismiss();
+                    }
+                    break;
+            }
+        }
+    };
 
 }
