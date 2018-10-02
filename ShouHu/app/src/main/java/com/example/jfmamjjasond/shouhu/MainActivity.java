@@ -142,8 +142,11 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
             case R.id.setsleep://設定睡眠提醒
                 pop_out_noice_settime();
                 break;
-            case R.id.report://報表
-
+            case R.id.report://查看提醒時間
+                get_from_notice_log();
+                Toast.makeText(thisactivity,
+                    "睡眠提醒為每天"+String.valueOf(notice_hr)+" : "+String.valueOf(notice_min),
+                    Toast.LENGTH_SHORT).show();
                 break;
             case R.id.version://版本
 

@@ -10,7 +10,7 @@
     <string name="title_timer">Timer</string>
     <string name="title_signin">登入</string>
     <string name="title_set">設定</string>
-    <string name="title_report">查看報表</string>
+    <string name="title_report">查看提醒時間</string>
     <string name="title_version">版本：v1.0</string>
     <string name="title_use">使用說明</string>
     <string name="title_signout">登出</string>
