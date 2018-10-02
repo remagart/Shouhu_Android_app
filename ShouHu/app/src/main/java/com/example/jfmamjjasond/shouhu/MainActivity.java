@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     //for 提醒
     AlarmManager myalarm;
     PendingIntent mypendingIntent_for_alarm;
+    Boolean Is_from_sleep;
     //for 設定睡眠提醒
     LayoutInflater inflater_notice;
     View view_notice;
@@ -228,10 +229,17 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
     void ShouHu_notice(){
         Intent intent_fromsleep = getIntent();
         Bundle bundle_fromsleep = intent_fromsleep.getExtras();
-        if(bundle_fromsleep.getString("source") != null){
-            if(intent_fromsleep.getStringExtra("source").equals("from_sleep")){
+        if(bundle_fromsleep != null){
+            if(bundle_fromsleep.getBoolean("Is_from_sleep")){
                 viewPager.setCurrentItem(2);
+                Is_from_sleep = true;
             }
+            else{
+                Is_from_sleep = false;
+            }
+        }
+        else{
+            Is_from_sleep = false;
         }
         set_myalarm();
         send_to_fragment();
@@ -259,6 +267,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
         Bundle mybundle = new Bundle();
         i.setClass(thisactivity,notice.class);
         mybundle.putString("user_name",ShouHu_user_name);
+        mybundle.putBoolean("Is_from_sleep",Is_from_sleep);
         i.putExtras(mybundle);
 
         mypendingIntent_for_alarm = PendingIntent.getBroadcast(
@@ -273,6 +282,7 @@ public class MainActivity extends AppCompatActivity  implements ViewPager.OnPage
                 target_time.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY,
                 mypendingIntent_for_alarm);
+        Is_from_sleep = false;
     }
 
     void page_transfer(){

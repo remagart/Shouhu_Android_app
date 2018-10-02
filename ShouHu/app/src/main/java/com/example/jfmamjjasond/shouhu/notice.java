@@ -18,6 +18,7 @@ public class notice extends BroadcastReceiver {
 
     private final String CHANNELID = "sleep_notice";
     String ShouHu_user_name;
+    Boolean Is_from_sleep;
     @Override
     public void onReceive(Context c, Intent intent) {
         sleep fragment_sleep = new sleep();
@@ -28,12 +29,21 @@ public class notice extends BroadcastReceiver {
         //以下取得使用者暱稱
         //Intent intent_rec = ((Activity)c).getIntent();
         Bundle bundle_rec = intent.getExtras();
-        if(bundle_rec.getString("user_name") != null){
-            ShouHu_user_name = intent.getStringExtra("user_name");
+        if(bundle_rec != null) {
+            if(bundle_rec.getString("user_name") != null){
+                ShouHu_user_name = intent.getStringExtra("user_name");
+            }
+            if(bundle_rec.getString("Is_from_sleep") != null){
+                Is_from_sleep = bundle_rec.getBoolean("Is_from_sleep");
+            }
+            else {
+                Is_from_sleep = false;
+            }
         }
 
+
         Intent i = new Intent(c,MainActivity.class);
-        mybundle.putString("source","from_sleep");
+        mybundle.putBoolean("Is_from_sleep",true);
         mybundle.putString("user_name",ShouHu_user_name);
         i.putExtras(mybundle);
 
@@ -42,19 +52,21 @@ public class notice extends BroadcastReceiver {
                 i,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification mynotice = new NotificationCompat.Builder(c,CHANNELID)
-                .setSmallIcon(R.mipmap.shou_smallicon)
-                .setLargeIcon(myLargePic)
-                .setTicker("你該睡囉")
-                .setContentTitle("睡眠提醒")
-                .setContentText("你該睡囉~")
-                .setContentInfo("Sleep")
-                .setColor(Color.parseColor("#FFB13D"))
-                .setContentIntent(mypendingIntent)
-                .setWhen(System.currentTimeMillis())
-                .setDefaults(Notification.DEFAULT_ALL)
-                .build();
-        NotificationManager mymaganer = (NotificationManager)c.getSystemService(Context.NOTIFICATION_SERVICE);
-        mymaganer.notify(1,mynotice);
+        if(!Is_from_sleep){
+            Notification mynotice = new NotificationCompat.Builder(c,CHANNELID)
+                    .setSmallIcon(R.mipmap.shou_smallicon)
+                    .setLargeIcon(myLargePic)
+                    .setTicker("你該睡囉")
+                    .setContentTitle("睡眠提醒")
+                    .setContentText("你該睡囉~")
+                    .setContentInfo("Sleep")
+                    .setColor(Color.parseColor("#FFB13D"))
+                    .setContentIntent(mypendingIntent)
+                    .setWhen(System.currentTimeMillis())
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .build();
+            NotificationManager mymaganer = (NotificationManager)c.getSystemService(Context.NOTIFICATION_SERVICE);
+            mymaganer.notify(1,mynotice);
+        }
     }
 }
